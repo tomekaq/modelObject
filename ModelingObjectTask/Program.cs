@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,6 +12,20 @@ namespace ModelingObjectTask
         internal string Imie { get; set; }
         internal int Sila { get; set; }
         internal decimal Zywotnosc { get; set; }
+        internal int Zrecznosc { get; set; }
+
+        //ekwipunek
+        //cena 
+        //waga
+        //kategoria
+        //przedmiot moze dawac modyfikatory
+        // wyliczalne pkt ataku zalezne od sily i atrybutow przedmiotow
+        // przy kazdym ataku losowany pkt ataku
+        // wspolczynnik decydujacy o trafieniu zręczność
+
+        // atak na przeciwnika to roznica miedzy wlasna a przeciwnika
+        // i dopiero wtedy losowanie ile ataku 
+
 
         public decimal ZmienZywotnosc(decimal strata)
         {
@@ -79,6 +94,16 @@ namespace ModelingObjectTask
             return this.MemberwiseClone();
         }
 
+        public Hero KopiaBohatera(int index)
+        {
+            Assembly d = Assembly.GetExecutingAssembly();
+            
+            object h = druzynaPostaci[index].GetType();
+            //h temp = new h();
+            var temp = druzynaPostaci[index];
+            return temp;
+        }
+
         public void DodajPostac(Hero hero)
         {
             druzynaPostaci.Add(hero);
@@ -108,7 +133,7 @@ namespace ModelingObjectTask
             sb.AppendFormat("Nazwa: {0} ", Nazwa);
             sb.AppendFormat("Wartość ataku drużyny: {0} ", AtakDruzyny());
             sb.AppendFormat("Lista postaci: \n");
-            druzynaPostaci.Select(x => x.ToString()).Select(x => sb.AppendFormat("{0}  \n", x)).ToList();
+            druzynaPostaci.Select(x => sb.AppendFormat("{0} \n", x)).ToList();
         
             return sb.ToString();
         }
@@ -153,6 +178,14 @@ namespace ModelingObjectTask
 
             Console.WriteLine(" ");
             Console.WriteLine(druzynaPierscienia[3].ToString());
+
+            var sklonowanyGerald = druzynaPierscienia.KopiaBohatera(0);
+            sklonowanyGerald.Sila = 544;
+
+            Console.WriteLine(" ");
+            Console.WriteLine(sklonowanyGerald.ToString());
+
+            Console.WriteLine(" ");
 
             Console.WriteLine(" ");
             Console.WriteLine(druzynaPierscienia.ToString());
