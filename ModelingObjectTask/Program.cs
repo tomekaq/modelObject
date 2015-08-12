@@ -10,11 +10,14 @@ namespace ModelingObjectTask
     {
         internal string _imie;
         internal int _sila;
-        internal double _zywotnosc;
+        internal decimal _zywotnosc;
 
-        public double OdejmijZywotnosc(double strata)
+        public decimal zmienZywotnosc(decimal strata)
         {
-            if (_zywotnosc - strata > 0 && _zywotnosc + strata < 100)
+            if (_zywotnosc - strata > 0)
+                return 0;
+            if (_zywotnosc + strata < 100)
+                return 100;
                 _zywotnosc += strata;
             return _zywotnosc;
 
@@ -29,6 +32,7 @@ namespace ModelingObjectTask
             sb.AppendFormat("Wartość Ataku: {0} ", mocAtaku());
             return sb.ToString();
         }
+
     }
 
     class Mag : Hero
@@ -43,14 +47,14 @@ namespace ModelingObjectTask
             _sila = rnd.Next(1, 6);
             _pktMagii = rnd.Next(2, 12);
         }
-        public Mag(string imie, double zywotnosc, int sila, int pktMagii)
+        public Mag(string imie, decimal zywotnosc, int sila, int pktMagii)
         {
             _imie = imie;
             _zywotnosc = zywotnosc;
             _sila = sila;
             _pktMagii = pktMagii;
         }
-        public override double mocAtaku()
+        public override decimal mocAtaku()
         {
             return (_pktMagii + _sila) * _zywotnosc;
         }
@@ -66,21 +70,21 @@ namespace ModelingObjectTask
             Random rnd = new Random();
             _sila = rnd.Next(3, 18);
         }
-        public Wojownik(string imie, double zywotnosc, int sila)
+        public Wojownik(string imie, decimal zywotnosc, int sila)
         {
             _imie = imie;
             _zywotnosc = zywotnosc;
             _sila = sila;
         }
-        public override double mocAtaku()
+        public override decimal mocAtaku()
         {
             if (_zywotnosc < 5)
-                return _sila;
+                return _sila* 100;
             return _sila * _zywotnosc;
         }
     }
 
-    class Druzyna //: ICloneable
+    class Druzyna : ICloneable
     {
         string _nazwa;
         List<Hero> druzynaPostaci = new List<Hero>();
@@ -89,16 +93,12 @@ namespace ModelingObjectTask
         {
             _nazwa = nazwa;
         }
-        //object ICloneable.Clone()
-        //{
-        //    return this.Clone();
-        //}
+        public object Clone()
+        {
 
-        //public Hero Clone()
-        //{
-        //    return (Hero)this.MemberwiseClone();
-        //}
-
+            return this.MemberwiseClone();
+        }
+        
         public void DodajPostac(Hero hero)
         {
             druzynaPostaci.Add(hero);
@@ -106,7 +106,6 @@ namespace ModelingObjectTask
 
         public Hero this[int index]
         {
-
             get
             {
                 return druzynaPostaci[index];
@@ -126,12 +125,11 @@ namespace ModelingObjectTask
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendFormat("Nazwa: {0} ", _nazwa);
-            sb.AppendFormat("Żywotność: {0} ", AtakDruzyny());
+            sb.AppendFormat("Wartość ataku drużyny: {0} ", AtakDruzyny());
             
-
             
-            sb.AppendFormat("Lista postaci:  ");
-            var fgf =sb.AppendFormat("{0}", druzynaPostaci.Select(x => x.ToString()).ToList());
+            sb.AppendFormat("Lista postaci: \n");
+            druzynaPostaci.Select(x => x.ToString()).Select(x => sb.AppendFormat("{0}  \n", x)).ToList();
             Console.WriteLine();
             return sb.ToString();
         }
@@ -153,31 +151,34 @@ namespace ModelingObjectTask
             Console.WriteLine(
             c.ToString());
 
-            c.OdejmijZywotnosc(-30);
+            var d = new Wojownik();
+            d.zmienZywotnosc(-96);
             Console.WriteLine(
-            c.ToString());
+            d.ToString());
 
-            var druzynaPierscienia = new Druzyna("druzyna Pierscienia");
+            var druzynaPierscienia = new Druzyna("Druzyna pierścienia");
             druzynaPierscienia.DodajPostac(a);
+            druzynaPierscienia.DodajPostac(b);
+            druzynaPierscienia.DodajPostac(c);
+            druzynaPierscienia.DodajPostac(d);
 
-            var gg = druzynaPierscienia[0];
-            Console.WriteLine("Pobranie z listy {0}", gg);
+            Console.WriteLine(druzynaPierscienia[2].ToString());
 
-            var sklonowanyGerald = druzynaPierscienia[0];//.Clone();
-           // var bbb = druzynaPierscienia.Clone();
-
-            druzynaPierscienia.DodajPostac(sklonowanyGerald);
-            Console.WriteLine("Wartosc ataku druzyny: {0}", druzynaPierscienia.AtakDruzyny());
-
-
-            Console.WriteLine(" ");
-            Console.WriteLine("{0}", druzynaPierscienia.ToString());
+            var e = new Wojownik("e",34,5);
+            druzynaPierscienia[3] = e;
+            Console.WriteLine(druzynaPierscienia[3].ToString());
 
 
+            var pk = b.zmienZywotnosc(-3);
 
-            var g = b._imie;
+            Console.WriteLine(druzynaPierscienia.ToString());
 
-            var pk = b.OdejmijZywotnosc(-3);
+            var nowaDruzyna = druzynaPierscienia.Clone();
+
+
+
+            Console.WriteLine("Nowa");
+            Console.WriteLine(nowaDruzyna.ToString());
 
             Console.ReadLine();
 
