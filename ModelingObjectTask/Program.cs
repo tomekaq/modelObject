@@ -8,97 +8,77 @@ namespace ModelingObjectTask
 {
     abstract class Hero
     {
-        internal string _imie;
-        internal int _sila;
-        internal decimal _zywotnosc;
+        internal string Imie { get; set; }
+        internal int Sila { get; set; }
+        internal decimal Zywotnosc { get; set; }
 
-        public decimal zmienZywotnosc(decimal strata)
+        public decimal ZmienZywotnosc(decimal strata)
         {
-            if (_zywotnosc - strata > 0)
-                return 0;
-            if (_zywotnosc + strata < 100)
-                return 100;
-                _zywotnosc += strata;
-            return _zywotnosc;
-
+            if (Zywotnosc - strata < 0)
+                Zywotnosc = 0;
+            else if (Zywotnosc + strata > 100)
+                Zywotnosc = 100;
+            else
+                Zywotnosc += strata;
+            return Zywotnosc;
         }
-        public abstract double mocAtaku();
+        public abstract decimal MocAtaku();
 
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("Imię: {0} ", _imie);
-            sb.AppendFormat("Żywotność: {0} ", _zywotnosc);
-            sb.AppendFormat("Wartość Ataku: {0} ", mocAtaku());
+            sb.AppendFormat("Imię: {0} ", Imie);
+            sb.AppendFormat("Żywotność: {0} ", Zywotnosc);
+            sb.AppendFormat("Wartość Ataku: {0} ", MocAtaku());
             return sb.ToString();
         }
-
     }
 
     class Mag : Hero
     {
-        private int _pktMagii;
+        public int PunktyMagii { get; set; }
 
         public Mag()
         {
-            _imie = "Xardas";
-            _zywotnosc = 100;
-            Random rnd = new Random();
-            _sila = rnd.Next(1, 6);
-            _pktMagii = rnd.Next(2, 12);
-        }
-        public Mag(string imie, decimal zywotnosc, int sila, int pktMagii)
-        {
-            _imie = imie;
-            _zywotnosc = zywotnosc;
-            _sila = sila;
-            _pktMagii = pktMagii;
-        }
-        public override decimal mocAtaku()
-        {
-            return (_pktMagii + _sila) * _zywotnosc;
+            Imie = "Xardas";
+            Zywotnosc = 100;
+            Sila = new Random().Next(1, 6);
+            PunktyMagii = new Random().Next(2, 12);
         }
 
+        public override decimal MocAtaku()
+        {
+            return (PunktyMagii + Sila) * Zywotnosc;
+        }
     }
 
     class Wojownik : Hero
     {
         public Wojownik()
         {
-            _imie = "Geralt";
-            _zywotnosc = 100;
-            Random rnd = new Random();
-            _sila = rnd.Next(3, 18);
+            Imie = "Geralt";
+            Zywotnosc = 100;
+            Sila = new Random().Next(3, 18);
         }
-        public Wojownik(string imie, decimal zywotnosc, int sila)
+
+        public override decimal MocAtaku()
         {
-            _imie = imie;
-            _zywotnosc = zywotnosc;
-            _sila = sila;
-        }
-        public override decimal mocAtaku()
-        {
-            if (_zywotnosc < 5)
-                return _sila* 100;
-            return _sila * _zywotnosc;
+            if (Zywotnosc < 5 && Zywotnosc > 0)
+                return Sila * 100;
+            return Sila * Zywotnosc;
         }
     }
 
     class Druzyna : ICloneable
     {
-        string _nazwa;
+        public string Nazwa { get; set; }
         List<Hero> druzynaPostaci = new List<Hero>();
 
-        public Druzyna(string nazwa)
-        {
-            _nazwa = nazwa;
-        }
         public object Clone()
         {
-
             return this.MemberwiseClone();
         }
-        
+
         public void DodajPostac(Hero hero)
         {
             druzynaPostaci.Add(hero);
@@ -116,21 +96,20 @@ namespace ModelingObjectTask
             }
         }
 
-        public double AtakDruzyny()
+        public decimal AtakDruzyny()
         {
-            return druzynaPostaci.Select(x => x.mocAtaku()).Sum();
+            return druzynaPostaci.Select(x => x.MocAtaku()).Sum();
         }
 
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("Nazwa: {0} ", _nazwa);
+           
+            sb.AppendFormat("Nazwa: {0} ", Nazwa);
             sb.AppendFormat("Wartość ataku drużyny: {0} ", AtakDruzyny());
-            
-            
             sb.AppendFormat("Lista postaci: \n");
             druzynaPostaci.Select(x => x.ToString()).Select(x => sb.AppendFormat("{0}  \n", x)).ToList();
-            Console.WriteLine();
+        
             return sb.ToString();
         }
     }
@@ -140,23 +119,22 @@ namespace ModelingObjectTask
         static void Main(string[] args)
         {
             var a = new Wojownik();
-            Console.WriteLine(
-            a.ToString());
+            Console.WriteLine(a.ToString());
 
             var b = new Mag();
-            Console.WriteLine(
-            b.ToString());
+            Console.WriteLine(b.ToString());
 
-            var c = new Mag("Nowy", 100, 30, 40);
-            Console.WriteLine(
-            c.ToString());
+            var c = new Mag() { Imie = "Nowy",Sila = 5 };
 
-            var d = new Wojownik();
-            d.zmienZywotnosc(-96);
-            Console.WriteLine(
-            d.ToString());
+            Console.WriteLine(c.ToString());
 
-            var druzynaPierscienia = new Druzyna("Druzyna pierścienia");
+            var d = new Wojownik() { Imie = "Szałowy" };
+            d.ZmienZywotnosc(-97);
+
+            Console.WriteLine(d.ToString());
+
+            var druzynaPierscienia = new Druzyna() { Nazwa = "Druzyna pierścienia" };
+            
             druzynaPierscienia.DodajPostac(a);
             druzynaPierscienia.DodajPostac(b);
             druzynaPierscienia.DodajPostac(c);
@@ -164,18 +142,22 @@ namespace ModelingObjectTask
 
             Console.WriteLine(druzynaPierscienia[2].ToString());
 
-            var e = new Wojownik("e",34,5);
+            var e = new Wojownik() { Imie = "Hulk" };
             druzynaPierscienia[3] = e;
+            e.ZmienZywotnosc(-34);
+
+            druzynaPierscienia[2].Imie = "Mariola";
+
+            var f = new Mag() { Imie = "Nowy Mag", PunktyMagii = 12};
+            Console.WriteLine(f.ToString());
+
+            Console.WriteLine(" ");
             Console.WriteLine(druzynaPierscienia[3].ToString());
 
-
-            var pk = b.zmienZywotnosc(-3);
-
+            Console.WriteLine(" ");
             Console.WriteLine(druzynaPierscienia.ToString());
 
             var nowaDruzyna = druzynaPierscienia.Clone();
-
-
 
             Console.WriteLine("Nowa");
             Console.WriteLine(nowaDruzyna.ToString());
