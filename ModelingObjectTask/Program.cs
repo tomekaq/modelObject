@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 
 namespace ModelingObjectTask
 {
-    abstract class Hero
+    public abstract class Hero
     {
-        internal string Imie { get; set; }
-        internal int Sila { get; set; }
-        internal decimal Zywotnosc { get; set; }
-        internal int Zrecznosc { get; set; }
+        public string Imie { get; set; }
+        public int Sila { get; set; }
+        public decimal Zywotnosc { get; set; }
+        public int PktZycia { get; set; }
+        public int PktZyciaAktualnie { get; set; }
+        public int Zrecznosc { get; set; }
 
         //ekwipunek
         //cena 
@@ -27,14 +29,15 @@ namespace ModelingObjectTask
         // i dopiero wtedy losowanie ile ataku 
 
 
-        public decimal ZmienZywotnosc(decimal strata)
+        public decimal ZmienZywotnosc(int strata)
         {
-            if (Zywotnosc - strata < 0)
+            if (PktZyciaAktualnie - strata < 0)
                 Zywotnosc = 0;
-            else if (Zywotnosc + strata > 100)
+            if (PktZycia - (PktZyciaAktualnie + strata) < 0)
                 Zywotnosc = 100;
-            else
-                Zywotnosc += strata;
+
+            PktZyciaAktualnie += strata;
+            Zywotnosc = (decimal) PktZyciaAktualnie / PktZycia * 100;
             return Zywotnosc;
         }
         public abstract decimal MocAtaku();
@@ -43,13 +46,14 @@ namespace ModelingObjectTask
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendFormat("Imię: {0} ", Imie);
-            sb.AppendFormat("Żywotność: {0} ", Zywotnosc);
+            sb.AppendFormat("Żywotność: {0}% ", Zywotnosc);
+            sb.AppendFormat("Zręczność: {0} ", Zrecznosc);
             sb.AppendFormat("Wartość Ataku: {0} ", MocAtaku());
             return sb.ToString();
         }
     }
 
-    class Mag : Hero
+    public class Mag : Hero
     {
         public int PunktyMagii { get; set; }
 
@@ -57,30 +61,36 @@ namespace ModelingObjectTask
         {
             Imie = "Xardas";
             Zywotnosc = 100;
+            PktZycia = 1000;
+            PktZyciaAktualnie = PktZycia;
             Sila = new Random().Next(1, 6);
             PunktyMagii = new Random().Next(2, 12);
+            Zrecznosc = new Random().Next(2, 12);
         }
 
         public override decimal MocAtaku()
         {
-            return (PunktyMagii + Sila) * Zywotnosc;
+            return (PunktyMagii + Sila) * PktZyciaAktualnie;
         }
     }
 
-    class Wojownik : Hero
+    public class Wojownik : Hero
     {
         public Wojownik()
         {
             Imie = "Geralt";
             Zywotnosc = 100;
+            PktZycia = 2000;
+            PktZyciaAktualnie = PktZycia;
             Sila = new Random().Next(3, 18);
+            Zrecznosc = new Random().Next(2, 12);
         }
 
         public override decimal MocAtaku()
         {
             if (Zywotnosc < 5 && Zywotnosc > 0)
                 return Sila * 100;
-            return Sila * Zywotnosc;
+            return Sila * PktZyciaAktualnie;
         }
     }
 
@@ -94,15 +104,17 @@ namespace ModelingObjectTask
             return this.MemberwiseClone();
         }
 
-        public Hero KopiaBohatera(int index)
-        {
-            Assembly d = Assembly.GetExecutingAssembly();
-            
-            object h = druzynaPostaci[index].GetType();
-            //h temp = new h();
-            var temp = druzynaPostaci[index];
-            return temp;
-        }
+     //   public object KopiaBohatera(int index)
+     //   {
+     //       Assembly d = Assembly.GetExecutingAssembly();
+     //       Type t = druzynaPostaci[index].GetType();
+     //       var fgfg = (t.Name.GetType());
+     //       Type[] argument = Type.EmptyTypes;
+     //       ConstructorInfo heroConstructor = t.GetConstructor(argument);
+     //    //   object temp = heroConstructor.Invoke(new[] { druzynaPostaci[index].Imie, druzynaPostaci[index].Sila,
+     ////           druzynaPostaci[index].Zywotnosc });
+     //       return null;
+     //   }
 
         public void DodajPostac(Hero hero)
         {
@@ -154,6 +166,7 @@ namespace ModelingObjectTask
             Console.WriteLine(c.ToString());
 
             var d = new Wojownik() { Imie = "Szałowy" };
+         
             d.ZmienZywotnosc(-97);
 
             Console.WriteLine(d.ToString());
@@ -167,11 +180,13 @@ namespace ModelingObjectTask
 
             Console.WriteLine(druzynaPierscienia[2].ToString());
 
-            var e = new Wojownik() { Imie = "Hulk" };
+            var e = new Wojownik() { Imie = "Hulk"  };
             druzynaPierscienia[3] = e;
             e.ZmienZywotnosc(-34);
+            e.ZmienZywotnosc(-34);
+            e.ZmienZywotnosc(-34);
 
-            druzynaPierscienia[2].Imie = "Mariola";
+            Wojownik fd = new Wojownik() { };
 
             var f = new Mag() { Imie = "Nowy Mag", PunktyMagii = 12};
             Console.WriteLine(f.ToString());
@@ -179,11 +194,9 @@ namespace ModelingObjectTask
             Console.WriteLine(" ");
             Console.WriteLine(druzynaPierscienia[3].ToString());
 
-            var sklonowanyGerald = druzynaPierscienia.KopiaBohatera(0);
-            sklonowanyGerald.Sila = 544;
-
-            Console.WriteLine(" ");
-            Console.WriteLine(sklonowanyGerald.ToString());
+            //var sklonowanyGerald = druzynaPierscienia.KopiaBohatera(0);
+            //Console.WriteLine(" ");
+            //Console.WriteLine(sklonowanyGerald.ToString());
 
             Console.WriteLine(" ");
 
