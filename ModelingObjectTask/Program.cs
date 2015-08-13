@@ -11,44 +11,29 @@ namespace ModelingObjectTask
     {
         public string Imie { get; set; }
         public int Sila { get; set; }
-        public decimal Zywotnosc { get; set; }
+     //   public decimal Zywotnosc { get; set; }
         public int PktZycia { get; set; }
-        public int PktZyciaAktualnie { get; set; }
+        public int PktZyciaAktualnie { get; set; }  
         public int Zrecznosc { get; set; }
 
-        //ekwipunek
-        //cena 
-        //waga
-        //kategoria
-        //przedmiot moze dawac modyfikatory
-        // wyliczalne pkt ataku zalezne od sily i atrybutow przedmiotow
-        // przy kazdym ataku losowany pkt ataku
-        // wspolczynnik decydujacy o trafieniu zręczność
-
-        // atak na przeciwnika to roznica miedzy wlasna a przeciwnika
-        // i dopiero wtedy losowanie ile ataku 
-
-
-        public decimal ZmienZywotnosc(int strata)
+        public void ZmienZywotnosc(int strata)
         {
-            if (PktZyciaAktualnie - strata < 0)
-                Zywotnosc = 0;
-            if (PktZycia - (PktZyciaAktualnie + strata) < 0)
-                Zywotnosc = 100;
-
-            PktZyciaAktualnie += strata;
-            Zywotnosc = (decimal) PktZyciaAktualnie / PktZycia * 100;
-            return Zywotnosc;
+            if (this.PktZyciaAktualnie - strata < 0)
+                this.PktZyciaAktualnie = 0;
+            else if ((this.PktZyciaAktualnie + strata) - this.PktZycia > 100)
+                this.PktZyciaAktualnie = this.PktZycia;
+            else
+                this.PktZyciaAktualnie += strata;
         }
         public abstract decimal MocAtaku();
 
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("Imię: {0} ", Imie);
-            sb.AppendFormat("Żywotność: {0}% ", Zywotnosc);
-            sb.AppendFormat("Zręczność: {0} ", Zrecznosc);
-            sb.AppendFormat("Wartość Ataku: {0} ", MocAtaku());
+            sb.AppendFormat("Imię: {0} ", this.Imie);
+            sb.AppendFormat("Żywotność: {0}% ", (decimal)this.PktZyciaAktualnie/this.PktZycia*100);
+            sb.AppendFormat("Zręczność: {0} ", this.Zrecznosc);
+            sb.AppendFormat("Wartość Ataku: {0} ", this.MocAtaku());
             return sb.ToString();
         }
     }
@@ -59,18 +44,17 @@ namespace ModelingObjectTask
 
         public Mag()
         {
-            Imie = "Xardas";
-            Zywotnosc = 100;
-            PktZycia = 1000;
-            PktZyciaAktualnie = PktZycia;
-            Sila = new Random().Next(1, 6);
-            PunktyMagii = new Random().Next(2, 12);
-            Zrecznosc = new Random().Next(2, 12);
+            this.Imie = "Xardas";
+            this.PktZycia = 1000;
+            this.PktZyciaAktualnie = this.PktZycia;
+            this.Sila = new Random().Next(1, 6);
+            this.PunktyMagii = new Random().Next(2, 12);
+            this.Zrecznosc = new Random().Next(2, 12);
         }
 
         public override decimal MocAtaku()
         {
-            return (PunktyMagii + Sila) * PktZyciaAktualnie;
+            return (this.PunktyMagii + this.Sila) * this.PktZyciaAktualnie;
         }
     }
 
@@ -78,21 +62,38 @@ namespace ModelingObjectTask
     {
         public Wojownik()
         {
-            Imie = "Geralt";
-            Zywotnosc = 100;
-            PktZycia = 2000;
-            PktZyciaAktualnie = PktZycia;
-            Sila = new Random().Next(3, 18);
-            Zrecznosc = new Random().Next(2, 12);
+            this.Imie = "Geralt";
+
+      this.PktZycia= 2000;
+      this.PktZyciaAktualnie = this.PktZycia;
+            this.Sila = new Random().Next(3, 18);
+            this.Zrecznosc = new Random().Next(2, 12);
         }
 
         public override decimal MocAtaku()
         {
-            if (Zywotnosc < 5 && Zywotnosc > 0)
+            if (this.PktZyciaAktualnie < 5 && this.PktZyciaAktualnie> 0)
                 return Sila * 100;
-            return Sila * PktZyciaAktualnie;
+            return Sila * this.PktZyciaAktualnie;
         }
     }
+
+    class Przedmiot
+    {
+        string nazwa;
+        int cena;
+        int waga;
+        int moc;
+
+        enum Kategoria{
+            Bron,
+            BronMagiczna,
+            MiksturaLecznicza,
+            Tarcza,
+            Pieniadz
+        };
+    }
+
 
     class Druzyna : ICloneable
     {
@@ -184,12 +185,7 @@ namespace ModelingObjectTask
             druzynaPierscienia[3] = e;
             e.ZmienZywotnosc(-34);
             e.ZmienZywotnosc(-34);
-            e.ZmienZywotnosc(-34);
-
-            Wojownik fd = new Wojownik() { };
-
-            var f = new Mag() { Imie = "Nowy Mag", PunktyMagii = 12};
-            Console.WriteLine(f.ToString());
+            e.ZmienZywotnosc(-31);
 
             Console.WriteLine(" ");
             Console.WriteLine(druzynaPierscienia[3].ToString());
