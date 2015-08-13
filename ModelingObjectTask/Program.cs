@@ -11,10 +11,11 @@ namespace ModelingObjectTask
     {
         public string Imie { get; set; }
         public int Sila { get; set; }
-     //   public decimal Zywotnosc { get; set; }
+        public decimal Zywotnosc { get; set; }
         public int PktZycia { get; set; }
-        public int PktZyciaAktualnie { get; set; }  
+        public int PktZyciaAktualnie { get; set; } 
         public int Zrecznosc { get; set; }
+        public List<Przedmiot> ekwipunek = new List<Przedmiot>();
 
         public void ZmienZywotnosc(int strata)
         {
@@ -26,6 +27,11 @@ namespace ModelingObjectTask
                 this.PktZyciaAktualnie += strata;
         }
         public abstract decimal MocAtaku();
+
+        public void DodajPrzedmiot(Przedmiot przedmiot){
+
+            ekwipunek.Add(przedmiot);
+        }
 
         public override string ToString()
         {
@@ -78,7 +84,7 @@ namespace ModelingObjectTask
         }
     }
 
-    class Przedmiot
+    public class Przedmiot
     {
         string nazwa;
         int cena;
@@ -181,11 +187,18 @@ namespace ModelingObjectTask
 
             Console.WriteLine(druzynaPierscienia[2].ToString());
 
+
+
             var e = new Wojownik() { Imie = "Hulk"  };
+
+            Console.WriteLine(" ");
             druzynaPierscienia[3] = e;
-            e.ZmienZywotnosc(-34);
-            e.ZmienZywotnosc(-34);
-            e.ZmienZywotnosc(-31);
+            Console.WriteLine(druzynaPierscienia[3].ToString());
+
+            druzynaPierscienia[3] = e;
+            e.ZmienZywotnosc(-364);
+            e.ZmienZywotnosc(-364);
+            e.ZmienZywotnosc(-361);
 
             Console.WriteLine(" ");
             Console.WriteLine(druzynaPierscienia[3].ToString());
