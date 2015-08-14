@@ -20,11 +20,20 @@ namespace ModelingObjectTask
 
         public int IloscPieniedzy { get; set; }
 
-        public bool Head { get; set; }
         public Glowa glowa { get; set; }
         public LewaReka lewaReka { get; set; }
         public PrawaReka prawaReka { get; set; }
+        public Nogi nogi { get; set; }
 
+
+        public Hero() {
+
+            glowa = new Glowa();
+            lewaReka = new LewaReka();
+            prawaReka = new PrawaReka();
+            nogi = new Nogi();
+        
+        }
 
         public void ZmienZywotnosc(int strata)
         {
@@ -40,7 +49,6 @@ namespace ModelingObjectTask
 
         public void DodajPrzedmiot(Przedmiot przedmiot)
         {
-
             ekwipunek.Add(przedmiot);
         }
 

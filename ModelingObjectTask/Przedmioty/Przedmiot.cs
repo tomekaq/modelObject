@@ -8,21 +8,15 @@ namespace ModelingObjectTask.Przedmioty
 {
     public abstract class Przedmiot
     {
-        string Nazwa { get; set; }
-        int Cena { get; set; }
-        int waga { get; set; }
-        int moc;
+        public abstract string Nazwa { get; set; }
+        public abstract int Cena { get; set; }
+        public abstract int Waga { get; set; }
+      //  public abstract int moc{ get; set; };
 
     }
-    public class Bron : Przedmiot
-    {
-        // public override string Nazwa{get; set;}
-    }
 
-    public class BronMagiczna :Przedmiot
-    {
-        // public override string Nazwa{get; set;}
-    }
+
+
 
 
 }

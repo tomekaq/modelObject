@@ -15,11 +15,11 @@ namespace ModelingObjectTask
         public Mag()
         {
             Imie = "Xardas";
-            this.PktZycia = 1000;
-            this.PktZyciaAktualnie = this.PktZycia;
-            this.Sila = new Random().Next(1, 6);
-            this.PunktyMagii = new Random().Next(2, 12);
-            this.Zrecznosc = new Random().Next(2, 12);
+            PktZycia = 1000;
+           PktZyciaAktualnie = PktZycia;
+            Sila = new Random().Next(1, 6);
+           PunktyMagii = new Random().Next(2, 12);
+            Zrecznosc = new Random().Next(2, 12);
         }
 
         public override decimal MocAtaku()

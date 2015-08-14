@@ -51,6 +51,8 @@
     <Compile Include="Postacie\Mag.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Przedmioty\Bron.cs" />
+    <Compile Include="Przedmioty\BronMagiczna.cs" />
     <Compile Include="Przedmioty\Mikstury.cs" />
     <Compile Include="Przedmioty\Pieniadze.cs" />
     <Compile Include="Przedmioty\Przedmiot.cs" />

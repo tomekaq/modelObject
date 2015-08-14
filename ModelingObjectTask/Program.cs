@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelingObjectTask.Przedmioty;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -13,21 +14,21 @@ namespace ModelingObjectTask
         static void Main(string[] args)
         {
             var a = new Wojownik();
-            Console.WriteLine(a.ToString());
-
             var b = new Mag();
-            Console.WriteLine(b.ToString());
-
             var c = new Mag() { Imie = "Nowy",Sila = 5 };
-
-            Console.WriteLine(c.ToString());
-
             var d = new Wojownik() { Imie = "Szałowy" };
          
-            d.ZmienZywotnosc(-97);
+            d.ZmienZywotnosc(-1900);
+            Console.WriteLine(a.ToString());
+            Console.WriteLine(b.ToString());
+            Console.WriteLine(c.ToString());
 
             Console.WriteLine(d.ToString());
 
+
+            d.ZmienZywotnosc(-1);
+            Console.WriteLine(a.ToString());
+            Console.WriteLine(d.ToString());
             var druzynaPierscienia = new Druzyna() { Nazwa = "Druzyna pierścienia" };
             
             druzynaPierscienia.DodajPostac(a);
@@ -55,6 +56,13 @@ namespace ModelingObjectTask
 
             var sklonowanyGerald = druzynaPierscienia.KopiaBohatera(0);
 
+            var przykladowy = druzynaPierscienia[2];
+            var hipermiecz = new Bron();
+            hipermiecz.Nazwa = "hiper miecz";
+            hipermiecz.Sila = 32;
+
+            przykladowy.prawaReka.Przedmiot =hipermiecz;
+            
             Console.WriteLine(" ");
             Console.WriteLine(sklonowanyGerald.ToString());
             

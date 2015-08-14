@@ -8,7 +8,11 @@ namespace ModelingObjectTask.Przedmioty
 {
     public class Pieniadze : Przedmiot
     {
-        public int Cena { get { return 1; } }
-
+        public override string Nazwa { get; set; }
+        public override int Cena { 
+            get{return Cena;} 
+            set{ Cena = 1;} 
+        }
+        public override int Waga { get; set; }
     }
 }

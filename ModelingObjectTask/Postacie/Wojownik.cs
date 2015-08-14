@@ -21,7 +21,8 @@ namespace ModelingObjectTask
 
         public override decimal MocAtaku()
         {
-            if (this.PktZyciaAktualnie < 5 && this.PktZyciaAktualnie > 0)
+            var zyw = (decimal) PktZyciaAktualnie / PktZycia * 100;
+            if (zyw < 5 && zyw > 0)
                 return Sila * 100;
             return Sila * this.PktZyciaAktualnie;
         }
