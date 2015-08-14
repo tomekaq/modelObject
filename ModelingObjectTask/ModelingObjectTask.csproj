@@ -41,8 +41,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Druzyny\Druzyna.cs" />
+    <Compile Include="Organy\Glowa.cs" />
+    <Compile Include="Organy\LewaReka.cs" />
+    <Compile Include="Organy\Nogi.cs" />
+    <Compile Include="Organy\Organ.cs" />
+    <Compile Include="Organy\PrawaReka.cs" />
+    <Compile Include="Postacie\Hero.cs" />
+    <Compile Include="Postacie\Mag.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Przedmioty\Mikstury.cs" />
+    <Compile Include="Przedmioty\Pieniadze.cs" />
+    <Compile Include="Przedmioty\Przedmiot.cs" />
+    <Compile Include="Postacie\Wojownik.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
