@@ -6,14 +6,7 @@ using System.Threading.Tasks;
 
 namespace ModelingObjectTask.Organy
 {
-    public class PrawaRęka :Organ
+    class Tułów:Organ
     {
-
-        public PrawaRęka(int zdrowie)
-        {
-            Zdrowie = zdrowie;
-        }
-
-
     }
 }

@@ -9,8 +9,24 @@ namespace ModelingObjectTask.Organy
 {
     public class Organ
     {
+
+        protected int zdrowie;
         protected bool _jestWyposazona;
         protected Przedmiot przedmiot;
+        protected Bron bron;
+
+        public int Zdrowie
+        {
+            get
+            {
+                return zdrowie;
+            }
+            set
+            {
+                zdrowie = value;
+            }
+        }
+
         public bool JestWyposazona
         {
             get
@@ -22,7 +38,9 @@ namespace ModelingObjectTask.Organy
                 _jestWyposazona = value;
             }
         }
-        public Przedmiot Przedmiot {
+
+        public Przedmiot Przedmiot
+        {
             get
             {
                 return przedmiot;
@@ -31,6 +49,28 @@ namespace ModelingObjectTask.Organy
             {
                 przedmiot = value;
             }
+        }
+
+        public Bron Bron
+        {
+            get
+            {
+                return bron;
+            }
+            set
+            {
+                bron = value;
+            }
+        }
+
+        public void Wyposaż(Przedmiot przedmiot)
+        {
+            this.JestWyposazona = true;
+            if (przedmiot.GetType() == typeof(Bron))
+            {
+                bron = (Bron) przedmiot;
+            }
+            Przedmiot = przedmiot;
         }
 
     }
