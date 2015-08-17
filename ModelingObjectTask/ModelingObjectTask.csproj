@@ -41,25 +41,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Druzyny\Druzyna.cs" />
-    <Compile Include="Organy\Glowa.cs" />
-    <Compile Include="Organy\LewaReka.cs" />
-    <Compile Include="Organy\Nogi.cs" />
-    <Compile Include="Organy\Organ.cs" />
-    <Compile Include="Organy\PrawaReka.cs" />
+    <Compile Include="Squads\Squad.cs" />
+    <Compile Include="BodyParts\Head.cs" />
+    <Compile Include="BodyParts\LeftHand.cs" />
+    <Compile Include="BodyParts\Legs.cs" />
+    <Compile Include="BodyParts\BodyPart.cs" />
+    <Compile Include="BodyParts\RightHand.cs" />
+    <Compile Include="BodyParts\Body.cs" />
     <Compile Include="Postacie\Hero.cs" />
     <Compile Include="Postacie\Mag.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Przedmioty\Bron.cs" />
-    <Compile Include="Przedmioty\BronMagiczna.cs" />
-    <Compile Include="Przedmioty\Mikstury.cs" />
-    <Compile Include="Przedmioty\Pieniadze.cs" />
-    <Compile Include="Przedmioty\Przedmiot.cs" />
-    <Compile Include="Postacie\Wojownik.cs" />
+    <Compile Include="Items\Weapon.cs" />
+    <Compile Include="Items\MagicWeapon.cs" />
+    <Compile Include="Items\Potion.cs" />
+    <Compile Include="Items\Money.cs" />
+    <Compile Include="Items\Przedmiot.cs" />
+    <Compile Include="Postacie\Warrior.cs" />
+    <Compile Include="Items\Ubior.cs" />
+    <Compile Include="Items\Ubior\Helmet.cs" />
+    <Compile Include="Items\Ubior\Spodnie.cs" />
+    <Compile Include="Items\Ubior\Shield.cs" />
+    <Compile Include="Items\Ubior\Armour.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Items\Bron\" />
+    <Folder Include="Items\Potion\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

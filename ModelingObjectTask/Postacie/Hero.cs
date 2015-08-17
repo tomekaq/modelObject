@@ -1,85 +1,124 @@
-﻿using ModelingObjectTask.Organy;
-using ModelingObjectTask.Przedmioty;
+﻿using ModelingObjectTask.BodyParts;
+using ModelingObjectTask.Items;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ModelingObjectTask
 {
     public abstract class Hero : ICloneable
     {
-        public abstract string Imie { get; set; }
-        public int Sila { get; set; }
+        protected string name;
+        protected int strength;
+        protected int agility;
+        protected int healthPoints;
+        protected int healthPointsNow;
+        protected int moneyAmount;
+
+        public abstract string Name { get; set; }
+        public abstract int Strength { get; set; }
         public decimal Zywotnosc { get; set; }
-        public int PktZycia { get; set; }
-        public int PktZyciaAktualnie { get; set; }
-        public int Zrecznosc { get; set; }
-        public List<Przedmiot> ekwipunek = new List<Przedmiot>();
-
-        public int IloscPieniedzy { get; set; }
-
-        public Glowa glowa { get; set; }
-        public LewaReka lewaReka { get; set; }
-        public PrawaReka prawaReka { get; set; }
-        public Nogi nogi { get; set; }
 
 
-        public Hero() {
+        public Head glowa { get; set; }
+        public LeftHand lewaReka { get; set; }
+        public RightHand prawaReka { get; set; }
+        public Legs nogi { get; set; }
 
-            glowa = new Glowa();
-            lewaReka = new LewaReka();
-            prawaReka = new PrawaReka();
-            nogi = new Nogi();
-        
+        public List<Item> equipment = new List<Item>();
+
+        public Hero()
+        {
+            HealthPoints = 200;
+            Agility =  new Random().Next(2, 12);
+            glowa = new Head();
+            lewaReka = new LeftHand();
+            lewaReka.Weapon.Atak = 1;
+            prawaReka = new RightHand(200);
+            nogi = new Legs();
         }
 
-        public void ZmienZywotnosc(int strata)
+        public int MoneyAmount
         {
-            if (this.PktZyciaAktualnie - strata < 0)
-                this.PktZyciaAktualnie = 0;
-            else if ((this.PktZyciaAktualnie + strata) - this.PktZycia > 100)
-                this.PktZyciaAktualnie = this.PktZycia;
-            else
-                this.PktZyciaAktualnie += strata;
-        }
-
-        public abstract decimal MocAtaku();
-
-        public void DodajPrzedmiot(Przedmiot przedmiot)
-        {
-            ekwipunek.Add(przedmiot);
-        }
-
-        public bool UbierzPrzedmiot(Przedmiot przedmiot, Organ organ)
-        {
-            if (!organ.JestWyposazona)
+            get
             {
-                organ.JestWyposazona = true;
-                organ.Przedmiot = przedmiot;
-                return true;
+                return moneyAmount;
             }
-            else
+            set
             {
-                return false;
+                moneyAmount = value;
             }
         }
-        
+
+        public int HealthPoints
+        {
+            get
+            {
+                return healthPoints;
+            }
+            set
+            {
+                healthPoints = value;
+                HealthPointsNow = value;
+            }
+        }
+
+        public int HealthPointsNow
+        {
+            get
+            {
+                return healthPointsNow;
+            }
+            set
+            {
+                healthPointsNow = value;
+            }
+        }
+
+        public int Agility //zrecznosc
+        {
+            get
+            {
+                return agility;
+            }
+            set
+            {
+                agility = value;
+            }
+        }
+
         public object Clone()
         {
             return this.MemberwiseClone();
         }
 
+        public abstract decimal AttackValue();
+
+        public void AddItem(Item item)
+        {
+            equipment.Add(item);
+        }
+
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("Imię: {0} ", this.Imie);
-            sb.AppendFormat("Żywotność: {0:f}% ", (decimal)this.PktZyciaAktualnie / this.PktZycia * 100);
-            sb.AppendFormat("Zręczność: {0} ", this.Zrecznosc);
-            sb.AppendFormat("Wartość Ataku: {0} ", this.MocAtaku());
+            sb.AppendFormat("Imię: {0} ", this.Name);
+            sb.AppendFormat("Żywotność: {0:f}% ", (decimal)this.HealthPointsNow / this.HealthPoints * 100);
+            sb.AppendFormat("Zręczność: {0} ", this.Agility);
+            sb.AppendFormat("Wartość Ataku: {0} ", this.AttackValue());
             return sb.ToString();
         }
+
+        public void ChangeHealth(int strata)
+        {
+            if (HealthPointsNow + strata < 0)
+                HealthPointsNow = 0;
+            else if ((this.HealthPointsNow + strata) - this.HealthPoints > 100)
+                this.HealthPointsNow = this.HealthPoints;
+            else
+                this.HealthPointsNow += strata;
+        }
+
     }
 
 }

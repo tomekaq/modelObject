@@ -2,16 +2,14 @@
 
 namespace ModelingObjectTask
 {
-    public class Mag : Hero
+    public class Warrior : Hero
     {
-        public int PunktyMagii { get; set; }
-
-        public Mag()
+        public Warrior()
         {
-            this.Name = "Xardas";
-            this.HealthPoints = 1000;
-            this.Strength = new Random().Next(1, 6);
-            this.PunktyMagii = new Random().Next(2, 12);
+            this.Name = "Geralt";
+            this.HealthPoints = 200;
+            this.Strength = new Random().Next(3, 18);
+            this.Agility = new Random().Next(2, 12);
         }
 
         public override string Name
@@ -38,11 +36,12 @@ namespace ModelingObjectTask
             }
         }
 
+
         public override decimal AttackValue()
         {
-            return (this.PunktyMagii + this.Strength) * new Random().Next(2, 12);
+
+
+            return (Strength + lewaReka.Weapon.Atak)* new Random().Next(2, 12);
         }
-
     }
-
 }

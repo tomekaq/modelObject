@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ModelingObjectTask
 {
-    class Druzyna : ICloneable
+    class Squad : ICloneable
     {
-        public string Nazwa { get; set; }
+        public string Name { get; set; }
         List<Hero> druzynaPostaci = new List<Hero>();
 
         public object Clone()
@@ -16,7 +15,7 @@ namespace ModelingObjectTask
             return this.MemberwiseClone();
         }
 
-        public object KopiaBohatera(int index)
+        public object CloneHero(int index)
         {
             var t = druzynaPostaci[index].Clone();
 
@@ -42,14 +41,14 @@ namespace ModelingObjectTask
 
         public decimal AtakDruzyny()
         {
-            return druzynaPostaci.Select(x => x.MocAtaku()).Sum();
+            return druzynaPostaci.Select(x => x.AttackValue()).Sum();
         }
 
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.AppendFormat("Nazwa: {0} ", Nazwa);
+            sb.AppendFormat("Nazwa: {0} ", Name);
             sb.AppendFormat("Wartość ataku drużyny: {0} ", AtakDruzyny());
             sb.AppendFormat("Lista postaci: \n");
             druzynaPostaci.Select(x => sb.AppendFormat("{0} \n", x)).ToList();
