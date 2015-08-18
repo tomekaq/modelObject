@@ -10,9 +10,13 @@ namespace ModelingObjectTask.BodyParts
             weapon = new Weapon();
         }
 
-        public override void ZalozUbior(Items.Item item)
+        public override void PutOn(Items.Item item)
         {
-            throw new NotImplementedException();
+                Item = item;
+                if (item.GetType() == typeof(Weapon))
+                {
+                    Weapon = (Weapon)item;
+                }
         }
     }
 

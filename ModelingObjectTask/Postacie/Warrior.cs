@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+using ModelingObjectTask.Items;
+using System;
 
 namespace ModelingObjectTask
 {
@@ -36,12 +38,13 @@ namespace ModelingObjectTask
             }
         }
 
-
-        public override decimal AttackValue()
+        public override int AttackValue()
         {
-
-
-            return (Strength + lewaReka.Weapon.Atak)* new Random().Next(2, 12);
+            if (lewaReka.Item != null && lewaReka.Item.GetType() == typeof(Weapon))
+                return (Strength + lewaReka.Weapon.Attack) * new Random().Next(2, 12);
+            if (prawaReka.Item != null && prawaReka.Item.GetType() == typeof(Weapon))
+                return (Strength + prawaReka.Weapon.Attack) * new Random().Next(2, 12);
+            return (Strength) * Agility * new Random().Next(2, 12);
         }
     }
 }

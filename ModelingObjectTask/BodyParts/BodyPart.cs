@@ -45,11 +45,7 @@ namespace ModelingObjectTask.BodyParts
             }
         }
 
-        public void WyposażBron(Item item)
-        {
-            weapon = (Weapon)item;
-            }
-        public abstract void ZalozUbior(Item item);
+        public abstract void PutOn(Item item);
 
 
     }

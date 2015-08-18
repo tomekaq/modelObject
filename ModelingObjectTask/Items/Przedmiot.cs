@@ -7,7 +7,7 @@ namespace ModelingObjectTask.Items
         protected int price;
         protected int weight;
 
-        public string Nazwa { get { return name; } set { name = value; } }
+        public string Name { get { return name; } set { name = value; } }
         public int Price { get { return price; } set { price = value; } }
         public int Weight { get { return weight; } set { weight = value; } }
 

@@ -1,17 +1,18 @@
-﻿using System;
+﻿using ModelingObjectTask.Items;
+using System;
 
 namespace ModelingObjectTask
 {
     public class Mag : Hero
     {
-        public int PunktyMagii { get; set; }
+        public int Mana { get; set; }
 
         public Mag()
         {
             this.Name = "Xardas";
             this.HealthPoints = 1000;
             this.Strength = new Random().Next(1, 6);
-            this.PunktyMagii = new Random().Next(2, 12);
+            this.Mana = new Random().Next(2, 12);
         }
 
         public override string Name
@@ -38,9 +39,13 @@ namespace ModelingObjectTask
             }
         }
 
-        public override decimal AttackValue()
+        public override int AttackValue()
         {
-            return (this.PunktyMagii + this.Strength) * new Random().Next(2, 12);
+            if (lewaReka.Item != null  && lewaReka.Item.GetType() == typeof(MagicWeapon))
+                return (Strength + lewaReka.Weapon.Attack) * Agility * new Random().Next(2, 12);
+            if (prawaReka.Item != null && prawaReka.Item.GetType() == typeof(MagicWeapon))
+                return (Strength + Mana + prawaReka.Weapon.Attack) * Agility * new Random().Next(2, 12);
+            return (this.Mana + this.Strength) * Agility * new Random().Next(2, 12);
         }
 
     }

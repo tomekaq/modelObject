@@ -9,12 +9,17 @@ namespace ModelingObjectTask.BodyParts
 
         public RightHand(int health)
         {
+            weapon = new Weapon();
             Health = health;
         }
 
-        public override void ZalozUbior(Item przedmiot)
+        public override void PutOn(Items.Item item)
         {
-            this.item = przedmiot;    
+            Item = item;
+            if (item.GetType() == typeof(Weapon))
+            {
+                Weapon = (Weapon)item;
+            }
         }
     }
 }

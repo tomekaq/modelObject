@@ -5,7 +5,8 @@ namespace ModelingObjectTask.BodyParts
 {
     class Body:BodyPart
     {
-        public override void ZalozUbior(Item przedmiot)
+
+        public override void PutOn(Item item)
         {
             throw new NotImplementedException();
         }

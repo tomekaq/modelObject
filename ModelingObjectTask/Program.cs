@@ -30,22 +30,19 @@ namespace ModelingObjectTask
             druzynaPierscienia.DodajPostac(c);
             druzynaPierscienia.DodajPostac(d);
 
-            var moneta = new Money() { Nazwa = "talary" };
+            var moneta = new Money() { Name = "talary" };
         
-            
 
             Console.WriteLine(druzynaPierscienia[2].ToString());
 
             var e = new Warrior() { Name = "Hulk"  };
 
-
-
             var sklonowanyGerald = druzynaPierscienia.CloneHero(0);
 
             var przykladowy = druzynaPierscienia[2];
             var hipermiecz = new Weapon();
-            hipermiecz.Nazwa = "hiper miecz";
-            hipermiecz.Atak = 32;
+            hipermiecz.Name = "hiper miecz";
+            hipermiecz.Attack = 32;
 
             przykladowy.prawaReka.Item =hipermiecz;
             

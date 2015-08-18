@@ -8,16 +8,20 @@ namespace ModelingObjectTask
 {
     public abstract class Hero : ICloneable
     {
+
         protected string name;
-        protected int strength;
+        protected bool isAlive;
         protected int agility;
+        protected int capacity;
+        protected int defensePoint;
         protected int healthPoints;
         protected int healthPointsNow;
         protected int moneyAmount;
+        protected int strength;
+
 
         public abstract string Name { get; set; }
         public abstract int Strength { get; set; }
-        public decimal Zywotnosc { get; set; }
 
 
         public Head glowa { get; set; }
@@ -29,24 +33,38 @@ namespace ModelingObjectTask
 
         public Hero()
         {
+            isAlive = true;
             HealthPoints = 200;
-            Agility =  new Random().Next(2, 12);
+            Agility = new Random().Next(2, 12);
+            DefensePoint = new Random().Next(3, 18);
             glowa = new Head();
             lewaReka = new LeftHand();
-            lewaReka.Weapon.Atak = 1;
+            lewaReka.Weapon.Attack = 1;
             prawaReka = new RightHand(200);
             nogi = new Legs();
         }
 
-        public int MoneyAmount
+        public int Agility //zrecznosc
         {
             get
             {
-                return moneyAmount;
+                return agility;
             }
             set
             {
-                moneyAmount = value;
+                agility = value;
+            }
+        }
+
+        public int DefensePoint
+        {
+            get
+            {
+                return defensePoint;
+            }
+            set
+            {
+                defensePoint = value;
             }
         }
 
@@ -75,16 +93,64 @@ namespace ModelingObjectTask
             }
         }
 
-        public int Agility //zrecznosc
+        public int MoneyAmount
         {
             get
             {
-                return agility;
+                return moneyAmount;
             }
             set
             {
-                agility = value;
+                moneyAmount = value;
             }
+        }
+
+        public void AddItem(Item item)
+        {
+            equipment.Add(item);
+        }
+
+        public bool Attack(Hero hero)
+        {
+            if (hero.isAlive)
+            {
+                var offenserValue = this.Agility + new Random().Next(2, 12);
+                var defenserValue = hero.Agility + new Random().Next(2, 12);
+                if (offenserValue - defensePoint > 0)
+                {
+                    var attack = this.AttackValue();
+                    hero.ChangeHealth(attack);
+                    return true;
+                }
+                else
+                {
+                    var offenserValue2 = hero.Agility + new Random().Next(2, 12);
+                    var defenserValue2 = this.Agility + new Random().Next(1, 6);
+                    if (offenserValue - defensePoint > 0)
+                    {
+                        var attack = hero.AttackValue();
+                        this.ChangeHealth(attack);
+                        return true; 
+                    }
+                   return false;
+                }
+            }
+            else
+                return false;
+
+        }
+
+        public void ChangeHealth(int strata)
+        {
+            if (HealthPointsNow + strata < 0)
+            {
+                HealthPointsNow = 0;
+                isAlive = false;
+            }
+            else if ((this.HealthPointsNow + strata) - this.HealthPoints > 100)
+                this.HealthPointsNow = this.HealthPoints;
+            else
+                this.HealthPointsNow += strata;
         }
 
         public object Clone()
@@ -92,11 +158,12 @@ namespace ModelingObjectTask
             return this.MemberwiseClone();
         }
 
-        public abstract decimal AttackValue();
+        public abstract int AttackValue();
 
-        public void AddItem(Item item)
+        public int DefenseValue()
         {
-            equipment.Add(item);
+
+            return DefensePoint;
         }
 
         public override string ToString()
@@ -108,17 +175,5 @@ namespace ModelingObjectTask
             sb.AppendFormat("Wartość Ataku: {0} ", this.AttackValue());
             return sb.ToString();
         }
-
-        public void ChangeHealth(int strata)
-        {
-            if (HealthPointsNow + strata < 0)
-                HealthPointsNow = 0;
-            else if ((this.HealthPointsNow + strata) - this.HealthPoints > 100)
-                this.HealthPointsNow = this.HealthPoints;
-            else
-                this.HealthPointsNow += strata;
-        }
-
     }
-
 }
