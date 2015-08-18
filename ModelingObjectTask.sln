@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelingObjectTask", "ModelingObjectTask\ModelingObjectTask.csproj", "{819E5CD0-F18D-430C-8AE7-23E9940F5064}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1", "UnitTestProject1\UnitTestProject1.csproj", "{90722A34-C64E-4256-AD12-580651E420F4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{819E5CD0-F18D-430C-8AE7-23E9940F5064}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{819E5CD0-F18D-430C-8AE7-23E9940F5064}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{819E5CD0-F18D-430C-8AE7-23E9940F5064}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90722A34-C64E-4256-AD12-580651E420F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90722A34-C64E-4256-AD12-580651E420F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90722A34-C64E-4256-AD12-580651E420F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90722A34-C64E-4256-AD12-580651E420F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

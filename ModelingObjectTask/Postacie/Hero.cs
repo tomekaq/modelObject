@@ -1,6 +1,7 @@
 ﻿using ModelingObjectTask.BodyParts;
 using ModelingObjectTask.Items;
 using System;
+using System.Data.Linq;
 using System.Collections.Generic;
 using System.Text;
 
@@ -8,7 +9,6 @@ namespace ModelingObjectTask
 {
     public abstract class Hero : ICloneable
     {
-
         protected string name;
         protected bool isAlive;
         protected int agility;
@@ -19,10 +19,8 @@ namespace ModelingObjectTask
         protected int moneyAmount;
         protected int strength;
 
-
         public abstract string Name { get; set; }
         public abstract int Strength { get; set; }
-
 
         public Head glowa { get; set; }
         public LeftHand lewaReka { get; set; }
@@ -92,6 +90,17 @@ namespace ModelingObjectTask
                 healthPointsNow = value;
             }
         }
+        public bool IsAlive
+        {
+            get
+            {
+                return isAlive;
+            }
+            set
+            {
+                isAlive = value;
+            }
+        }
 
         public int MoneyAmount
         {
@@ -102,6 +111,8 @@ namespace ModelingObjectTask
             set
             {
                 moneyAmount = value;
+                //  var result = equipment.ForEach(x=>x);
+                //   var moneys = equipment.ToArray().Where(x=>x.GetType() == typeof(Money));
             }
         }
 
@@ -130,22 +141,21 @@ namespace ModelingObjectTask
                     {
                         var attack = hero.AttackValue();
                         this.ChangeHealth(attack);
-                        return true; 
+                        return true;
                     }
-                   return false;
+                    return false;
                 }
             }
             else
                 return false;
-
         }
 
         public void ChangeHealth(int strata)
         {
-            if (HealthPointsNow + strata < 0)
+            if (HealthPointsNow + strata < 1)
             {
                 HealthPointsNow = 0;
-                isAlive = false;
+                IsAlive = false;
             }
             else if ((this.HealthPointsNow + strata) - this.HealthPoints > 100)
                 this.HealthPointsNow = this.HealthPoints;
