@@ -4,20 +4,41 @@ namespace ModelingObjectTask.BodyParts
 {
     public abstract class BodyPart
     {
-        protected int health;
+        protected bool alive;
+        protected int health; 
+        protected Clothes clothes;
         protected Item item;
         protected Weapon weapon;
-       // protected Ubior ubiór;
 
-        public int Health
+        public abstract void PutOn(Item item);
+
+        public BodyPart() {
+            Item = new Item();
+        }
+
+
+
+        public bool Alive
         {
             get
             {
-                return health;
+                return alive;
             }
             set
             {
-                health = value;
+                alive = value;
+            }
+        }
+
+        public Clothes Clothes
+        {
+            get
+            {
+                return clothes;
+            }
+            set
+            {
+                clothes = value;
             }
         }
 
@@ -33,19 +54,24 @@ namespace ModelingObjectTask.BodyParts
             }
         }
 
-        public Weapon Weapon
+        public int Health
         {
             get
             {
-                return weapon;
+                return health;
             }
             set
             {
-                weapon = value;
+                health = value;
+                if (health < 0)
+                {
+                    Alive = false;
+                }
             }
         }
 
-        public abstract void PutOn(Item item);
+
+
 
 
     }

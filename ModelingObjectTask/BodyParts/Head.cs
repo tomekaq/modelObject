@@ -1,14 +1,17 @@
-﻿using System;
+﻿using ModelingObjectTask.Items;
+using System;
 
 namespace ModelingObjectTask.BodyParts
 {
-    public class Head:BodyPart
+    public class Head : BodyPart
     {
-
-
-        public override void PutOn(Items.Item item)
+        public override void PutOn(Item item)
         {
-            throw new NotImplementedException();
+            Item = item;
+            if (item.GetType() == typeof(Helmet))
+            {
+                Clothes = (Clothes)item;
+            }
         }
     }
 }

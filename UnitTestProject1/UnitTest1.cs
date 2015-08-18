@@ -1,6 +1,7 @@
 ﻿using System;
 using ModelingObjectTask;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ModelingObjectTask.Items;
 
 namespace UnitTestProject1
 {
@@ -45,6 +46,7 @@ namespace UnitTestProject1
             Geralt.Strength = 2;
             Console.WriteLine("Warrior Name: {0}", Geralt.Strength);
 
+
         }
 
         public void MagParametr()
@@ -82,6 +84,21 @@ namespace UnitTestProject1
 
         }
 
+        public void WarriorWearSword()
+        {
+            Weapon miecz = new Weapon()
+            {
+                Name = "super miecz",
+                Attack = 23,
+                Defense = 10,
+                Weight = 32,
+                Price = 100
+            };
+            
+            Warrior Zbyszko = new Warrior() { Name = "Zbyszko"};
+            Zbyszko.lewaReka.PutOn(miecz);
+
+        }
 
 
     }

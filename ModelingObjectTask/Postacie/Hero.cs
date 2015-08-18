@@ -172,7 +172,6 @@ namespace ModelingObjectTask
 
         public int DefenseValue()
         {
-
             return DefensePoint;
         }
 

@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Items\Potion\HealthPotion.cs" />
     <Compile Include="Squads\Squad.cs" />
     <Compile Include="BodyParts\Head.cs" />
     <Compile Include="BodyParts\LeftHand.cs" />
@@ -59,9 +60,9 @@
     <Compile Include="Items\Money.cs" />
     <Compile Include="Items\Przedmiot.cs" />
     <Compile Include="Postacie\Warrior.cs" />
-    <Compile Include="Items\Ubior.cs" />
+    <Compile Include="Items\Clothes.cs" />
     <Compile Include="Items\Ubior\Helmet.cs" />
-    <Compile Include="Items\Ubior\Spodnie.cs" />
+    <Compile Include="Items\Ubior\Trousers.cs" />
     <Compile Include="Items\Ubior\Shield.cs" />
     <Compile Include="Items\Ubior\Armour.cs" />
   </ItemGroup>
@@ -70,7 +71,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Items\Bron\" />
-    <Folder Include="Items\Potion\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

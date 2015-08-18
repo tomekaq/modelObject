@@ -8,7 +8,10 @@ namespace ModelingObjectTask.BodyParts
 
         public override void PutOn(Item item)
         {
-            throw new NotImplementedException();
+            if(item.GetType() == typeof (Armour))
+            {
+                this.Item = item;
+            }
         }
     }
 }
