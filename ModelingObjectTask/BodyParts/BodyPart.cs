@@ -4,7 +4,7 @@ namespace ModelingObjectTask.BodyParts
 {
     public abstract class BodyPart
     {
-        protected bool alive;
+        //protected bool alive;
         protected int health; 
         protected Clothes clothes;
         protected Item item;
@@ -13,19 +13,12 @@ namespace ModelingObjectTask.BodyParts
 
         public BodyPart()
         {
-           // Item = new Item();
         }
 
         public bool Alive
         {
-            get
-            {
-                return alive;
-            }
-            set
-            {
-                alive = value;
-            }
+            get;
+            private set;
         }
 
         public Clothes Clothes
@@ -61,13 +54,9 @@ namespace ModelingObjectTask.BodyParts
             set
             {
                 health = value;
-                if (health < 0)
-                {
-                    Alive = false;
-                }
+                Alive = health > 0;
             }
         }
-
     }
 }
 

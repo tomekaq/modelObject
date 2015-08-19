@@ -1,7 +1,8 @@
 ﻿
 namespace ModelingObjectTask.Items
 {
-    class Shield : Clothes
+    public class Trousers : Clothes
     {
+        
     }
 }

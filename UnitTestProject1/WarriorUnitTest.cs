@@ -8,7 +8,7 @@ using System.Linq;
 namespace UnitTestProject1
 {
     [TestClass]
-    public class UnitTest1
+    public class WarriorUnitTest
     {
         [TestMethod]
         public void WarriorParametr()
@@ -47,10 +47,9 @@ namespace UnitTestProject1
 
             Geralt.Strength = 2;
             Console.WriteLine("Warrior Name: {0}", Geralt.Strength);
-
-
         }
-                [TestMethod]
+
+        [TestMethod]
         public void MagParametr()
         {
             var Xardas = new Mag();
@@ -73,7 +72,6 @@ namespace UnitTestProject1
             Console.WriteLine("Warrior HealthPointsNow: {0}", Xardas.HealthPointsNow);
             Console.WriteLine("Warrior is Alive?: {0}", Xardas.IsAlive);
 
-
             Xardas.MoneyAmount = 32;
             Console.WriteLine("Warrior MoneyAmount: {0}", Xardas.MoneyAmount);
 
@@ -82,10 +80,9 @@ namespace UnitTestProject1
 
             Xardas.Name += "34";
             Console.WriteLine("Warrior Name: {0}", Xardas.Name);
-
-
         }
-                [TestMethod]
+
+        [TestMethod]
         public void WarriorWearSword()
         {
             Weapon miecz = new Weapon()
@@ -96,12 +93,34 @@ namespace UnitTestProject1
                 Weight = 32,
                 Price = 100
             };
-            
-            Warrior Zbyszko = new Warrior() { Name = "Zbyszko"};
+
+            Warrior Zbyszko = new Warrior() { Name = "Zbyszko" };
             Zbyszko.leftHand.PutOn(miecz);
+            var b = (Zbyszko.Strength + miecz.Attack) * Zbyszko.Agility * new Random().Next(2, 12);
+
+            Console.WriteLine("Warrior AttackValue(): {0}", b);
+            Console.WriteLine("Warrior DefenseValue(): {0}", Zbyszko.DefenseValue());
+        }
+
+
+        [TestMethod]
+        public void WarriorWearTrousers()
+        {
+            Trousers jeansy = new Trousers(); 
+
+            Warrior Zbyszko = new Warrior() { Name = "Zbyszko" };
+            Zbyszko.legs.PutOn(jeansy);
+
+
+            Console.WriteLine("Spodnie {0}", Zbyszko.legs.Clothes.Defense);
 
         }
-                [TestMethod]
+
+
+
+
+
+        [TestMethod]
         public void WarriorHasMoney()
         {
             List<Money> moneyList = new List<Money>();
@@ -118,7 +137,19 @@ namespace UnitTestProject1
 
             moneyList2.ForEach(x => Geralt.AddItem(x));
             Console.WriteLine(Geralt.MoneyAmount - 23);
-            Console.WriteLine(Geralt.MoneyAmount );
+            Console.WriteLine(Geralt.MoneyAmount);
         }
+
+        [TestMethod]
+        public void WarriorClone()
+        {
+            var StartGeralt = new Warrior();
+            Console.WriteLine(StartGeralt);
+
+            var sklonowanyGeralt = StartGeralt.Clone();
+            Console.WriteLine(sklonowanyGeralt);
+
+        }
+
     }
 }

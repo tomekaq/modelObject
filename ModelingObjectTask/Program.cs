@@ -9,23 +9,10 @@ namespace ModelingObjectTask
     {
         static void Main(string[] args)
         {
-            Weapon miecz = new Weapon()
-            {
-                Name = "super miecz",
-                Attack = 23,
-                Defense = 10,
-                Weight = 32,
-                Price = 100
-            };
-
-
-
-
-
-            Warrior Zbyszko = new Warrior() { Name = "Zbyszko" };
-            Zbyszko.leftHand.PutOn(miecz);
-            Zbyszko.legs.PutOn(miecz);
-            
+            Weapon miecz = new Weapon();
+            Warrior Geralt = new Warrior();
+            Geralt.rightHand.PutOn(miecz);
+            var bb = Geralt.rightHand.Item;
             Console.ReadLine();
         }
     }

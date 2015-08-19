@@ -3,12 +3,10 @@ namespace ModelingObjectTask.Items
 {
     public class Money : Item
     {
-        public Money() {
-
+        public Money() 
+        {
             Price = 1;
             Weight = 1;
         }
-
-
     }
 }

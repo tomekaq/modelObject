@@ -5,5 +5,11 @@ namespace ModelingObjectTask.Items
     {
         public int Attack { get; set; }
         public int Defense { get; set; }
+
+        public MagicWeapon()
+        {
+            Attack = 1;
+            Defense = 1;
+        }
     }
 }

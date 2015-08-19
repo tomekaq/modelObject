@@ -50,28 +50,26 @@
     <Compile Include="BodyParts\BodyPart.cs" />
     <Compile Include="BodyParts\RightHand.cs" />
     <Compile Include="BodyParts\Body.cs" />
-    <Compile Include="Postacie\Hero.cs" />
-    <Compile Include="Postacie\Mag.cs" />
+    <Compile Include="Characters\Hero.cs" />
+    <Compile Include="Characters\Mag.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Items\Weapon.cs" />
-    <Compile Include="Items\MagicWeapon.cs" />
+    <Compile Include="Items\Weapons\Weapon.cs" />
+    <Compile Include="Items\Weapons\MagicWeapon.cs" />
     <Compile Include="Items\Potion.cs" />
     <Compile Include="Items\Money.cs" />
-    <Compile Include="Items\Przedmiot.cs" />
-    <Compile Include="Postacie\Warrior.cs" />
+    <Compile Include="Items\Item.cs" />
+    <Compile Include="Characters\Warrior.cs" />
     <Compile Include="Items\Clothes.cs" />
-    <Compile Include="Items\Ubior\Helmet.cs" />
-    <Compile Include="Items\Ubior\Trousers.cs" />
-    <Compile Include="Items\Ubior\Shield.cs" />
-    <Compile Include="Items\Ubior\Armour.cs" />
+    <Compile Include="Items\Clothes\Helmet.cs" />
+    <Compile Include="Items\Clothes\Trousers.cs" />
+    <Compile Include="Items\Clothes\Shield.cs" />
+    <Compile Include="Items\Clothes\Armour.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Items\Bron\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

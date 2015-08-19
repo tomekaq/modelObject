@@ -5,12 +5,11 @@ namespace ModelingObjectTask.BodyParts
 {
     public class Legs:BodyPart
     {
-
-        public override void PutOn(Item item1)
+        public override void PutOn(Item item)
         {
-            if (item1.GetType() == typeof(Trousers))
+            Type t = item.GetType();
+            if (t == typeof(Trousers))
             {
-                Item = item;
                 Clothes = (Clothes)item;
             }
         }

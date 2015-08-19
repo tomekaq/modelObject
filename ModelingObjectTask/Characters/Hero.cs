@@ -22,6 +22,7 @@ namespace ModelingObjectTask
         public abstract string Name { get; set; }
         public abstract int Strength { get; set; }
 
+        public Body body { get; set; }
         public Head head { get; set; }
         public LeftHand leftHand { get; set; }
         public RightHand rightHand { get; set; }
@@ -31,17 +32,20 @@ namespace ModelingObjectTask
 
         public Hero()
         {
-            isAlive = true;
-            HealthPoints = 200;
+            isAlive = true;            
             Agility = new Random().Next(2, 12);
             DefensePoint = new Random().Next(3, 18);
+            HealthPoints = 200;
+            HealthPointsNow = HealthPoints;
+
+            body = new Body();
             head = new Head();
             leftHand = new LeftHand();
             rightHand = new RightHand();
             legs = new Legs();
         }
 
-        public int Agility //zrecznosc
+        public int Agility
         {
             get
             {
@@ -74,7 +78,6 @@ namespace ModelingObjectTask
             set
             {
                 healthPoints = value;
-                HealthPointsNow = value;
             }
         }
 
@@ -132,7 +135,7 @@ namespace ModelingObjectTask
                 this.HealthPointsNow += strata;
         }
 
-        public object Clone()
+        public virtual object Clone()
         {
             return this.MemberwiseClone();
         }
@@ -144,13 +147,18 @@ namespace ModelingObjectTask
             return DefensePoint;
         }
 
+        public decimal DrawAttack() {
+            return (decimal) 1 / new Random().Next(1, 6);
+        }
+
+
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendFormat("Imię: {0} ", this.Name);
             sb.AppendFormat("Żywotność: {0:f}% ", (decimal)this.HealthPointsNow / this.HealthPoints * 100);
             sb.AppendFormat("Zręczność: {0} ", this.Agility);
-            sb.AppendFormat("Wartość Ataku: {0} ", this.AttackValue());
+          //  sb.AppendFormat("Wartość Ataku: {0} ", this.AttackValue());
             return sb.ToString();
         }
     }
