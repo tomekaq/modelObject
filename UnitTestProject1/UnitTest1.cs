@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ModelingObjectTask;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ModelingObjectTask.Items;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -50,7 +50,7 @@ namespace UnitTestProject1
 
 
         }
-
+                [TestMethod]
         public void MagParametr()
         {
             var Xardas = new Mag();
@@ -85,7 +85,7 @@ namespace UnitTestProject1
 
 
         }
-
+                [TestMethod]
         public void WarriorWearSword()
         {
             Weapon miecz = new Weapon()
@@ -101,6 +101,7 @@ namespace UnitTestProject1
             Zbyszko.leftHand.PutOn(miecz);
 
         }
+                [TestMethod]
         public void WarriorHasMoney()
         {
             List<Money> moneyList = new List<Money>();
@@ -109,16 +110,15 @@ namespace UnitTestProject1
 
             var Geralt = new Warrior();
 
-
             List<Money> moneyList2 = new List<Money>();
             var bl2 = Enumerable.Range(1, 23).Select(x => new Money() { Price = 2 });
-            moneyList.AddRange(bl);
+            moneyList2.AddRange(bl);
 
             var Geralt2 = new Warrior();
 
-            moneyList.ForEach(x => Geralt.AddItem(x));
-            Console.WriteLine(Geralt.MoneyAmount);
-
+            moneyList2.ForEach(x => Geralt.AddItem(x));
+            Console.WriteLine(Geralt.MoneyAmount - 23);
+            Console.WriteLine(Geralt.MoneyAmount );
         }
     }
 }

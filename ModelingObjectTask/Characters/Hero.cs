@@ -37,8 +37,7 @@ namespace ModelingObjectTask
             DefensePoint = new Random().Next(3, 18);
             head = new Head();
             leftHand = new LeftHand();
-            leftHand.Weapon.Attack = 1;
-            rightHand = new RightHand(200);
+            rightHand = new RightHand();
             legs = new Legs();
         }
 
@@ -111,44 +110,13 @@ namespace ModelingObjectTask
             }
             set
             {
-                moneyAmount = value;
-                //var result = equipment.ForEach(x=>x);
-                   ;
+                moneyAmount = value;        
             }
         }
 
         public void AddItem(Item item)
         {
             equipment.Add(item);
-        }
-
-        public bool Attack(Hero hero)
-        {
-            if (hero.isAlive)
-            {
-                var offenserValue = this.Agility + new Random().Next(2, 12);
-                var defenserValue = hero.Agility + new Random().Next(2, 12);
-                if (offenserValue - defensePoint > 0)
-                {
-                    var attack = this.AttackValue();
-                    hero.ChangeHealth(attack);
-                    return true;
-                }
-                else
-                {
-                    var offenserValue2 = hero.Agility + new Random().Next(2, 12);
-                    var defenserValue2 = this.Agility + new Random().Next(1, 6);
-                    if (offenserValue - defensePoint > 0)
-                    {
-                        var attack = hero.AttackValue();
-                        this.ChangeHealth(attack);
-                        return true;
-                    }
-                    return false;
-                }
-            }
-            else
-                return false;
         }
 
         public void ChangeHealth(int strata)

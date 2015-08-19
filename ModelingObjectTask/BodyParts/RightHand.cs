@@ -3,12 +3,13 @@ using System;
 
 namespace ModelingObjectTask.BodyParts
 {
-    public class RightHand:BodyPart
+    public class RightHand : BodyPart
     {
-        public RightHand(int health)
+        protected Weapon weapon;
+
+        public RightHand()
         {
             weapon = new Weapon();
-            Health = health;
         }
 
         public override void PutOn(Item item)

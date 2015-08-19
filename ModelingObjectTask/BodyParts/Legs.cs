@@ -6,13 +6,14 @@ namespace ModelingObjectTask.BodyParts
     public class Legs:BodyPart
     {
 
-        public override void PutOn(Item przedmiot)
+        public override void PutOn(Item item1)
         {
-            Item = item;
-            if (item.GetType() == typeof(Trousers))
+            if (item1.GetType() == typeof(Trousers))
             {
-                //clothes = (Clothes)item;
+                Item = item;
+                Clothes = (Clothes)item;
             }
         }
     }
 }
+//17.17

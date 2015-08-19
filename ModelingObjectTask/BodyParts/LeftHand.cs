@@ -14,13 +14,14 @@ namespace ModelingObjectTask.BodyParts
 
         public override void PutOn(Item item)
         {
-                Item = item;
-                if (item.GetType() == typeof(Weapon))
-                {
-                    Weapon = (Weapon)item;
-                }
+            Item = item;
+            if (item.GetType() == typeof(Weapon))
+            {
+                Weapon = (Weapon)item;
+            }
         }
-        public Weapon? Weapon
+
+        public Weapon Weapon
         {
             get
             {

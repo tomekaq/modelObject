@@ -19,6 +19,9 @@ namespace ModelingObjectTask
             };
 
 
+
+
+
             Warrior Zbyszko = new Warrior() { Name = "Zbyszko" };
             Zbyszko.leftHand.PutOn(miecz);
             Zbyszko.legs.PutOn(miecz);
