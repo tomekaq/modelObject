@@ -2,6 +2,8 @@
 using ModelingObjectTask;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ModelingObjectTask.Items;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace UnitTestProject1
 {
@@ -96,10 +98,27 @@ namespace UnitTestProject1
             };
             
             Warrior Zbyszko = new Warrior() { Name = "Zbyszko"};
-            Zbyszko.lewaReka.PutOn(miecz);
+            Zbyszko.leftHand.PutOn(miecz);
 
         }
+        public void WarriorHasMoney()
+        {
+            List<Money> moneyList = new List<Money>();
+            var bl = Enumerable.Range(1, 23).Select(x => new Money());
+            moneyList.AddRange(bl);
+
+            var Geralt = new Warrior();
 
 
+            List<Money> moneyList2 = new List<Money>();
+            var bl2 = Enumerable.Range(1, 23).Select(x => new Money() { Price = 2 });
+            moneyList.AddRange(bl);
+
+            var Geralt2 = new Warrior();
+
+            moneyList.ForEach(x => Geralt.AddItem(x));
+            Console.WriteLine(Geralt.MoneyAmount);
+
+        }
     }
 }

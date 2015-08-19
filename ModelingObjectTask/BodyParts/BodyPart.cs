@@ -8,15 +8,13 @@ namespace ModelingObjectTask.BodyParts
         protected int health; 
         protected Clothes clothes;
         protected Item item;
-        protected Weapon weapon;
 
         public abstract void PutOn(Item item);
 
-        public BodyPart() {
-            Item = new Item();
+        public BodyPart()
+        {
+           // Item = new Item();
         }
-
-
 
         public bool Alive
         {
@@ -69,10 +67,6 @@ namespace ModelingObjectTask.BodyParts
                 }
             }
         }
-
-
-
-
 
     }
 }

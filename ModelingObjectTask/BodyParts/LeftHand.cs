@@ -5,6 +5,8 @@ namespace ModelingObjectTask.BodyParts
 {
     public class LeftHand : BodyPart
     {
+        protected Weapon weapon;
+
         public LeftHand()
         {
             weapon = new Weapon();
@@ -18,7 +20,7 @@ namespace ModelingObjectTask.BodyParts
                     Weapon = (Weapon)item;
                 }
         }
-        public Weapon Weapon
+        public Weapon? Weapon
         {
             get
             {

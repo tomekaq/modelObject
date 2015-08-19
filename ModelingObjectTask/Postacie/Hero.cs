@@ -1,8 +1,8 @@
 ﻿using ModelingObjectTask.BodyParts;
 using ModelingObjectTask.Items;
 using System;
-using System.Data.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace ModelingObjectTask
@@ -22,10 +22,10 @@ namespace ModelingObjectTask
         public abstract string Name { get; set; }
         public abstract int Strength { get; set; }
 
-        public Head glowa { get; set; }
-        public LeftHand lewaReka { get; set; }
-        public RightHand prawaReka { get; set; }
-        public Legs nogi { get; set; }
+        public Head head { get; set; }
+        public LeftHand leftHand { get; set; }
+        public RightHand rightHand { get; set; }
+        public Legs legs { get; set; }
 
         public List<Item> equipment = new List<Item>();
 
@@ -35,11 +35,11 @@ namespace ModelingObjectTask
             HealthPoints = 200;
             Agility = new Random().Next(2, 12);
             DefensePoint = new Random().Next(3, 18);
-            glowa = new Head();
-            lewaReka = new LeftHand();
-            lewaReka.Weapon.Attack = 1;
-            prawaReka = new RightHand(200);
-            nogi = new Legs();
+            head = new Head();
+            leftHand = new LeftHand();
+            leftHand.Weapon.Attack = 1;
+            rightHand = new RightHand(200);
+            legs = new Legs();
         }
 
         public int Agility //zrecznosc
@@ -106,13 +106,14 @@ namespace ModelingObjectTask
         {
             get
             {
+                moneyAmount = equipment.Where(x => x.GetType() == typeof(Money)).Sum(x => x.Price);
                 return moneyAmount;
             }
             set
             {
                 moneyAmount = value;
-                //  var result = equipment.ForEach(x=>x);
-                //   var moneys = equipment.ToArray().Where(x=>x.GetType() == typeof(Money));
+                //var result = equipment.ForEach(x=>x);
+                   ;
             }
         }
 

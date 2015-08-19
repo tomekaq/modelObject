@@ -1,5 +1,7 @@
 ﻿using ModelingObjectTask.Items;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ModelingObjectTask
 {
@@ -16,9 +18,12 @@ namespace ModelingObjectTask
                 Price = 100
             };
 
+
             Warrior Zbyszko = new Warrior() { Name = "Zbyszko" };
-            Zbyszko.lewaReka.PutOn(miecz);
-            Zbyszko.nogi.PutOn(miecz);
+            Zbyszko.leftHand.PutOn(miecz);
+            Zbyszko.legs.PutOn(miecz);
+            
+            Console.ReadLine();
         }
     }
 }

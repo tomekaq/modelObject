@@ -40,10 +40,10 @@ namespace ModelingObjectTask
 
         public override int AttackValue()
         {
-            if (lewaReka.Item != null && lewaReka.Item.GetType() == typeof(Weapon))
-                return (Strength + lewaReka.Weapon.Attack) * new Random().Next(2, 12);
-            if (prawaReka.Item != null && prawaReka.Item.GetType() == typeof(Weapon))
-                return (Strength + prawaReka.Weapon.Attack) * new Random().Next(2, 12);
+            if (leftHand.Item != null && leftHand.Item.GetType() == typeof(Weapon))
+                return (Strength + leftHand.Weapon.Attack) * new Random().Next(2, 12);
+            if (rightHand.Item != null && rightHand.Item.GetType() == typeof(Weapon))
+                return (Strength + rightHand.Weapon.Attack) * new Random().Next(2, 12);
             return (Strength) * Agility * new Random().Next(2, 12);
         }
     }
