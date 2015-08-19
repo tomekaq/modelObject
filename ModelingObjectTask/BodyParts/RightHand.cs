@@ -17,7 +17,7 @@ namespace ModelingObjectTask.BodyParts
             { 
                 Clothes = (Clothes) item; 
             }
-            else if (t == typeof(Weapon))
+            else if (t == typeof(Weapon) || t == typeof(Shield))
             {
                 Item = item;
             }

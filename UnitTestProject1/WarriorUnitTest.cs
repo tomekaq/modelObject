@@ -19,6 +19,7 @@ namespace UnitTestProject1
             Geralt.Agility = 34;
             Console.WriteLine("Warrior Agility: {0}", Geralt.Agility);
 
+            Console.WriteLine("Warrior DefensePoint: {0}", Geralt.DefensePoint);
             Geralt.DefensePoint = 342;
             Console.WriteLine("Warrior DefensePoint: {0}", Geralt.DefensePoint);
 
@@ -50,39 +51,6 @@ namespace UnitTestProject1
         }
 
         [TestMethod]
-        public void MagParametr()
-        {
-            var Xardas = new Mag();
-
-            Console.WriteLine(Xardas);
-            Xardas.Agility = 34;
-            Console.WriteLine("Warrior Agility: {0}", Xardas.Agility);
-
-            Xardas.DefensePoint = 342;
-            Console.WriteLine("Warrior DefensePoint: {0}", Xardas.DefensePoint);
-
-            Xardas.HealthPoints = 100;
-            Console.WriteLine("Warrior HealthPoints: {0}", Xardas.HealthPoints);
-            Console.WriteLine("Warrior HealthPointsNow: {0}", Xardas.HealthPointsNow);
-
-            Xardas.HealthPointsNow -= 99;
-            Console.WriteLine("Warrior HealthPointsNow: {0}", Xardas.HealthPointsNow);
-
-            Xardas.ChangeHealth(-1);
-            Console.WriteLine("Warrior HealthPointsNow: {0}", Xardas.HealthPointsNow);
-            Console.WriteLine("Warrior is Alive?: {0}", Xardas.IsAlive);
-
-            Xardas.MoneyAmount = 32;
-            Console.WriteLine("Warrior MoneyAmount: {0}", Xardas.MoneyAmount);
-
-            Xardas.Name = "Sinowłosy";
-            Console.WriteLine("Warrior Name: {0}", Xardas.Name);
-
-            Xardas.Name += "34";
-            Console.WriteLine("Warrior Name: {0}", Xardas.Name);
-        }
-
-        [TestMethod]
         public void WarriorWearSword()
         {
             Weapon miecz = new Weapon()
@@ -95,11 +63,8 @@ namespace UnitTestProject1
             };
 
             Warrior Zbyszko = new Warrior() { Name = "Zbyszko" };
-            Zbyszko.leftHand.PutOn(miecz);
-            var b = (Zbyszko.Strength + miecz.Attack) * Zbyszko.Agility * new Random().Next(2, 12);
-
-            Console.WriteLine("Warrior AttackValue(): {0}", b);
-            Console.WriteLine("Warrior DefenseValue(): {0}", Zbyszko.DefenseValue());
+            Zbyszko.rightHand.PutOn(miecz);
+     
         }
 
 
@@ -115,10 +80,32 @@ namespace UnitTestProject1
             Console.WriteLine("Spodnie {0}", Zbyszko.legs.Clothes.Defense);
 
         }
+        [TestMethod]
+        public void WarriorWearHelmet()
+        {
+            Helmet superhelm = new Helmet();
 
+            Warrior Zbyszko = new Warrior() { Name = "Zbyszko" };
+            Zbyszko.head.PutOn(superhelm);
+        }
 
+        [TestMethod]
+        public void WarriorWearArmour()
+        {
+            Armour superzbroja = new Armour();
 
+            Warrior Zbyszko = new Warrior() { Name = "Zbyszko" };
+            Zbyszko.body.PutOn(superzbroja);
+        }
 
+        [TestMethod]
+        public void WarriorWearShield()
+        {
+            Shield superTarcza = new Shield();
+
+            Warrior Zbyszko = new Warrior() { Name = "Zbyszko" };
+            Zbyszko.leftHand.PutOn(superTarcza);
+        }
 
         [TestMethod]
         public void WarriorHasMoney()

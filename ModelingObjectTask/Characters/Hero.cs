@@ -28,6 +28,7 @@ namespace ModelingObjectTask
         public RightHand rightHand { get; set; }
         public Legs legs { get; set; }
 
+        public List<BodyPart> bodyPart = new List<BodyPart>();
         public List<Item> equipment = new List<Item>();
 
         public Hero()
@@ -61,11 +62,12 @@ namespace ModelingObjectTask
         {
             get
             {
-                return defensePoint;
+                var sum = bodyPart.Where(x => x.Alive == true).Sum(x => x.Clothes.Defense);
+                return defensePoint + sum;
             }
             set
             {
-                defensePoint = value;
+                defensePoint = value ;
             }
         }
 
