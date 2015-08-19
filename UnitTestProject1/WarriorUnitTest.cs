@@ -26,7 +26,7 @@ namespace UnitTestProject1
             Console.WriteLine("Warrior AttackValue(): {0}", Geralt.AttackValue());
             Console.WriteLine("Warrior DefenseValue(): {0}", Geralt.DefenseValue());
 
-            Geralt.HealthPoints = 100;
+          //  Geralt.HealthPoints = 100;
             Console.WriteLine("Warrior HealthPoints: {0}", Geralt.HealthPoints);
             Console.WriteLine("Warrior HealthPointsNow: {0}", Geralt.HealthPointsNow);
 
@@ -64,6 +64,8 @@ namespace UnitTestProject1
 
             Warrior Zbyszko = new Warrior() { Name = "Zbyszko" };
             Zbyszko.rightHand.PutOn(miecz);
+
+            Console.WriteLine("Warrior Helmet Name{0}", Zbyszko.rightHand.Item.Name);
      
         }
 
@@ -76,17 +78,28 @@ namespace UnitTestProject1
             Warrior Zbyszko = new Warrior() { Name = "Zbyszko" };
             Zbyszko.legs.PutOn(jeansy);
 
-
             Console.WriteLine("Spodnie {0}", Zbyszko.legs.Clothes.Defense);
+
+            Trousers noweJeansy = new Trousers() { Defense = 22};
+
+            Warrior Zbyszko2 = new Warrior() { Name = "Zbyszko2" };
+            Zbyszko2.legs.PutOn(noweJeansy);
+
+            Console.WriteLine("{0} Spodnie {1}", Zbyszko2.Name, Zbyszko2.legs.Clothes.Defense);
 
         }
         [TestMethod]
         public void WarriorWearHelmet()
         {
-            Helmet superhelm = new Helmet();
+            Helmet superhelm = new Helmet()
+            {
+                Name = "super Heøm"
+            };
 
             Warrior Zbyszko = new Warrior() { Name = "Zbyszko" };
             Zbyszko.head.PutOn(superhelm);
+
+            Console.WriteLine("Warrior Helmet Name: {0}", Zbyszko.head.Clothes.Name);
         }
 
         [TestMethod]

@@ -10,9 +10,9 @@ namespace ModelingObjectTask
     public abstract class Hero : ICloneable
     {
         protected string name;
-        protected bool isAlive;
         protected int agility;
         protected int capacity;
+        protected int capacityNow;
         protected int defensePoint;
         protected int healthPoints;
         protected int healthPointsNow;
@@ -33,7 +33,7 @@ namespace ModelingObjectTask
 
         public Hero()
         {
-            isAlive = true;            
+            IsAlive = true;            
             Agility = new Random().Next(2, 12);
             DefensePoint = new Random().Next(3, 18);
             HealthPoints = 200;
@@ -57,6 +57,12 @@ namespace ModelingObjectTask
                 agility = value;
             }
         }
+        public int Capacity
+        {
+            get { return capacity; }
+            set { capacity = value; }
+        }
+
 
         public int DefensePoint
         {
@@ -67,7 +73,7 @@ namespace ModelingObjectTask
             }
             set
             {
-                defensePoint = value ;
+                defensePoint = (value > 0 ? value : 0);
             }
         }
 
@@ -79,7 +85,7 @@ namespace ModelingObjectTask
             }
             set
             {
-                healthPoints = value;
+                healthPoints = (value > 0 ? value : 0);
             }
         }
 
@@ -91,19 +97,14 @@ namespace ModelingObjectTask
             }
             set
             {
-                healthPointsNow = value;
+                healthPointsNow = (value > 0 ? value : 0);
+                IsAlive = healthPointsNow > 0;
             }
         }
         public bool IsAlive
         {
-            get
-            {
-                return isAlive;
-            }
-            set
-            {
-                isAlive = value;
-            }
+            get;
+            private set;
         }
 
         public int MoneyAmount
@@ -121,7 +122,8 @@ namespace ModelingObjectTask
 
         public void AddItem(Item item)
         {
-            equipment.Add(item);
+            if((capacityNow + item.Weight)< capacity)
+                equipment.Add(item);
         }
 
         public void ChangeHealth(int strata)
@@ -152,7 +154,6 @@ namespace ModelingObjectTask
         public decimal DrawAttack() {
             return (decimal) 1 / new Random().Next(1, 6);
         }
-
 
         public override string ToString()
         {

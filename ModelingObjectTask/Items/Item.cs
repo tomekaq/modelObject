@@ -8,8 +8,8 @@ namespace ModelingObjectTask.Items
         protected int weight;
 
         public string Name { get { return name; } set { name = value; } }
-        public int Price { get { return price; } set { price = value; } }
-        public int Weight { get { return weight; } set { weight = value; } }
+        public int Price { get { return price; } set { price = (value> 0? value: 0); } }
+        public int Weight { get { return weight; } set { weight = (value > 0 ? value : 0);; } }
 
     }
 }
