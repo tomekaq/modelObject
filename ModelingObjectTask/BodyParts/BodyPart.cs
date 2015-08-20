@@ -13,6 +13,7 @@ namespace ModelingObjectTask.BodyParts
 
         public BodyPart()
         {
+            Alive = true;
         }
 
         public bool Alive

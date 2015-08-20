@@ -7,7 +7,9 @@ namespace ModelingObjectTask.BodyParts
     {
         public LeftHand()
         {
+            health = 1;
         }
+
         public override void PutOn(Item item)
         {
             Type t = item.GetType();

@@ -9,11 +9,14 @@ namespace ModelingObjectTask
     {
         static void Main(string[] args)
         {
-            Weapon miecz = new Weapon() { Attack = 11,
-            Defense =11};
+            Armour superzbroja = new Armour()
+            {
+                Defense = 10
+            };
+
             Warrior Geralt = new Warrior();
-            Geralt.rightHand.PutOn(miecz);
-            var bb = Geralt.rightHand.Item;
+     //       Geralt.rightHand.PutOn(miecz);
+       //     var bb = Geralt.rightHand.Item;
             Console.ReadLine();
         }
     }

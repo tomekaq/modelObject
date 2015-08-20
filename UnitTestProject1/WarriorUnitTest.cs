@@ -56,8 +56,8 @@ namespace UnitTestProject1
             Weapon miecz = new Weapon()
             {
                 Name = "super miecz",
-                Attack = 23,
-                Defense = 10,
+    //            Attack = 23,
+  //              Defense = 10,
                 Weight = 32,
                 Price = 100
             };

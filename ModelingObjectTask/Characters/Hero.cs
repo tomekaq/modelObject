@@ -33,7 +33,7 @@ namespace ModelingObjectTask
 
         public Hero()
         {
-            IsAlive = true;            
+            IsAlive = true;
             Agility = new Random().Next(2, 12);
             DefensePoint = new Random().Next(3, 18);
             HealthPoints = 200;
@@ -44,6 +44,11 @@ namespace ModelingObjectTask
             leftHand = new LeftHand();
             rightHand = new RightHand();
             legs = new Legs();
+            bodyPart.Add(body);
+            bodyPart.Add(head);
+       //     bodyPart.Add(leftHand);
+      //      bodyPart.Add(rightHand);
+            bodyPart.Add(legs);
         }
 
         public int Agility
@@ -68,8 +73,10 @@ namespace ModelingObjectTask
         {
             get
             {
+                
                 var sum = bodyPart.Where(x => x.Alive == true).Sum(x => x.Clothes.Defense);
-                return defensePoint + sum;
+                return defensePoint
+                    +sum;
             }
             set
             {
@@ -116,13 +123,13 @@ namespace ModelingObjectTask
             }
             set
             {
-                moneyAmount = value;        
+                moneyAmount = value;
             }
         }
 
         public void AddItem(Item item)
         {
-            if((capacityNow + item.Weight)< capacity)
+            if ((capacityNow + item.Weight) < capacity)
                 equipment.Add(item);
         }
 
@@ -151,8 +158,9 @@ namespace ModelingObjectTask
             return DefensePoint;
         }
 
-        public decimal DrawAttack() {
-            return (decimal) 1 / new Random().Next(1, 6);
+        public decimal DrawAttack()
+        {
+            return (decimal)1 / new Random().Next(1, 6);
         }
 
         public override string ToString()
@@ -161,7 +169,7 @@ namespace ModelingObjectTask
             sb.AppendFormat("Imię: {0} ", this.Name);
             sb.AppendFormat("Żywotność: {0:f}% ", (decimal)this.HealthPointsNow / this.HealthPoints * 100);
             sb.AppendFormat("Zręczność: {0} ", this.Agility);
-          //  sb.AppendFormat("Wartość Ataku: {0} ", this.AttackValue());
+            //  sb.AppendFormat("Wartość Ataku: {0} ", this.AttackValue());
             return sb.ToString();
         }
     }
