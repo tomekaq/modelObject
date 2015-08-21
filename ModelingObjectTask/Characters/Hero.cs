@@ -46,8 +46,8 @@ namespace ModelingObjectTask
             legs = new Legs();
             bodyPart.Add(body);
             bodyPart.Add(head);
-       //     bodyPart.Add(leftHand);
-      //      bodyPart.Add(rightHand);
+            bodyPart.Add(leftHand);
+            bodyPart.Add(rightHand);
             bodyPart.Add(legs);
         }
 
@@ -73,10 +73,7 @@ namespace ModelingObjectTask
         {
             get
             {
-                
-                var sum = bodyPart.Where(x => x.Alive == true).Sum(x => x.Clothes.Defense);
-                return defensePoint
-                    +sum;
+                return defensePoint;
             }
             set
             {
@@ -155,7 +152,11 @@ namespace ModelingObjectTask
 
         public int DefenseValue()
         {
-            return DefensePoint;
+            var sum = bodyPart
+                        .Where(x => x.Alive == true)
+                        .Where(x => x.Clothes != null)
+                        .Sum(x => x.Clothes.Defense);
+            return DefensePoint + sum;
         }
 
         public decimal DrawAttack()
@@ -166,10 +167,10 @@ namespace ModelingObjectTask
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("Imię: {0} ", this.Name);
-            sb.AppendFormat("Żywotność: {0:f}% ", (decimal)this.HealthPointsNow / this.HealthPoints * 100);
-            sb.AppendFormat("Zręczność: {0} ", this.Agility);
-            //  sb.AppendFormat("Wartość Ataku: {0} ", this.AttackValue());
+            sb.AppendFormat("Imię: {0} ", Name);
+            sb.AppendFormat("Żywotność: {0:f}% ", (decimal)HealthPointsNow / HealthPoints * 100);
+            sb.AppendFormat("Zręczność: {0} ", Agility);
+            sb.AppendFormat("Wartość Ataku: {0} ", AttackValue());
             return sb.ToString();
         }
     }

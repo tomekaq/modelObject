@@ -17,14 +17,14 @@ namespace UnitTestProject1
             Xardas.Agility = 34;
             Console.WriteLine("Warrior Agility: {0}", Xardas.Agility);
 
-            Xardas.DefensePoint = 342;
+            //Xardas.DefensePoint = 342;
             Console.WriteLine("Warrior DefensePoint: {0}", Xardas.DefensePoint);
 
-            Xardas.HealthPoints = 100;
+            //Xardas.HealthPoints = 100;
             Console.WriteLine("Warrior HealthPoints: {0}", Xardas.HealthPoints);
             Console.WriteLine("Warrior HealthPointsNow: {0}", Xardas.HealthPointsNow);
 
-            Xardas.HealthPointsNow -= 99;
+            Xardas.HealthPointsNow -= 199;
             Console.WriteLine("Warrior HealthPointsNow: {0}", Xardas.HealthPointsNow);
 
             Xardas.ChangeHealth(-1);
@@ -35,11 +35,36 @@ namespace UnitTestProject1
             Console.WriteLine("Warrior MoneyAmount: {0}", Xardas.MoneyAmount);
 
             Xardas.Name = "Sinowłosy";
-            Console.WriteLine("Warrior Name: {0}", Xardas.Name);
+            Console.WriteLine("Warrior Name: {0}", Xardas);
 
             Xardas.Name += "34";
-            Console.WriteLine("Warrior Name: {0}", Xardas.Name);
+            Console.WriteLine("Warrior Name: {0}", Xardas);
         }
+
+        [TestMethod]
+        public void MagWearMagicWeapon()
+        {
+            MagicWeapon superrozdzka = new MagicWeapon()
+            {
+                Attack = 22
+            };
+            Mag magiczny = new Mag() { 
+            Name = "magiczny"};
+
+            Console.WriteLine("{0} bez broni {1}",magiczny.Name,magiczny.AttackValue());
+
+            magiczny.leftHand.PutOn(superrozdzka);
+            magiczny.leftHand.PutOn(superrozdzka);
+
+            Console.WriteLine("{0} z bronia w lewej rece {1}", magiczny.Name, magiczny.AttackValue());
+
+
+            magiczny.rightHand.PutOn(superrozdzka);
+
+            Console.WriteLine("{0} w obu rękach {1}", magiczny.Name, magiczny.AttackValue());
+        }
+
+
         [TestMethod]
         public void MagWearFullArmour()
         {
@@ -63,16 +88,24 @@ namespace UnitTestProject1
 
             Mag magiczny = new Mag();
 
-          //  Console.WriteLine(magiczny.DefensePoint);
+            Console.WriteLine("{0} bez zbroji {1}",magiczny.Name,magiczny.DefenseValue());
 
             magiczny.head.PutOn(superhelm);
             magiczny.legs.PutOn(jeansy);
             magiczny.leftHand.PutOn(superTarcza);
             magiczny.body.PutOn(superzbroja);
 
-            Console.WriteLine(magiczny.DefensePoint);
+            Console.WriteLine("{0} z zalozona zbroja {1}", magiczny.Name, magiczny.DefenseValue());
 
         }
+        [TestMethod]
+        public void MagDrinkHealthPotion()
+        {
+            Mag magiczny = new Mag();
+            
+
+        }
+
     }
 }
 

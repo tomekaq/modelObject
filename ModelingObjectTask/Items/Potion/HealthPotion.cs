@@ -8,6 +8,6 @@ namespace ModelingObjectTask.Items
 {
     class HealthPotion : Potion
     {
-        public int Value;
+        public int Heal { get; set; }
     }
 }

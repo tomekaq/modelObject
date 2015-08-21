@@ -10,7 +10,6 @@ namespace ModelingObjectTask
         public Mag()
         {
             this.Name = "Xardas";
-            this.HealthPoints = 1000;
             this.Strength = new Random().Next(1, 6);
             this.Mana = new Random().Next(2, 12);
         }
@@ -41,11 +40,18 @@ namespace ModelingObjectTask
 
         public override int AttackValue()
         {
-            if (leftHand.Item != null  && leftHand.Item.GetType() == typeof(MagicWeapon))
-                return (Strength + Mana  ) * Agility * new Random().Next(2, 12);
+            var sumAttack = 0;
+            if (leftHand.Item != null && leftHand.Item.GetType() == typeof(MagicWeapon))
+            {
+                var weapon = (MagicWeapon)leftHand.Item;
+                sumAttack += weapon.Attack;
+            }
             if (rightHand.Item != null && rightHand.Item.GetType() == typeof(MagicWeapon))
-                return (Strength + Mana) * Agility * new Random().Next(2, 12);
-            return (this.Mana + this.Strength) * Agility * new Random().Next(2, 12);
+            {
+                var weapon = (MagicWeapon)rightHand.Item;
+                sumAttack += weapon.Attack;
+            }
+            return (Mana + Strength + sumAttack) * Agility * new Random().Next(2, 12);
         }
 
     }

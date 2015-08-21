@@ -1,6 +1,7 @@
 ﻿
 using ModelingObjectTask.Items;
 using System;
+using System.Linq;
 
 namespace ModelingObjectTask
 {
@@ -9,9 +10,8 @@ namespace ModelingObjectTask
         public Warrior()
         {
             this.Name = "Geralt";
-            this.HealthPoints = 200;
             this.Strength = new Random().Next(3, 18);
-            this.Agility = new Random().Next(2, 12);
+            //this.Agility = new Random().Next(2, 12);
         }
 
         public override string Name
@@ -40,7 +40,18 @@ namespace ModelingObjectTask
 
         public override int AttackValue()
         {
-            return Strength;
+            var sumAttack = 0;
+            if (leftHand.Item != null && leftHand.Item.GetType()== typeof(Weapon))
+            {
+                var weapon = (Weapon)leftHand.Item;;
+                sumAttack += weapon.Attack;
+            }
+            if (rightHand.Item != null && rightHand.Item.GetType() == typeof(Weapon))
+            {
+                var weapon = (Weapon)rightHand.Item; ;
+                sumAttack += weapon.Attack;
+            }
+            return (Strength +sumAttack) * Agility * new Random().Next(2, 12);
         }
     }
 }

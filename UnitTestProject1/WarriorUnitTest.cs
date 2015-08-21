@@ -56,50 +56,23 @@ namespace UnitTestProject1
             Weapon miecz = new Weapon()
             {
                 Name = "super miecz",
-    //            Attack = 23,
-  //              Defense = 10,
+                Attack = 23,
+                Defense = 10,
                 Weight = 32,
                 Price = 100
             };
 
             Warrior Zbyszko = new Warrior() { Name = "Zbyszko" };
+
+            Console.WriteLine("Warrior Attack without weapon: {0}", Zbyszko.AttackValue());
+
             Zbyszko.rightHand.PutOn(miecz);
 
-            Console.WriteLine("Warrior Helmet Name{0}", Zbyszko.rightHand.Item.Name);
-     
-        }
+            Console.WriteLine("Warrior Attack with sword in right hand: {0}", Zbyszko.AttackValue());
 
+            Zbyszko.leftHand.PutOn(miecz);
 
-        [TestMethod]
-        public void WarriorWearTrousers()
-        {
-            Trousers jeansy = new Trousers(); 
-
-            Warrior Zbyszko = new Warrior() { Name = "Zbyszko" };
-            Zbyszko.legs.PutOn(jeansy);
-
-            Console.WriteLine("Spodnie {0}", Zbyszko.legs.Clothes.Defense);
-
-            Trousers noweJeansy = new Trousers() { Defense = 22};
-
-            Warrior Zbyszko2 = new Warrior() { Name = "Zbyszko2" };
-            Zbyszko2.legs.PutOn(noweJeansy);
-
-            Console.WriteLine("{0} Spodnie {1}", Zbyszko2.Name, Zbyszko2.legs.Clothes.Defense);
-
-        }
-        [TestMethod]
-        public void WarriorWearHelmet()
-        {
-            Helmet superhelm = new Helmet()
-            {
-                Name = "super Heøm"
-            };
-
-            Warrior Zbyszko = new Warrior() { Name = "Zbyszko" };
-            Zbyszko.head.PutOn(superhelm);
-
-            Console.WriteLine("Warrior Helmet Name: {0}", Zbyszko.head.Clothes.Name);
+            Console.WriteLine("Warrior Attack with sword in right hand: {0}", Zbyszko.AttackValue());
         }
 
         [TestMethod]
@@ -107,17 +80,70 @@ namespace UnitTestProject1
         {
             Armour superzbroja = new Armour();
 
+            Console.WriteLine("Zbroja {0}", superzbroja.Defense);
+
             Warrior Zbyszko = new Warrior() { Name = "Zbyszko" };
+
+            Console.WriteLine("Obrona Postaci bez zbroji: {0}", Zbyszko.DefenseValue());
+
             Zbyszko.body.PutOn(superzbroja);
+
+            Console.WriteLine("Obrona Postaci z zalozona zbroja: {0}", Zbyszko.DefenseValue());
+
+        }
+
+        [TestMethod]
+        public void WarriorWearHelmet()
+        {
+            Helmet superhelm = new Helmet()
+            {
+                Name = "super Helm"
+            };
+
+            Warrior Zbyszko = new Warrior() { Name = "Zbyszko" };
+
+            Console.WriteLine("Obrona Postaci bez hełmu: {0}", Zbyszko.DefenseValue());
+
+            Zbyszko.head.PutOn(superhelm);
+
+            Console.WriteLine("Obrona Postaci z zalozonym hełmem: {0}", Zbyszko.DefenseValue());
+        
         }
 
         [TestMethod]
         public void WarriorWearShield()
         {
-            Shield superTarcza = new Shield();
+            Shield superTarcza = new Shield() { Defense = 2};
 
             Warrior Zbyszko = new Warrior() { Name = "Zbyszko" };
+        //    Zbyszko.leftHand.PutOn(superTarcza);
+
+            Console.WriteLine("Obrona Postaci bez tarczy: {0}", Zbyszko.DefenseValue());
+
             Zbyszko.leftHand.PutOn(superTarcza);
+
+            Console.WriteLine("Obrona Postaci z zalozona tarcza: {0}", Zbyszko.DefenseValue());
+
+            Zbyszko.rightHand.PutOn(superTarcza);
+
+            Console.WriteLine("Obrona Postaci z zalozonymi dwiem tarczami: {0}", Zbyszko.DefenseValue());
+
+        }
+
+        [TestMethod]
+        public void WarriorWearTrousers()
+        {
+            Trousers jeansy = new Trousers();
+
+            Warrior Zbyszko = new Warrior() { Name = "Zbyszko" };
+
+            Console.WriteLine("Obrona Postaci bez spodnii: {0}", Zbyszko.DefenseValue());
+
+            Zbyszko.legs.PutOn(jeansy);
+
+            Console.WriteLine("Obrona Postaci z zalozonymi spodniami: {0}", Zbyszko.DefenseValue());
+
+         
         }
 
         [TestMethod]
