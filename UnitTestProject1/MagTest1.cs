@@ -11,7 +11,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void MagParametr()
         {
-            var Xardas = new Mag();
+            var Xardas = new Mag(){HealthPoints = 10000};
 
             Console.WriteLine(Xardas);
             Xardas.Agility = 34;
@@ -20,7 +20,6 @@ namespace UnitTestProject1
             //Xardas.DefensePoint = 342;
             Console.WriteLine("Warrior DefensePoint: {0}", Xardas.DefensePoint);
 
-            //Xardas.HealthPoints = 100;
             Console.WriteLine("Warrior HealthPoints: {0}", Xardas.HealthPoints);
             Console.WriteLine("Warrior HealthPointsNow: {0}", Xardas.HealthPointsNow);
 
@@ -74,7 +73,8 @@ namespace UnitTestProject1
             };
             Helmet superhelm = new Helmet()
             {
-                Name = "super Heøm"
+                Name = "super Hełm",
+                   Defense = 10
             };
 
             Shield superTarcza = new Shield()
@@ -103,20 +103,81 @@ namespace UnitTestProject1
         {
             Mag magiczny = new Mag();
             
-
         }
 
+        [TestMethod]
+        public void MagChangeWeapon()
+        {
+            Mag magiczny = new Mag();
+
+            MagicWeapon superrozdzka = new MagicWeapon()
+            {
+                Attack = 22
+            };
+
+            magiczny.leftHand.PutOn(superrozdzka);
+            Console.WriteLine("{0} z dobra bronia {1}", magiczny.Name, magiczny.AttackValue());
+
+            MagicWeapon zlarozdzka = new MagicWeapon()
+            {
+                Attack =0
+            };
+
+            magiczny.leftHand.PutOn(zlarozdzka);
+
+            Console.WriteLine("{0} z zla bronia {1}", magiczny.Name, magiczny.AttackValue());
+
+        }
+        [TestMethod]
+        public void MagTryUseWeaponInLeftHand()
+        {
+            Mag magiczny = new Mag() {
+
+                leftHand = new ModelingObjectTask.BodyParts.LeftHand()
+                {
+                    Health = 0
+                }
+            };
+            Console.WriteLine("Atak {0} bez broni: {1}", magiczny.Name, magiczny.AttackValue());
+            Console.WriteLine("Obrona {0} bez bronia: {1}", magiczny.Name, magiczny.DefenseValue());
+            MagicWeapon superrozdzka = new MagicWeapon()
+            {
+                Attack = 22,
+                Defense =200
+            };
+
+            magiczny.leftHand.PutOn(superrozdzka);
+
+            Console.WriteLine("Atak {0} z bronia: {1}", magiczny.Name, magiczny.AttackValue());
+            Console.WriteLine("Obrona {0} z bronia: {1}", magiczny.Name, magiczny.DefenseValue());
+        
+        }
+        public void MagTryUseWeaponInRightHand()
+        {
+            Mag magiczny = new Mag()
+            {
+                rightHand = new ModelingObjectTask.BodyParts.RightHand()
+                {
+                    Health = 0
+                }
+            };
+
+            Console.WriteLine("Atak {0} bez broni: {1}", magiczny.Name, magiczny.AttackValue());
+            Console.WriteLine("Obrona {0} bez bronia: {1}", magiczny.Name, magiczny.DefenseValue());
+            MagicWeapon superrozdzka = new MagicWeapon()
+            {
+                Attack = 22,
+                Defense = 200
+            };
+
+            magiczny.rightHand.PutOn(superrozdzka);
+
+            Console.WriteLine("Atak {0} z bronia: {1}", magiczny.Name, magiczny.AttackValue());
+            Console.WriteLine("Obrona {0} z bronia: {1}", magiczny.Name, magiczny.DefenseValue());
+
+        }
     }
 }
-
-
-
-
-
-
-
-
-
 
 
 

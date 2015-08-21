@@ -49,6 +49,71 @@ namespace UnitTestProject1
             Geralt.Strength = 2;
             Console.WriteLine("Warrior Name: {0}", Geralt.Strength);
         }
+        [TestMethod]
+        public void WarriorClone()
+        {
+            var StartGeralt = new Warrior();
+            Console.WriteLine(StartGeralt);
+
+            var sklonowanyGeralt = StartGeralt.Clone();
+            Console.WriteLine(sklonowanyGeralt);
+            
+        }
+
+        [TestMethod]
+        public void WarriorHasMoney()
+        {
+            List<Money> moneyList = new List<Money>();
+            var bl = Enumerable.Range(1, 23).Select(x => new Money());
+            moneyList.AddRange(bl);
+
+            var Geralt = new Warrior();
+
+            List<Money> moneyList2 = new List<Money>();
+            var bl2 = Enumerable.Range(1, 23).Select(x => new Money() { Price = 2 });
+            moneyList2.AddRange(bl);
+
+            var Geralt2 = new Warrior();
+
+            moneyList2.ForEach(x => Geralt.AddItem(x));
+            Console.WriteLine(Geralt.MoneyAmount - 23);
+            Console.WriteLine(Geralt.MoneyAmount);
+        }
+        [TestMethod]
+        public void WarriorWearFullArmour()
+        {
+            Armour superzbroja = new Armour()
+            {
+                Defense = 10
+            };
+            Helmet superhelm = new Helmet()
+            {
+                Name = "super Hełm",
+                Defense = 10
+            };
+
+            Shield superTarcza = new Shield()
+            {
+                Defense = 10
+            };
+            Trousers jeansy = new Trousers()
+            {
+                Defense = 10
+            };
+
+            Warrior wojownik = new Warrior();
+
+            Console.WriteLine("{0} bez zbroji {1}", wojownik.Name, wojownik.DefenseValue());
+
+            wojownik.body.PutOn(superzbroja);
+            wojownik.head.PutOn(superhelm);
+            wojownik.legs.PutOn(jeansy);
+            wojownik.leftHand.PutOn(superTarcza);
+
+
+            Console.WriteLine("{0} z zalozona zbroja {1}", wojownik.Name, wojownik.DefenseValue());
+
+        }
 
         [TestMethod]
         public void WarriorWearSword()
@@ -116,8 +181,7 @@ namespace UnitTestProject1
             Shield superTarcza = new Shield() { Defense = 2};
 
             Warrior Zbyszko = new Warrior() { Name = "Zbyszko" };
-        //    Zbyszko.leftHand.PutOn(superTarcza);
-
+  
             Console.WriteLine("Obrona Postaci bez tarczy: {0}", Zbyszko.DefenseValue());
 
             Zbyszko.leftHand.PutOn(superTarcza);
@@ -143,39 +207,6 @@ namespace UnitTestProject1
 
             Console.WriteLine("Obrona Postaci z zalozonymi spodniami: {0}", Zbyszko.DefenseValue());
 
-         
         }
-
-        [TestMethod]
-        public void WarriorHasMoney()
-        {
-            List<Money> moneyList = new List<Money>();
-            var bl = Enumerable.Range(1, 23).Select(x => new Money());
-            moneyList.AddRange(bl);
-
-            var Geralt = new Warrior();
-
-            List<Money> moneyList2 = new List<Money>();
-            var bl2 = Enumerable.Range(1, 23).Select(x => new Money() { Price = 2 });
-            moneyList2.AddRange(bl);
-
-            var Geralt2 = new Warrior();
-
-            moneyList2.ForEach(x => Geralt.AddItem(x));
-            Console.WriteLine(Geralt.MoneyAmount - 23);
-            Console.WriteLine(Geralt.MoneyAmount);
-        }
-
-        [TestMethod]
-        public void WarriorClone()
-        {
-            var StartGeralt = new Warrior();
-            Console.WriteLine(StartGeralt);
-
-            var sklonowanyGeralt = StartGeralt.Clone();
-            Console.WriteLine(sklonowanyGeralt);
-
-        }
-
     }
 }

@@ -11,7 +11,7 @@ namespace ModelingObjectTask
         {
             this.Name = "Geralt";
             this.Strength = new Random().Next(3, 18);
-            //this.Agility = new Random().Next(2, 12);
+            this.Agility = new Random().Next(2, 12);
         }
 
         public override string Name

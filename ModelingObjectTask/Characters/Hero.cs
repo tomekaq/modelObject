@@ -33,11 +33,11 @@ namespace ModelingObjectTask
 
         public Hero()
         {
+            var rand = new Random();
             IsAlive = true;
-            Agility = new Random().Next(2, 12);
+            Agility = rand.Next(1, 12);
             DefensePoint = new Random().Next(3, 18);
-            HealthPoints = 200;
-            HealthPointsNow = HealthPoints;
+            this.HealthPointsNow = HealthPoints;
 
             body = new Body();
             head = new Head();
@@ -132,15 +132,27 @@ namespace ModelingObjectTask
 
         public void ChangeHealth(int strata)
         {
-            if (HealthPointsNow + strata < 1)
+            if (HealthPointsNow + strata <= 0)
             {
                 HealthPointsNow = 0;
                 IsAlive = false;
             }
+            if (!legs.Alive) { 
+                Agility = 1;
+            }
+
+            if (!body.Alive || !head.Alive)
+            {
+                IsAlive = false;
+            }
+
             else if ((this.HealthPointsNow + strata) - this.HealthPoints > 100)
                 this.HealthPointsNow = this.HealthPoints;
             else
+            {
+                bodyPart.Select(x => x.Health += strata);
                 this.HealthPointsNow += strata;
+            }
         }
 
         public virtual object Clone()

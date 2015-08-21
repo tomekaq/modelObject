@@ -12,6 +12,7 @@ namespace ModelingObjectTask.BodyParts
 
         public override void PutOn(Item item)
         {
+
             Type t = item.GetType();
             if (t == typeof(Shield))
             { 
