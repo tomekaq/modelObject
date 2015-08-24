@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ModelingObjectTask;
 using ModelingObjectTask.Items;
 using ModelingObjectTask.BodyParts;
+using System.Linq;
 
 namespace UnitTestProject1
 {
@@ -70,8 +71,9 @@ namespace UnitTestProject1
 
 
         [TestMethod]
-        public void MagWearFullArmour()
+        public void WizzardDefenseShouldBeRelatedToWearedItems()
         {
+            //given
             Armour superzbroja = new Armour()
             {
                 Defense = 20
@@ -93,21 +95,64 @@ namespace UnitTestProject1
 
             Mag magiczny = new Mag();
 
-            Console.WriteLine("{0} bez zbroji {1}",magiczny.Name,magiczny.DefenseValue());
+            //when
+           
+            var defValue = magiczny.DefenseValue();
 
             magiczny.head.PutOn(superhelm);
             magiczny.legs.PutOn(jeansy);
             magiczny.leftHand.PutOn(superTarcza);
             magiczny.body.PutOn(superzbroja);
 
-            Console.WriteLine("{0} z zalozona zbroja {1}", magiczny.Name, magiczny.DefenseValue());
-
+            var fullArmorDefValue = magiczny.DefenseValue();
+            
+            //then
+            Assert.IsTrue(defValue < fullArmorDefValue, "Defense value should be greater when you wear something");
         }
+
         [TestMethod]
-        public void MagDrinkHealthPotion()
+        public void WizzardFirstPutOn()
         {
             Mag magiczny = new Mag();
+            Armour superzbroja = new Armour()
+            {
+                Defense = 20
+            };
+            magiczny.body.PutOn(superzbroja);
+            var t = magiczny.body.Clothes.FirstOrDefault();
+      
+            Assert.AreEqual(magiczny.body.Clothes.FirstOrDefault(), superzbroja);
+            //Character should wear something he put on
         }
+
+        [TestMethod]
+        public void WizzardNextPutOn()
+        {
+            Mag magiczny = new Mag();
+            Armour superzbroja1 = new Armour()
+            {
+                Defense = 20
+            };
+            Armour superzbroja2 = new Armour()
+            {
+                Defense = 20
+            };
+            Armour superzbroja3 = new Armour()
+            {
+                Defense = 20
+            };
+
+            magiczny.body.Items.Add(superzbroja1);
+            magiczny.body.Items.Add(superzbroja2);
+
+            magiczny.body.PutOn(superzbroja3);
+
+            
+
+            Assert.AreEqual(magiczny.body.Clothes.FirstOrDefault(), superzbroja3);
+            //Character should wear something he put on
+        }
+
 
         [TestMethod]
         public void MagChangeWeapon()
@@ -121,7 +166,10 @@ namespace UnitTestProject1
             };
 
             magiczny.leftHand.PutOn(superrozdzka);
-            Console.WriteLine("{0} z dobra bronia {1}", magiczny.Name, magiczny.AttackValue());
+           // Console.WriteLine("{0} z dobra bronia {1}", magiczny.Name, magiczny.AttackValue());
+       //     new OracleDiceProvider().Add(1).Add(1).Build();
+
+            var goodAttack = magiczny.AttackValue();
 
             MagicWeapon zlarozdzka = new MagicWeapon()
             {
@@ -129,8 +177,11 @@ namespace UnitTestProject1
             };
 
             magiczny.leftHand.PutOn(zlarozdzka);
-
-            Console.WriteLine("{0} z zla bronia {1}", magiczny.Name, magiczny.AttackValue());
+            var badAttack = magiczny.AttackValue();
+            
+            Assert.IsTrue(goodAttack > badAttack, "Attack with better weapon is greater");
+            
+            //Console.WriteLine("{0} z zla bronia {1}", magiczny.Name, magiczny.AttackValue());
         }
         
         [TestMethod]
@@ -155,12 +206,14 @@ namespace UnitTestProject1
 
             Console.WriteLine("Atak {0} z bronia: {1}", magiczny.Name, magiczny.AttackValue());
             Console.WriteLine("Obrona {0} z bronia: {1}", magiczny.Name, magiczny.DefenseValue());
+
+        
         }
 
         [TestMethod]
         public void MagTryUseWeaponInRightHand()
         {
-            Mag magiczny = new Mag()
+            Mag magiczny1 = new Mag()
             {
                 rightHand = new RightHand()
                 {
@@ -168,18 +221,18 @@ namespace UnitTestProject1
                 }
             };
 
-            Console.WriteLine("Atak {0} bez broni: {1}", magiczny.Name, magiczny.AttackValue());
-            Console.WriteLine("Obrona {0} bez bronia: {1}", magiczny.Name, magiczny.DefenseValue());
+            Console.WriteLine("Atak {0} bez broni: {1}", magiczny1.Name, magiczny1.AttackValue());
+            Console.WriteLine("Obrona {0} bez bronia: {1}", magiczny1.Name, magiczny1.DefenseValue());
             MagicWeapon superrozdzka = new MagicWeapon()
             {
                 Attack = 22,
                 Defense = 200
             };
 
-            magiczny.rightHand.PutOn(superrozdzka);
+            magiczny1.rightHand.PutOn(superrozdzka);
 
-            Console.WriteLine("Atak {0} z bronia: {1}", magiczny.Name, magiczny.AttackValue());
-            Console.WriteLine("Obrona {0} z bronia: {1}", magiczny.Name, magiczny.DefenseValue());
+            Console.WriteLine("Atak {0} z bronia: {1}", magiczny1.Name, magiczny1.AttackValue());
+            Console.WriteLine("Obrona {0} z bronia: {1}", magiczny1.Name, magiczny1.DefenseValue());
         }
 
         [TestMethod]

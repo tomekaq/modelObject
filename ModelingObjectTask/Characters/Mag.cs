@@ -43,9 +43,8 @@ namespace ModelingObjectTask
         {
             var sumAttack = bodyPart
                     .Where(x => x.Alive == true)
-                    .Where(x => x.Items.GetType() == typeof(MagicWeapon))
                     .Sum(x => x.Items.Cast<MagicWeapon>().Select(c => c.Attack).Sum());
-            return (Mana + Strength + sumAttack) * Agility * new Random().Next(1, 6);
+            return (Mana + Strength + sumAttack) * Agility * DiceProvider.Instance.Throw(1, 6);
         }
 
     }

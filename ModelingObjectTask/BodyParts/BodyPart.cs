@@ -10,7 +10,7 @@ namespace ModelingObjectTask.BodyParts
         //protected bool alive;
         protected int health; 
 
-        protected List<Item> items = new List<Item>();
+        protected readonly List<Item> items = new List<Item>();
 
 
         public BodyPart()
@@ -53,9 +53,9 @@ namespace ModelingObjectTask.BodyParts
             }
         }
 
-        public virtual void PutOn(Item item)
+        public virtual void PutOn<T>(T item) where T:Item
         {
-            var t = Items.Where(x => x.GetType() == item.GetType());
+            var t = Items.Where(x => x is T);
             Items.Remove(t.FirstOrDefault());
             this.Items.Add(item);
         }

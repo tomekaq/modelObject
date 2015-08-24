@@ -160,7 +160,7 @@ namespace ModelingObjectTask
             var sumDefense = bodyPart
                         .Where(x => x.Alive == true)
                         .Where(x => x.Clothes != null)
-                        .Sum(x => x.Clothes.Select(c=>c.Defense).Sum());
+                        .Select(x => x.Clothes.Select(c=>c.Defense).Sum()).First();
             return (DefensePoint + sumDefense) * Agility * new Random().Next(1, 6);
         }
 
