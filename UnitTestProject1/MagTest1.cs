@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ModelingObjectTask;
 using ModelingObjectTask.Items;
+using ModelingObjectTask.BodyParts;
 
 namespace UnitTestProject1
 {
@@ -11,33 +12,37 @@ namespace UnitTestProject1
         [TestMethod]
         public void MagParametr()
         {
-            var Xardas = new Mag(){HealthPoints = 10000};
+            var Xardas = new Mag() 
+            {
+                HealthPoints = 10000,
+                HealthPointsNow = 10000 
+            };
 
             Console.WriteLine(Xardas);
             Xardas.Agility = 34;
-            Console.WriteLine("Warrior Agility: {0}", Xardas.Agility);
-
+            Console.WriteLine("Mag Agility: {0}", Xardas.Agility);
+  
             //Xardas.DefensePoint = 342;
-            Console.WriteLine("Warrior DefensePoint: {0}", Xardas.DefensePoint);
+            Console.WriteLine("Mag DefensePoint: {0}", Xardas.DefensePoint);
 
-            Console.WriteLine("Warrior HealthPoints: {0}", Xardas.HealthPoints);
-            Console.WriteLine("Warrior HealthPointsNow: {0}", Xardas.HealthPointsNow);
+            Console.WriteLine("Mag HealthPoints: {0}", Xardas.HealthPoints);
+            Console.WriteLine("Mag HealthPointsNow: {0}", Xardas.HealthPointsNow);
 
             Xardas.HealthPointsNow -= 199;
-            Console.WriteLine("Warrior HealthPointsNow: {0}", Xardas.HealthPointsNow);
+            Console.WriteLine("Mag HealthPointsNow: {0}", Xardas.HealthPointsNow);
 
             Xardas.ChangeHealth(-1);
-            Console.WriteLine("Warrior HealthPointsNow: {0}", Xardas.HealthPointsNow);
-            Console.WriteLine("Warrior is Alive ?: {0}", Xardas.IsAlive);
+            Console.WriteLine("Mag HealthPointsNow: {0}", Xardas.HealthPointsNow);
+            Console.WriteLine("Mag is Alive ?: {0}", Xardas.IsAlive);
 
             Xardas.MoneyAmount = 32;
-            Console.WriteLine("Warrior MoneyAmount: {0}", Xardas.MoneyAmount);
+            Console.WriteLine("Mag MoneyAmount: {0}", Xardas.MoneyAmount);
 
             Xardas.Name = "Sinowłosy";
-            Console.WriteLine("Warrior Name: {0}", Xardas);
+            Console.WriteLine("Mag Name: {0}", Xardas);
 
             Xardas.Name += "34";
-            Console.WriteLine("Warrior Name: {0}", Xardas);
+            Console.WriteLine("Mag Name: {0}", Xardas);
         }
 
         [TestMethod]
@@ -45,7 +50,7 @@ namespace UnitTestProject1
         {
             MagicWeapon superrozdzka = new MagicWeapon()
             {
-                Attack = 22
+                Attack = 30
             };
             Mag magiczny = new Mag() { 
             Name = "magiczny"};
@@ -69,21 +74,21 @@ namespace UnitTestProject1
         {
             Armour superzbroja = new Armour()
             {
-                Defense = 10
+                Defense = 20
             };
             Helmet superhelm = new Helmet()
             {
                 Name = "super Hełm",
-                   Defense = 10
+                   Defense = 20
             };
 
             Shield superTarcza = new Shield()
             {
-                Defense = 10
+                Defense = 20
             };
             Trousers jeansy = new Trousers()
             {
-                Defense = 10
+                Defense = 20
             };
 
             Mag magiczny = new Mag();
@@ -102,7 +107,6 @@ namespace UnitTestProject1
         public void MagDrinkHealthPotion()
         {
             Mag magiczny = new Mag();
-            
         }
 
         [TestMethod]
@@ -112,7 +116,8 @@ namespace UnitTestProject1
 
             MagicWeapon superrozdzka = new MagicWeapon()
             {
-                Attack = 22
+                Name = "super rozdzka",
+                Attack = 12
             };
 
             magiczny.leftHand.PutOn(superrozdzka);
@@ -126,8 +131,8 @@ namespace UnitTestProject1
             magiczny.leftHand.PutOn(zlarozdzka);
 
             Console.WriteLine("{0} z zla bronia {1}", magiczny.Name, magiczny.AttackValue());
-
         }
+        
         [TestMethod]
         public void MagTryUseWeaponInLeftHand()
         {
@@ -139,7 +144,7 @@ namespace UnitTestProject1
                 }
             };
             Console.WriteLine("Atak {0} bez broni: {1}", magiczny.Name, magiczny.AttackValue());
-            Console.WriteLine("Obrona {0} bez bronia: {1}", magiczny.Name, magiczny.DefenseValue());
+            Console.WriteLine("Obrona {0} bez broni: {1}", magiczny.Name, magiczny.DefenseValue());
             MagicWeapon superrozdzka = new MagicWeapon()
             {
                 Attack = 22,
@@ -150,13 +155,14 @@ namespace UnitTestProject1
 
             Console.WriteLine("Atak {0} z bronia: {1}", magiczny.Name, magiczny.AttackValue());
             Console.WriteLine("Obrona {0} z bronia: {1}", magiczny.Name, magiczny.DefenseValue());
-        
         }
+
+        [TestMethod]
         public void MagTryUseWeaponInRightHand()
         {
             Mag magiczny = new Mag()
             {
-                rightHand = new ModelingObjectTask.BodyParts.RightHand()
+                rightHand = new RightHand()
                 {
                     Health = 0
                 }
@@ -174,7 +180,35 @@ namespace UnitTestProject1
 
             Console.WriteLine("Atak {0} z bronia: {1}", magiczny.Name, magiczny.AttackValue());
             Console.WriteLine("Obrona {0} z bronia: {1}", magiczny.Name, magiczny.DefenseValue());
+        }
 
+        [TestMethod]
+        public void MagHasDeadHead() {
+
+            Mag magiczny = new Mag()
+            {
+                head = new Head 
+                {
+                    Health = 0
+                }
+
+            };
+            Console.WriteLine("Is Mag Alive? {0}",magiczny.IsAlive);
+        }
+
+        [TestMethod]
+        public void MagHasDeadBody()
+        {
+
+            Mag magiczny = new Mag()
+            {
+                body = new Body
+                {
+                    Health = 0
+                }
+
+            };
+            Console.WriteLine("Is Mag Alive? {0}", magiczny.IsAlive);
         }
     }
 }

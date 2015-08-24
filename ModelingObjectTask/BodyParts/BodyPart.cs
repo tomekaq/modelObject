@@ -1,4 +1,7 @@
 ﻿using ModelingObjectTask.Items;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ModelingObjectTask.BodyParts
 {
@@ -6,10 +9,9 @@ namespace ModelingObjectTask.BodyParts
     {
         //protected bool alive;
         protected int health; 
-        protected Clothes clothes;
-        protected Item item;
 
-        public abstract void PutOn(Item item);
+        protected List<Item> items = new List<Item>();
+
 
         public BodyPart()
         {
@@ -22,27 +24,19 @@ namespace ModelingObjectTask.BodyParts
             private set;
         }
 
-        public Clothes Clothes
+        public IEnumerable<Clothes> Clothes
         {
             get
             {
-                return clothes;
-            }
-            set
-            {
-                clothes = value;
+                return items.Where(i=> i is Clothes).Cast<Clothes>();
             }
         }
 
-        public Item Item
+        public List<Item> Items
         {
             get
             {
-                return item;
-            }
-            set
-            {
-                item = value;
+                return items;
             }
         }
 
@@ -58,6 +52,14 @@ namespace ModelingObjectTask.BodyParts
                 Alive = health > 0;
             }
         }
+
+        public virtual void PutOn(Item item)
+        {
+            var t = Items.Where(x => x.GetType() == item.GetType());
+            Items.Remove(t.FirstOrDefault());
+            this.Items.Add(item);
+        }
+
     }
 }
 

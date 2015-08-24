@@ -15,13 +15,6 @@ namespace ModelingObjectTask
             return this.MemberwiseClone();
         }
 
-        public object CloneHero(int index)
-        {
-            var t = druzynaPostaci[index].Clone();
-
-            return t;
-        }
-
         public void DodajPostac(Hero hero)
         {
             druzynaPostaci.Add(hero);

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace ModelingObjectTask
 {
-    public abstract class Hero : ICloneable
+    public abstract class Hero
     {
         protected string name;
         protected int agility;
@@ -37,7 +37,8 @@ namespace ModelingObjectTask
             IsAlive = true;
             Agility = rand.Next(1, 12);
             DefensePoint = new Random().Next(3, 18);
-            this.HealthPointsNow = HealthPoints;
+            HealthPoints = 2000;
+            HealthPointsNow = 2000;
 
             body = new Body();
             head = new Head();
@@ -130,6 +131,8 @@ namespace ModelingObjectTask
                 equipment.Add(item);
         }
 
+        public abstract int AttackValue();
+
         public void ChangeHealth(int strata)
         {
             if (HealthPointsNow + strata <= 0)
@@ -142,10 +145,7 @@ namespace ModelingObjectTask
             }
 
             if (!body.Alive || !head.Alive)
-            {
                 IsAlive = false;
-            }
-
             else if ((this.HealthPointsNow + strata) - this.HealthPoints > 100)
                 this.HealthPointsNow = this.HealthPoints;
             else
@@ -155,20 +155,13 @@ namespace ModelingObjectTask
             }
         }
 
-        public virtual object Clone()
-        {
-            return this.MemberwiseClone();
-        }
-
-        public abstract int AttackValue();
-
         public int DefenseValue()
         {
-            var sum = bodyPart
+            var sumDefense = bodyPart
                         .Where(x => x.Alive == true)
                         .Where(x => x.Clothes != null)
-                        .Sum(x => x.Clothes.Defense);
-            return DefensePoint + sum;
+                        .Sum(x => x.Clothes.Select(c=>c.Defense).Sum());
+            return (DefensePoint + sumDefense) * Agility * new Random().Next(1, 6);
         }
 
         public decimal DrawAttack()
@@ -180,7 +173,7 @@ namespace ModelingObjectTask
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendFormat("Imię: {0} ", Name);
-            sb.AppendFormat("Żywotność: {0:f}% ", (decimal)HealthPointsNow / HealthPoints * 100);
+            sb.AppendFormat("Żywotność: {0:f}% ", (decimal) HealthPointsNow / HealthPoints * 100);
             sb.AppendFormat("Zręczność: {0} ", Agility);
             sb.AppendFormat("Wartość Ataku: {0} ", AttackValue());
             return sb.ToString();

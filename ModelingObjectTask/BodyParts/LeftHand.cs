@@ -1,5 +1,6 @@
 ﻿using ModelingObjectTask.Items;
 using System;
+using System.Linq;
 
 namespace ModelingObjectTask.BodyParts
 {
@@ -7,20 +8,7 @@ namespace ModelingObjectTask.BodyParts
     {
         public LeftHand()
         {
-            health = 1;
-        }
-
-        public override void PutOn(Item item)
-        {
-            Type t = item.GetType();
-            if (t == typeof(Shield))
-            {
-                Clothes = (Clothes)item;
-            }
-            else if (t == typeof(Weapon) || t == typeof(MagicWeapon))
-            {
-                Item = item;
-            }
+            Health = 1;
         }
     }
 

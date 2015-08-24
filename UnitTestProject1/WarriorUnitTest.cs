@@ -13,7 +13,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void WarriorParametr()
         {
-            var Geralt = new Warrior();
+            var Geralt = new Warrior() { HealthPoints = 2000, HealthPointsNow = 2000 };
 
             Console.WriteLine(Geralt);
             Geralt.Agility = 34;
@@ -48,16 +48,6 @@ namespace UnitTestProject1
 
             Geralt.Strength = 2;
             Console.WriteLine("Warrior Name: {0}", Geralt.Strength);
-        }
-        [TestMethod]
-        public void WarriorClone()
-        {
-            var StartGeralt = new Warrior();
-            Console.WriteLine(StartGeralt);
-
-            var sklonowanyGeralt = StartGeralt.Clone();
-            Console.WriteLine(sklonowanyGeralt);
-            
         }
 
         [TestMethod]

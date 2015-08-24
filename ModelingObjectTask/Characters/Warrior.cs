@@ -9,9 +9,10 @@ namespace ModelingObjectTask
     {
         public Warrior()
         {
-            this.Name = "Geralt";
-            this.Strength = new Random().Next(3, 18);
-            this.Agility = new Random().Next(2, 12);
+            Name = "Geralt";
+            Strength = new Random().Next(3, 18);
+            Agility = new Random().Next(2, 12);
+            HealthPointsNow = HealthPoints;
         }
 
         public override string Name
@@ -40,18 +41,12 @@ namespace ModelingObjectTask
 
         public override int AttackValue()
         {
-            var sumAttack = 0;
-            if (leftHand.Item != null && leftHand.Item.GetType()== typeof(Weapon))
-            {
-                var weapon = (Weapon)leftHand.Item;;
-                sumAttack += weapon.Attack;
-            }
-            if (rightHand.Item != null && rightHand.Item.GetType() == typeof(Weapon))
-            {
-                var weapon = (Weapon)rightHand.Item; ;
-                sumAttack += weapon.Attack;
-            }
-            return (Strength +sumAttack) * Agility * new Random().Next(2, 12);
+            var sumAttack = bodyPart
+                     .Where(x => x.Alive == true)
+                     .Where(x => x.Items.GetType() == typeof(Weapon))
+                     .Sum(x => x.Items.Cast<Weapon>().Select(c => c.Attack).Sum());
+
+            return (Strength +sumAttack) * Agility * new Random().Next(1, 6);
         }
     }
 }

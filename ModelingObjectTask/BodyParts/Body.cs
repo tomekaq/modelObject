@@ -7,16 +7,8 @@ namespace ModelingObjectTask.BodyParts
     {
         public Body()
         {
-            health = 1;
+            Health = 1;
         }
 
-        public override void PutOn(Item item)
-        {
-            Type t = item.GetType();
-            if (t == typeof(Armour))
-            {
-                Clothes = (Clothes)item;
-            }
-        }
     }
 }
