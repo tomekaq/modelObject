@@ -59,7 +59,7 @@ namespace UnitTestProject1
             Console.WriteLine("{0} bez broni {1}",magiczny.Name,magiczny.AttackValue());
 
             magiczny.leftHand.PutOn(superrozdzka);
-            magiczny.leftHand.PutOn(superrozdzka);
+     //       magiczny.leftHand.PutOn(superrozdzka);
 
             Console.WriteLine("{0} z bronia w lewej rece {1}", magiczny.Name, magiczny.AttackValue());
 
@@ -68,7 +68,6 @@ namespace UnitTestProject1
 
             Console.WriteLine("{0} w obu rękach {1}", magiczny.Name, magiczny.AttackValue());
         }
-
 
         [TestMethod]
         public void WizzardDefenseShouldBeRelatedToWearedItems()
@@ -81,7 +80,7 @@ namespace UnitTestProject1
             Helmet superhelm = new Helmet()
             {
                 Name = "super Hełm",
-                   Defense = 20
+                Defense = 20
             };
 
             Shield superTarcza = new Shield()
@@ -119,8 +118,7 @@ namespace UnitTestProject1
                 Defense = 20
             };
             magiczny.body.PutOn(superzbroja);
-            var t = magiczny.body.Clothes.FirstOrDefault();
-      
+         
             Assert.AreEqual(magiczny.body.Clothes.FirstOrDefault(), superzbroja);
             //Character should wear something he put on
         }
@@ -146,7 +144,7 @@ namespace UnitTestProject1
             magiczny.body.Items.Add(superzbroja2);
 
             magiczny.body.PutOn(superzbroja3);
-
+           
             
 
             Assert.AreEqual(magiczny.body.Clothes.FirstOrDefault(), superzbroja3);
@@ -167,7 +165,7 @@ namespace UnitTestProject1
 
             magiczny.leftHand.PutOn(superrozdzka);
            // Console.WriteLine("{0} z dobra bronia {1}", magiczny.Name, magiczny.AttackValue());
-       //     new OracleDiceProvider().Add(1).Add(1).Build();
+            new OracleDiceProvider().Add(1).Add(1).Build();
 
             var goodAttack = magiczny.AttackValue();
 
@@ -181,7 +179,7 @@ namespace UnitTestProject1
             
             Assert.IsTrue(goodAttack > badAttack, "Attack with better weapon is greater");
             
-            //Console.WriteLine("{0} z zla bronia {1}", magiczny.Name, magiczny.AttackValue());
+           
         }
         
         [TestMethod]
@@ -194,8 +192,12 @@ namespace UnitTestProject1
                     Health = 0
                 }
             };
-            Console.WriteLine("Atak {0} bez broni: {1}", magiczny.Name, magiczny.AttackValue());
-            Console.WriteLine("Obrona {0} bez broni: {1}", magiczny.Name, magiczny.DefenseValue());
+
+            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Add(1).Add(1).Add(1).Add(1).Build();
+
+           var AttackWithoutWeapon =  magiczny.AttackValue();
+           var DefenseWithoutWeapon = magiczny.DefenseValue();
+
             MagicWeapon superrozdzka = new MagicWeapon()
             {
                 Attack = 22,
@@ -204,10 +206,11 @@ namespace UnitTestProject1
 
             magiczny.leftHand.PutOn(superrozdzka);
 
-            Console.WriteLine("Atak {0} z bronia: {1}", magiczny.Name, magiczny.AttackValue());
-            Console.WriteLine("Obrona {0} z bronia: {1}", magiczny.Name, magiczny.DefenseValue());
+            var AttackWithWeapon = magiczny.AttackValue();
+            var DefenseWithWeapon = magiczny.DefenseValue();
 
-        
+            Assert.IsTrue(AttackWithoutWeapon == AttackWithWeapon,"Attack with Weapon is greater");
+            Assert.IsTrue(DefenseWithoutWeapon == DefenseWithWeapon, "Defense with Weapon is greater");
         }
 
         [TestMethod]
@@ -220,9 +223,11 @@ namespace UnitTestProject1
                     Health = 0
                 }
             };
+            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Add(1).Add(1).Add(1).Add(1).Build();
 
-            Console.WriteLine("Atak {0} bez broni: {1}", magiczny1.Name, magiczny1.AttackValue());
-            Console.WriteLine("Obrona {0} bez bronia: {1}", magiczny1.Name, magiczny1.DefenseValue());
+            var AttackWithoutWeapon = magiczny1.AttackValue();
+            var DefenseWithoutWeapon = magiczny1.DefenseValue();
+
             MagicWeapon superrozdzka = new MagicWeapon()
             {
                 Attack = 22,
@@ -231,8 +236,11 @@ namespace UnitTestProject1
 
             magiczny1.rightHand.PutOn(superrozdzka);
 
-            Console.WriteLine("Atak {0} z bronia: {1}", magiczny1.Name, magiczny1.AttackValue());
-            Console.WriteLine("Obrona {0} z bronia: {1}", magiczny1.Name, magiczny1.DefenseValue());
+            var AttackWithWeapon = magiczny1.AttackValue();
+            var DefenseWithWeapon = magiczny1.DefenseValue();
+
+            Assert.IsTrue(AttackWithoutWeapon == AttackWithWeapon, "Attack with Weapon is the same");
+            Assert.IsTrue(DefenseWithoutWeapon == DefenseWithWeapon, "Defense with Weapon is the same");
         }
 
         [TestMethod]

@@ -1,4 +1,5 @@
 ﻿
+using ModelingObjectTask.BodyParts;
 using ModelingObjectTask.Items;
 using System;
 using System.Linq;
@@ -7,11 +8,13 @@ namespace ModelingObjectTask
 {
     public class Warrior : Hero
     {
+        DiceProvider dice = new DiceProvider();
+
         public Warrior()
         {
             Name = "Geralt";
-            Strength = new Random().Next(3, 18);
-            Agility = new Random().Next(2, 12);
+            Strength = dice.Throw(3, 18);
+            Agility = dice.Throw(2, 12);
             HealthPointsNow = HealthPoints;
         }
 
@@ -42,11 +45,13 @@ namespace ModelingObjectTask
         public override int AttackValue()
         {
             var sumAttack = bodyPart
-                     .Where(x => x.Alive == true)
-                     .Where(x => x.Items.GetType() == typeof(Weapon))
-                     .Sum(x => x.Items.Cast<Weapon>().Select(c => c.Attack).Sum());
+                .Where(x => x.Alive == true)
+                .Where(x => x is LeftHand || x is RightHand)
+                .Select(x => x.Items
+                    .Cast<MagicWeapon>()
+                    .Sum(c => c.Attack)).FirstOrDefault();
 
-            return (Strength +sumAttack) * Agility * new Random().Next(1, 6);
+            return (Strength + sumAttack) * Agility;// *dice.Throw(1, 6);
         }
     }
 }

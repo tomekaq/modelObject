@@ -31,12 +31,14 @@ namespace ModelingObjectTask
         public List<BodyPart> bodyPart = new List<BodyPart>();
         public List<Item> equipment = new List<Item>();
 
+        DiceProvider dice = new DiceProvider();
+
         public Hero()
         {
-            var rand = new Random();
+            
             IsAlive = true;
-            Agility = rand.Next(1, 12);
-            DefensePoint = new Random().Next(3, 18);
+            Agility = dice.Throw(1, 12);
+            DefensePoint = dice.Throw(3, 18);
             HealthPoints = 2000;
             HealthPointsNow = 2000;
 
@@ -160,8 +162,13 @@ namespace ModelingObjectTask
             var sumDefense = bodyPart
                         .Where(x => x.Alive == true)
                         .Where(x => x.Clothes != null)
-                        .Select(x => x.Clothes.Select(c=>c.Defense).Sum()).First();
-            return (DefensePoint + sumDefense) * Agility * new Random().Next(1, 6);
+                        .Select(x =>
+                        {
+                            var sum = x.Clothes.Select(c => c.Defense).Sum();
+                            return sum;
+                        })
+                        .First();
+            return (DefensePoint + sumDefense) * Agility;// *dice.Throw(1, 6);
         }
 
         public decimal DrawAttack()

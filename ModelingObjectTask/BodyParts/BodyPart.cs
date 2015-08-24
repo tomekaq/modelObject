@@ -10,7 +10,7 @@ namespace ModelingObjectTask.BodyParts
         //protected bool alive;
         protected int health; 
 
-        protected readonly List<Item> items = new List<Item>();
+        protected List<Item> items = new List<Item>();
 
 
         public BodyPart()
@@ -34,10 +34,10 @@ namespace ModelingObjectTask.BodyParts
 
         public List<Item> Items
         {
-            get
-            {
-                return items;
-            }
+            get{return items;}
+            protected set { items = value; }
+         
+            //private set{Items = value;}
         }
 
         public int Health
