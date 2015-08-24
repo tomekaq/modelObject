@@ -158,15 +158,14 @@ namespace ModelingObjectTask
         public int DefenseValue()
         {
             var sumDefense = bodyPart
-                        .Where(x => x.Alive == true)
-                        .Where(x => x.Clothes != null)
-                        .Select(x =>
+                        .Where(x => x.Alive)
+                //.Where(x => x.Clothes != null)
+                        .Sum(x =>
                         {
                             var sum = x.Clothes.Select(c => c.Defense).Sum();
                             return sum;
-                        })
-                        .First();
-            return (DefensePoint + sumDefense) * Agility *DiceProvider.Instance.Throw(1, 6);
+                        });
+            return (DefensePoint + sumDefense) + Agility +DiceProvider.Instance.Throw(1, 6);
         }
 
         public decimal DrawAttack()

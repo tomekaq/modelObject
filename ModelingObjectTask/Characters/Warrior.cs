@@ -48,10 +48,10 @@ namespace ModelingObjectTask
                 .Where(x => x.Alive == true)
                 .Where(x => x is LeftHand || x is RightHand)
                 .Select(x => x.Items
-                    .Cast<MagicWeapon>()
+                    .Cast<Weapon>()
                     .Sum(c => c.Attack)).FirstOrDefault();
 
-            return (Strength + sumAttack) * Agility *DiceProvider.Instance.Throw(1, 6);
+            return (Strength + sumAttack) + Agility +DiceProvider.Instance.Throw(1, 6);
         }
     }
 }

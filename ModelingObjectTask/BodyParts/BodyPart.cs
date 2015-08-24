@@ -35,7 +35,10 @@ namespace ModelingObjectTask.BodyParts
 
         public ReadOnlyCollection<Item> Items
         {
-            get { return items.AsReadOnly(); }
+            get 
+            { 
+                return items.AsReadOnly(); 
+            }
         }
 
         public int Health

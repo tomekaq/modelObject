@@ -13,6 +13,8 @@ namespace UnitTestProject1
         [TestMethod]
         public void WarriorParametr()
         {
+            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
+
             var Geralt = new Warrior() { HealthPoints = 2000, HealthPointsNow = 2000 };
 
             Console.WriteLine(Geralt);
@@ -23,6 +25,7 @@ namespace UnitTestProject1
             Geralt.DefensePoint = 342;
             Console.WriteLine("Warrior DefensePoint: {0}", Geralt.DefensePoint);
 
+            new OracleDiceProvider().Add(1).Add(1).Build();
             Console.WriteLine("Warrior AttackValue(): {0}", Geralt.AttackValue());
             Console.WriteLine("Warrior DefenseValue(): {0}", Geralt.DefenseValue());
 
@@ -57,12 +60,14 @@ namespace UnitTestProject1
             var bl = Enumerable.Range(1, 23).Select(x => new Money());
             moneyList.AddRange(bl);
 
+            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
             var Geralt = new Warrior();
 
             List<Money> moneyList2 = new List<Money>();
             var bl2 = Enumerable.Range(1, 23).Select(x => new Money() { Price = 2 });
             moneyList2.AddRange(bl);
 
+            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
             var Geralt2 = new Warrior();
 
             moneyList2.ForEach(x => Geralt.AddItem(x));
@@ -91,8 +96,12 @@ namespace UnitTestProject1
                 Defense = 10
             };
 
+            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
+
             Warrior wojownik = new Warrior();
 
+
+            new OracleDiceProvider().Add(1).Add(1).Build();
             Console.WriteLine("{0} bez zbroji {1}", wojownik.Name, wojownik.DefenseValue());
 
             wojownik.body.PutOn(superzbroja);
@@ -117,8 +126,11 @@ namespace UnitTestProject1
                 Price = 100
             };
 
+            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
+
             Warrior Zbyszko = new Warrior() { Name = "Zbyszko" };
 
+            new OracleDiceProvider().Add(1).Add(1).Add(1).Build();
             Console.WriteLine("Warrior Attack without weapon: {0}", Zbyszko.AttackValue());
 
             Zbyszko.rightHand.PutOn(miecz);
@@ -137,6 +149,8 @@ namespace UnitTestProject1
 
             Console.WriteLine("Zbroja {0}", superzbroja.Defense);
 
+            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
+
             Warrior Zbyszko = new Warrior() { Name = "Zbyszko" };
 
             Console.WriteLine("Obrona Postaci bez zbroji: {0}", Zbyszko.DefenseValue());
@@ -154,6 +168,7 @@ namespace UnitTestProject1
             {
                 Name = "super Helm"
             };
+            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
 
             Warrior Zbyszko = new Warrior() { Name = "Zbyszko" };
 
@@ -170,8 +185,11 @@ namespace UnitTestProject1
         {
             Shield superTarcza = new Shield() { Defense = 2};
 
+            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
+
             Warrior Zbyszko = new Warrior() { Name = "Zbyszko" };
-  
+
+            new OracleDiceProvider().Add(1).Add(1).Add(1).Build();
             Console.WriteLine("Obrona Postaci bez tarczy: {0}", Zbyszko.DefenseValue());
 
             Zbyszko.leftHand.PutOn(superTarcza);
@@ -189,8 +207,11 @@ namespace UnitTestProject1
         {
             Trousers jeansy = new Trousers();
 
+            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
+
             Warrior Zbyszko = new Warrior() { Name = "Zbyszko" };
 
+            new OracleDiceProvider().Add(1).Add(1).Build();
             Console.WriteLine("Obrona Postaci bez spodnii: {0}", Zbyszko.DefenseValue());
 
             Zbyszko.legs.PutOn(jeansy);
