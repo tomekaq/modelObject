@@ -31,14 +31,12 @@ namespace ModelingObjectTask
         public List<BodyPart> bodyPart = new List<BodyPart>();
         public List<Item> equipment = new List<Item>();
 
-        DiceProvider dice = new DiceProvider();
-
         public Hero()
         {
             
             IsAlive = true;
-            Agility = dice.Throw(1, 12);
-            DefensePoint = dice.Throw(3, 18);
+            Agility = DiceProvider.Instance.Throw(1, 12);
+            DefensePoint = DiceProvider.Instance.Throw(3, 18);
             HealthPoints = 2000;
             HealthPointsNow = 2000;
 
@@ -168,7 +166,7 @@ namespace ModelingObjectTask
                             return sum;
                         })
                         .First();
-            return (DefensePoint + sumDefense) * Agility;// *dice.Throw(1, 6);
+            return (DefensePoint + sumDefense) * Agility *DiceProvider.Instance.Throw(1, 6);
         }
 
         public decimal DrawAttack()

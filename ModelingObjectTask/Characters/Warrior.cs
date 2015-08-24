@@ -51,7 +51,7 @@ namespace ModelingObjectTask
                     .Cast<MagicWeapon>()
                     .Sum(c => c.Attack)).FirstOrDefault();
 
-            return (Strength + sumAttack) * Agility;// *dice.Throw(1, 6);
+            return (Strength + sumAttack) * Agility *DiceProvider.Instance.Throw(1, 6);
         }
     }
 }

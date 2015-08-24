@@ -1,6 +1,7 @@
 ﻿using ModelingObjectTask.Items;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace ModelingObjectTask.BodyParts
@@ -8,7 +9,7 @@ namespace ModelingObjectTask.BodyParts
     public abstract class BodyPart
     {
         //protected bool alive;
-        protected int health; 
+        protected int health;
 
         protected List<Item> items = new List<Item>();
 
@@ -28,16 +29,13 @@ namespace ModelingObjectTask.BodyParts
         {
             get
             {
-                return items.Where(i=> i is Clothes).Cast<Clothes>();
+                return items.Where(i => i is Clothes).Cast<Clothes>();
             }
         }
 
-        public List<Item> Items
+        public ReadOnlyCollection<Item> Items
         {
-            get{return items;}
-            protected set { items = value; }
-         
-            //private set{Items = value;}
+            get { return items.AsReadOnly(); }
         }
 
         public int Health
@@ -53,11 +51,11 @@ namespace ModelingObjectTask.BodyParts
             }
         }
 
-        public virtual void PutOn<T>(T item) where T:Item
+        public virtual void PutOn<T>(T item) where T : Item
         {
             var t = Items.Where(x => x is T);
-            Items.Remove(t.FirstOrDefault());
-            this.Items.Add(item);
+            items.Remove(t.FirstOrDefault());
+            this.items.Add(item);
         }
 
     }

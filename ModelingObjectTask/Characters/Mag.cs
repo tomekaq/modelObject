@@ -8,13 +8,12 @@ namespace ModelingObjectTask
     public class Mag : Hero
     {
         public int Mana { get; set; }
-        DiceProvider dice = new DiceProvider();
         
         public Mag()
         {
             Name = "Xardas";
-            Strength = dice.Throw(1, 6);
-            Mana = dice.Throw(2, 12);
+            Strength = DiceProvider.Instance.Throw(1, 6);
+            Mana = DiceProvider.Instance.Throw(2, 12);
         }
 
         public override string Name
@@ -49,7 +48,7 @@ namespace ModelingObjectTask
                 .Select(x=> x.Items
                     .Cast<MagicWeapon>()
                     .Sum(c=> c.Attack) ).FirstOrDefault();
-            return (Mana + Strength + sumAttack) * Agility;// *dice.Throw(1, 6);
+            return (Mana + Strength + sumAttack) * Agility *DiceProvider.Instance.Throw(1, 6);
         }
 
     }

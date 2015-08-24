@@ -117,6 +117,7 @@ namespace UnitTestProject1
             {
                 Defense = 20
             };
+
             magiczny.body.PutOn(superzbroja);
          
             Assert.AreEqual(magiczny.body.Clothes.FirstOrDefault(), superzbroja);
@@ -140,12 +141,8 @@ namespace UnitTestProject1
                 Defense = 20
             };
 
-            magiczny.body.Items.Add(superzbroja1);
-            magiczny.body.Items.Add(superzbroja2);
 
             magiczny.body.PutOn(superzbroja3);
-           
-            
 
             Assert.AreEqual(magiczny.body.Clothes.FirstOrDefault(), superzbroja3);
             //Character should wear something he put on
@@ -160,11 +157,11 @@ namespace UnitTestProject1
             MagicWeapon superrozdzka = new MagicWeapon()
             {
                 Name = "super rozdzka",
-                Attack = 12
+                Attack = 1
             };
 
             magiczny.leftHand.PutOn(superrozdzka);
-           // Console.WriteLine("{0} z dobra bronia {1}", magiczny.Name, magiczny.AttackValue());
+          
             new OracleDiceProvider().Add(1).Add(1).Build();
 
             var goodAttack = magiczny.AttackValue();
@@ -193,7 +190,7 @@ namespace UnitTestProject1
                 }
             };
 
-            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Add(1).Add(1).Add(1).Add(1).Build();
+            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
 
            var AttackWithoutWeapon =  magiczny.AttackValue();
            var DefenseWithoutWeapon = magiczny.DefenseValue();
@@ -223,7 +220,7 @@ namespace UnitTestProject1
                     Health = 0
                 }
             };
-            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Add(1).Add(1).Add(1).Add(1).Build();
+            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
 
             var AttackWithoutWeapon = magiczny1.AttackValue();
             var DefenseWithoutWeapon = magiczny1.DefenseValue();
@@ -254,7 +251,7 @@ namespace UnitTestProject1
                 }
 
             };
-            Console.WriteLine("Is Mag Alive? {0}",magiczny.IsAlive);
+            Assert.AreEqual(false,magiczny.IsAlive);
         }
 
         [TestMethod]
@@ -269,7 +266,7 @@ namespace UnitTestProject1
                 }
 
             };
-            Console.WriteLine("Is Mag Alive? {0}", magiczny.IsAlive);
+            Assert.AreEqual(false, magiczny.IsAlive);
         }
     }
 }
