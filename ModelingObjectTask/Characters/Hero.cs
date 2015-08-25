@@ -12,7 +12,6 @@ namespace ModelingObjectTask
         protected string name;
         protected int agility;
         protected int capacity;
-        protected int capacityNow;
         protected int defensePoint;
         protected int healthPoints;
         protected int healthPointsNow;
@@ -28,12 +27,11 @@ namespace ModelingObjectTask
         public RightHand rightHand { get; set; }
         public Legs legs { get; set; }
 
-        public List<BodyPart> bodyPart = new List<BodyPart>();
-        public List<Item> equipment = new List<Item>();
+        protected List<BodyPart> bodyPart = new List<BodyPart>();
+        protected List<Item> equipment = new List<Item>();
 
         public Hero()
         {
-            
             IsAlive = true;
             Agility = DiceProvider.Instance.Throw(1, 12);
             DefensePoint = DiceProvider.Instance.Throw(3, 18);
@@ -116,7 +114,9 @@ namespace ModelingObjectTask
         {
             get
             {
-                moneyAmount = equipment.Where(x => x.GetType() == typeof(Money)).Sum(x => x.Price);
+                moneyAmount = equipment
+                            .Where(x => x is Money)
+                            .Sum(x => x.Price);
                 return moneyAmount;
             }
             set
@@ -127,11 +127,27 @@ namespace ModelingObjectTask
 
         public void AddItem(Item item)
         {
-            if ((capacityNow + item.Weight) < capacity)
+            if (item.Weight <= capacity)
+            {
                 equipment.Add(item);
+                capacity -= item.Weight;
+            }
         }
 
-        public abstract int AttackValue();
+        public virtual int AttackValue<T>() where T : Item
+        {
+
+            //var sumAttack = bodyPart
+            //     .Where(x => x.Alive)
+            //     .Where(x => x is LeftHand || x is RightHand)
+            //     .Select(x => { var t = x.Items.Select(c => c as T);
+            //                    return t.Sum(c => c);
+            //     });
+
+            
+            return 1;
+        
+        }
 
         public void ChangeHealth(int strata)
         {
@@ -159,7 +175,6 @@ namespace ModelingObjectTask
         {
             var sumDefense = bodyPart
                         .Where(x => x.Alive)
-                //.Where(x => x.Clothes != null)
                         .Sum(x =>
                         {
                             var sum = x.Clothes.Select(c => c.Defense).Sum();
@@ -179,7 +194,7 @@ namespace ModelingObjectTask
             sb.AppendFormat("Imię: {0} ", Name);
             sb.AppendFormat("Żywotność: {0:f}% ", (decimal) HealthPointsNow / HealthPoints * 100);
             sb.AppendFormat("Zręczność: {0} ", Agility);
-            sb.AppendFormat("Wartość Ataku: {0} ", AttackValue());
+          //  sb.AppendFormat("Wartość Ataku: {0} ", AttackValue<T>());
             return sb.ToString();
         }
     }

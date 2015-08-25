@@ -4,6 +4,7 @@ using ModelingObjectTask;
 using ModelingObjectTask.Items;
 using ModelingObjectTask.BodyParts;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace UnitTestProject1
 {
@@ -17,36 +18,47 @@ namespace UnitTestProject1
 
             var Xardas = new Mag() 
             {
-                HealthPoints = 10000,
-                HealthPointsNow = 10000 
+                Capacity = 40,
+                HealthPoints = 200,
+                HealthPointsNow = 200
             };
             new OracleDiceProvider().Add(1).Build();
 
             Console.WriteLine(Xardas);
             Xardas.Agility = 34;
-            Console.WriteLine("Mag Agility: {0}", Xardas.Agility);
-  
-            //Xardas.DefensePoint = 342;
+            Assert.AreEqual(Xardas.Agility, 34);
+            
+            Xardas.DefensePoint = 342;
             Console.WriteLine("Mag DefensePoint: {0}", Xardas.DefensePoint);
+            Assert.AreEqual(Xardas.DefensePoint, 342);
 
             Console.WriteLine("Mag HealthPoints: {0}", Xardas.HealthPoints);
             Console.WriteLine("Mag HealthPointsNow: {0}", Xardas.HealthPointsNow);
 
+            Assert.AreEqual(Xardas.HealthPoints, Xardas.HealthPointsNow);
+
             Xardas.HealthPointsNow -= 199;
             Console.WriteLine("Mag HealthPointsNow: {0}", Xardas.HealthPointsNow);
+
+            Assert.AreEqual(1, Xardas.HealthPointsNow);
 
             Xardas.ChangeHealth(-1);
             Console.WriteLine("Mag HealthPointsNow: {0}", Xardas.HealthPointsNow);
             Console.WriteLine("Mag is Alive ?: {0}", Xardas.IsAlive);
 
-            Xardas.MoneyAmount = 32;
+            List<Money> moneyList = new List<Money>();
+            moneyList.AddRange(Enumerable.Range(1, 32).Select(x => new Money()));
+            moneyList.ForEach(x => Xardas.AddItem(x));
+
             Console.WriteLine("Mag MoneyAmount: {0}", Xardas.MoneyAmount);
+
+            Assert.AreEqual(32, Xardas.MoneyAmount);
 
             Xardas.Name = "Sinowłosy";
             Console.WriteLine("Mag Name: {0}", Xardas.Name);
 
-            Xardas.Name += "34";
-            Console.WriteLine("Mag Name: {0}", Xardas.Name);
+            Assert.AreEqual("Sinowłosy", Xardas.Name);
+
         }
 
         [TestMethod]
@@ -64,17 +76,22 @@ namespace UnitTestProject1
 
             new OracleDiceProvider().Add(1).Add(1).Add(1).Build();
 
-            Console.WriteLine("{0} bez broni {1}",magiczny.Name,magiczny.AttackValue());
+            var offenseless = magiczny.AttackValue();
+
+            Assert.AreEqual(offenseless, 4, "Wizzard defense ");
 
             magiczny.leftHand.PutOn(superrozdzka);
-     //       magiczny.leftHand.PutOn(superrozdzka);
 
-            Console.WriteLine("{0} z bronia w lewej rece {1}", magiczny.Name, magiczny.AttackValue());
+            var attackWithWeaponInLeftHand = magiczny.AttackValue();
 
+            Assert.AreEqual(34, attackWithWeaponInLeftHand, "Wizzard defense ");
 
             magiczny.rightHand.PutOn(superrozdzka);
 
-            Console.WriteLine("{0} w obu rękach {1}", magiczny.Name, magiczny.AttackValue());
+            var attackWithWeaponInTwoHand = magiczny.AttackValue();
+
+            Assert.AreEqual(attackWithWeaponInTwoHand, 64, "Wizzard defense ");
+  
         }
 
         [TestMethod]
@@ -173,11 +190,25 @@ namespace UnitTestProject1
             MagicWeapon superrozdzka = new MagicWeapon()
             {
                 Name = "super rozdzka",
-                Attack = 1
+                Attack = 11
+            };
+
+            Weapon superNIErozdzka = new Weapon()
+            {
+                Name = "super nie rozdzka",
+                Attack = 11
+            };
+
+            MagicWeapon superrozdzkaprawa = new MagicWeapon()
+            {
+                Name = "super rozdzka",
+                Attack = 11
             };
 
             magiczny.leftHand.PutOn(superrozdzka);
-          
+            magiczny.leftHand.PutOn(superNIErozdzka);
+            magiczny.rightHand.PutOn(superrozdzkaprawa);
+
             new OracleDiceProvider().Add(1).Add(1).Build();
 
             var goodAttack = magiczny.AttackValue();
@@ -224,8 +255,8 @@ namespace UnitTestProject1
             var AttackWithWeapon = magiczny.AttackValue();
             var DefenseWithWeapon = magiczny.DefenseValue();
 
-            Assert.IsTrue(AttackWithoutWeapon == AttackWithWeapon,"Attack with Weapon is greater");
-            Assert.IsTrue(DefenseWithoutWeapon == DefenseWithWeapon, "Defense with Weapon is greater");
+            Assert.AreEqual(AttackWithoutWeapon, AttackWithWeapon, "Attack with Weapon is greater");
+            Assert.AreEqual(DefenseWithoutWeapon, DefenseWithWeapon, "Defense with Weapon is greater");
         }
 
         [TestMethod]
@@ -245,6 +276,8 @@ namespace UnitTestProject1
             var AttackWithoutWeapon = magiczny1.AttackValue();
             var DefenseWithoutWeapon = magiczny1.DefenseValue();
 
+     
+
             MagicWeapon superrozdzka = new MagicWeapon()
             {
                 Attack = 22,
@@ -256,40 +289,8 @@ namespace UnitTestProject1
             var AttackWithWeapon = magiczny1.AttackValue();
             var DefenseWithWeapon = magiczny1.DefenseValue();
 
-            Assert.IsTrue(AttackWithoutWeapon == AttackWithWeapon, "Attack with Weapon is the same");
-            Assert.IsTrue(DefenseWithoutWeapon == DefenseWithWeapon, "Defense with Weapon is the same");
-        }
-
-        [TestMethod]
-        public void MagHasDeadHead() {
-
-            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
-
-            Mag magiczny = new Mag()
-            {
-                head = new Head 
-                {
-                    Health = 0
-                }
-
-            };
-          //  Assert.AreEqual(false,magiczny.IsAlive);
-        }
-
-        [TestMethod]
-        public void MagHasDeadBody()
-        {
-            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
-
-            Mag magiczny = new Mag()
-            {
-                body = new Body
-                {
-                    Health = 0
-                }
-
-            };
-            //Assert.AreEqual(false, magiczny.IsAlive);
+            Assert.AreEqual(AttackWithoutWeapon, AttackWithWeapon, "Adding weapon dont change attack");
+            Assert.AreEqual(DefenseWithoutWeapon, DefenseWithWeapon, "Adding weapon dont change defense");
         }
     }
 }

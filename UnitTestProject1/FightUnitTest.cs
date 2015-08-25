@@ -13,17 +13,6 @@ namespace UnitTestProject1
     [TestClass]
     public class FightUnitTest
     {
-        [TestMethod()]
-        public void WarriorAttackMag()
-        {
-            var Geralt = new Warrior() { HealthPoints = 100, HealthPointsNow = 100 };
-            var Xardas = new Mag() { HealthPoints = 100, HealthPointsNow = 100 };
 
-            Console.WriteLine(Geralt.ToString());
-
-
-            Console.WriteLine(Xardas.ToString());
-
-        }
     }
 }

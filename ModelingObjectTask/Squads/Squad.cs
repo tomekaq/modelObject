@@ -32,9 +32,9 @@ namespace ModelingObjectTask
             }
         }
 
-        public decimal AtakDruzyny()
+        public void AtakDruzyny()
         {
-            return druzynaPostaci.Select(x => x.AttackValue()).Sum();
+           // return druzynaPostaci.Select(x => x.AttackValue()).Sum();
         }
 
         public override string ToString()
@@ -42,7 +42,7 @@ namespace ModelingObjectTask
             StringBuilder sb = new StringBuilder();
 
             sb.AppendFormat("Nazwa: {0} ", Name);
-            sb.AppendFormat("Wartość ataku drużyny: {0} ", AtakDruzyny());
+            //sb.AppendFormat("Wartość ataku drużyny: {0} ", AtakDruzyny());
             sb.AppendFormat("Lista postaci: \n");
             druzynaPostaci.Select(x => sb.AppendFormat("{0} \n", x)).ToList();
 

@@ -40,16 +40,12 @@ namespace ModelingObjectTask
             }
         }
 
-        public override int AttackValue()
+        public int AttackValue()
         {
-            var sumAttack = bodyPart
-                .Where(x => x.Alive)
-                .Where(x => x is LeftHand || x is RightHand)
-                .Select(x=> x.Items //select is magicweapon
-                    .Cast<MagicWeapon>()
-                    .Sum(c=> c.Attack) ).FirstOrDefault();
+            var sum = base.AttackValue<MagicWeapon>();
+                              
 
-            return (Mana + Strength + sumAttack) + Agility +DiceProvider.Instance.Throw(1, 6);
+            return (Mana + Strength+ sum ) + Agility + DiceProvider.Instance.Throw(1, 6);
         }
 
     }
