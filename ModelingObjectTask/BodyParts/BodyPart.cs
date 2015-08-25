@@ -10,6 +10,7 @@ namespace ModelingObjectTask.BodyParts
     {
         //protected bool alive;
         protected int health;
+        public string Name { get; set; }
 
         protected List<Item> items = new List<Item>();
 

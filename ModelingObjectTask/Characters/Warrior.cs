@@ -13,9 +13,11 @@ namespace ModelingObjectTask
         public Warrior()
         {
             Name = "Geralt";
-            Strength = dice.Throw(3, 18);
-            Agility = dice.Throw(2, 12);
+            Strength = DiceProvider.Instance.Throw(3, 18);
+            Agility = DiceProvider.Instance.Throw(2, 12);
             HealthPointsNow = HealthPoints;
+
+        
         }
 
         public override string Name

@@ -11,5 +11,6 @@ namespace ModelingObjectTask.Items
         public int Price { get { return price; } set { price = (value> 0? value: 0); } }
         public int Weight { get { return weight; } set { weight = (value > 0 ? value : 0);; } }
 
+        public virtual void Apply(Hero hero) { }
     }
 }

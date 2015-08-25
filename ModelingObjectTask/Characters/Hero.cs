@@ -18,14 +18,53 @@ namespace ModelingObjectTask
         protected int moneyAmount;
         protected int strength;
 
+        protected Body body;
+        protected Head head;
+        protected LeftHand leftHand;
+        protected RightHand rightHand;
+        protected Legs legs;
+
         public abstract string Name { get; set; }
         public abstract int Strength { get; set; }
 
-        public Body body { get; set; }
-        public Head head { get; set; }
-        public LeftHand leftHand { get; set; }
-        public RightHand rightHand { get; set; }
-        public Legs legs { get; set; }
+        public Body Body
+        {
+            get
+            {
+                return body = new Body() { Health = 20 };
+            }
+            set { body = value; }
+        }
+        public Head Head
+        {
+            get
+            {
+                return head = new Head() { Health = 20 };
+            }
+            set { head = value; }
+        }
+        public LeftHand LeftHand
+        {
+            get
+            { return leftHand = new LeftHand() { Health = 20 }; }
+            set { leftHand = value; }
+        }
+        public RightHand RightHand
+        {
+            get
+            {
+                return rightHand = new RightHand() { Health = 20 };
+            }
+            set { rightHand = value; }
+        }
+        public Legs Legs
+        {
+            get
+            {
+                return legs = new Legs() { Health = 20 };
+            }
+            set { legs = value; }
+        }
 
         protected List<BodyPart> bodyPart = new List<BodyPart>();
         protected List<Item> equipment = new List<Item>();
@@ -38,16 +77,11 @@ namespace ModelingObjectTask
             HealthPoints = 2000;
             HealthPointsNow = 2000;
 
-            body = new Body();
-            head = new Head();
-            leftHand = new LeftHand();
-            rightHand = new RightHand();
-            legs = new Legs();
-            bodyPart.Add(body);
-            bodyPart.Add(head);
-            bodyPart.Add(leftHand);
-            bodyPart.Add(rightHand);
-            bodyPart.Add(legs);
+            bodyPart.Add(Body);
+            bodyPart.Add(Head);
+            bodyPart.Add(LeftHand);
+            bodyPart.Add(RightHand);
+            bodyPart.Add(Legs);
         }
 
         public int Agility
@@ -136,14 +170,13 @@ namespace ModelingObjectTask
 
         public virtual int AttackValue<T>() where T : Weapons
         {
-
             var sumAttack = bodyPart
                  .Where(x => x.Alive)
                  .Where(x => x is LeftHand || x is RightHand)
                  .Sum(x => x.Items.Where(c => c is T)
                             .Cast<Weapons>()
                             .Sum(c => c.Attack));
-            
+
             return sumAttack;
         }
 
@@ -156,17 +189,17 @@ namespace ModelingObjectTask
                 HealthPointsNow = 0;
                 IsAlive = false;
             }
-            if (!legs.Alive) { 
-                Agility = 1;
-            }
-
-            if (!body.Alive || !head.Alive)
-                IsAlive = false;
             else if (health - HealthPoints > 100)
                 HealthPointsNow = HealthPoints;
             else
             {
-                bodyPart.Select(x => x.Health += strata);
+                this.bodyPart.Select(x => x.Health += strata).ToList();
+                Console.WriteLine(body.Name);
+                Console.WriteLine("{0}, {1}", bodyPart[0].Name, bodyPart[0].Health);
+                if (!this.legs.Alive)
+                    Agility = 0;
+                if (!this.body.Alive || !this.head.Alive)
+                    IsAlive = false;
             }
         }
 
@@ -179,7 +212,7 @@ namespace ModelingObjectTask
                             var sum = x.Clothes.Select(c => c.Defense).Sum();
                             return sum;
                         });
-            return (DefensePoint + sumDefense) + Agility +DiceProvider.Instance.Throw(1, 6);
+            return (DefensePoint + sumDefense) + Agility + DiceProvider.Instance.Throw(1, 6);
         }
 
         public decimal DrawAttack()
@@ -191,9 +224,9 @@ namespace ModelingObjectTask
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendFormat("Imię: {0} ", Name);
-            sb.AppendFormat("Żywotność: {0:f}% ", (decimal) HealthPointsNow / HealthPoints * 100);
+            sb.AppendFormat("Żywotność: {0:f}% ", (decimal)HealthPointsNow / HealthPoints * 100);
             sb.AppendFormat("Zręczność: {0} ", Agility);
-    //        sb.AppendFormat("Wartość Ataku: {0} ", .AttackValue());
+            //        sb.AppendFormat("Wartość Ataku: {0} ", .AttackValue());
             return sb.ToString();
         }
     }
