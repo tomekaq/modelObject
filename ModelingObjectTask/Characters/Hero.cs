@@ -134,18 +134,17 @@ namespace ModelingObjectTask
             }
         }
 
-        public virtual int AttackValue<T>() where T : Item
+        public virtual int AttackValue<T>() where T : Weapons
         {
 
-            //var sumAttack = bodyPart
-            //     .Where(x => x.Alive)
-            //     .Where(x => x is LeftHand || x is RightHand)
-            //     .Select(x => { var t = x.Items.Select(c => c as T);
-            //                    return t.Sum(c => c);
-            //     });
-
+            var sumAttack = bodyPart
+                 .Where(x => x.Alive)
+                 .Where(x => x is LeftHand || x is RightHand)
+                 .Sum(x => x.Items.Where(c => c is T)
+                            .Cast<Weapons>()
+                            .Sum(c => c.Attack));
             
-            return 1;
+            return sumAttack;
         
         }
 

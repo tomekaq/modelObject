@@ -1,10 +1,10 @@
 ﻿
 namespace ModelingObjectTask.Items
 {
-    public class Weapon : Item
+    public class Weapon : Weapons
     {
-        public int Attack { get; set; }
-        public int Defense { get; set; }
+        public override int Attack { get; set; }
+        public override int Defense { get; set; }
 
         public Weapon()
         {

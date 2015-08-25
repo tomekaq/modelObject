@@ -15,15 +15,21 @@ namespace UnitTestProject1
         {
             new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
 
-            var Geralt = new Warrior() { HealthPoints = 2000, HealthPointsNow = 2000 };
+            var Geralt = new Warrior() 
+            { 
+                HealthPoints = 200, 
+                HealthPointsNow = 200 
+            };
 
             Console.WriteLine(Geralt);
             Geralt.Agility = 34;
             Console.WriteLine("Warrior Agility: {0}", Geralt.Agility);
 
+            Assert.AreEqual(34, Geralt.Agility);
             Console.WriteLine("Warrior DefensePoint: {0}", Geralt.DefensePoint);
             Geralt.DefensePoint = 342;
             Console.WriteLine("Warrior DefensePoint: {0}", Geralt.DefensePoint);
+            Assert.AreEqual(342, Geralt.DefensePoint);
 
             new OracleDiceProvider().Add(1).Add(1).Build();
             Console.WriteLine("Warrior AttackValue(): {0}", Geralt.AttackValue());
@@ -33,26 +39,22 @@ namespace UnitTestProject1
             Console.WriteLine("Warrior HealthPoints: {0}", Geralt.HealthPoints);
             Console.WriteLine("Warrior HealthPointsNow: {0}", Geralt.HealthPointsNow);
 
-            Geralt.HealthPointsNow -= 99;
+            Geralt.HealthPointsNow -= 199;// protected
             Console.WriteLine("Warrior HealthPointsNow: {0}", Geralt.HealthPointsNow);
 
             Geralt.ChangeHealth(-1);
             Console.WriteLine("Warrior HealthPointsNow: {0}", Geralt.HealthPointsNow);
             Console.WriteLine("Warrior is Alive?: {0}", Geralt.IsAlive);
-
-            Geralt.MoneyAmount = 32;
-            Console.WriteLine("Warrior MoneyAmount: {0}", Geralt.MoneyAmount);
+            Assert.AreEqual(false, Geralt.IsAlive);
 
             Geralt.Name = "Sinowłosy";
             Console.WriteLine("Warrior Name: {0}", Geralt.Name);
-
-            Geralt.Name += "34";
-            Console.WriteLine("Warrior Name: {0}", Geralt.Name);
+            Assert.AreEqual("Sinowłosy", Geralt.Name);
 
             Geralt.Strength = 2;
             Console.WriteLine("Warrior Name: {0}", Geralt.Strength);
+            Assert.AreEqual(2, Geralt.Strength);
         }
-
 
         [TestMethod]
         public void WarriorHasMoney()
@@ -72,7 +74,7 @@ namespace UnitTestProject1
 
             new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
             List<Money> moneyList2 = new List<Money>();
-            moneyList.AddRange(Enumerable.Range(1, 23)
+            moneyList2.AddRange(Enumerable.Range(1, 23)
                                 .Select(x => new Money() { Price = 2,Weight = 2 }));
 
             var Geralt2 = new Warrior()
@@ -118,7 +120,7 @@ namespace UnitTestProject1
             wojownik.legs.PutOn(jeansy);
             wojownik.leftHand.PutOn(superTarcza);
 
-            var withArmour =wojownik.DefenseValue();
+            var withArmour = wojownik.DefenseValue();
 
             Assert.IsTrue(withArmour > withoutArmour,"With armour defense are greater");
         }
@@ -126,6 +128,8 @@ namespace UnitTestProject1
         [TestMethod]
         public void WarriorWearSword()
         {
+            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
+            
             Weapon miecz = new Weapon()
             {
                 Name = "super miecz",
@@ -135,22 +139,20 @@ namespace UnitTestProject1
                 Price = 100
             };
 
-            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
-
-            Warrior Zbyszko = new Warrior() { Name = "Zbyszko" };
+            Warrior Zbyszko = new Warrior() 
+            {
+                Name = "Zbyszko"
+            };
 
             new OracleDiceProvider().Add(1).Add(1).Add(1).Build();
-            
             var attackWithoutSword = Zbyszko.AttackValue();
 
             Zbyszko.rightHand.PutOn(miecz);
-
-            var attackWithSwordInLeftHand =  Zbyszko.AttackValue();
+            var attackWithSwordInLeftHand = Zbyszko.AttackValue();
 
             Assert.IsTrue(attackWithoutSword < attackWithSwordInLeftHand);
 
             Zbyszko.leftHand.PutOn(miecz);
-
             var attackWithSwordInTwoHand = Zbyszko.AttackValue();
 
             Assert.IsTrue(attackWithSwordInLeftHand < attackWithSwordInTwoHand);
@@ -159,88 +161,84 @@ namespace UnitTestProject1
         [TestMethod]
         public void WarriorWearArmour()
         {
-            Armour superzbroja = new Armour();
-
-            Console.WriteLine("Zbroja {0}", superzbroja.Defense);
-
             new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
 
+            Armour superzbroja = new Armour();
+            
             Warrior Zbyszko = new Warrior() { Name = "Zbyszko" };
-
             var defValue = Zbyszko.DefenseValue();
 
             Zbyszko.body.PutOn(superzbroja);
-
             var fullArmorDefValue =  Zbyszko.DefenseValue();
 
             Assert.IsTrue(defValue < fullArmorDefValue, "Defense value should be greater when you wear something");
-
         }
 
         [TestMethod]
         public void WarriorWearHelmet()
         {
+            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
             Helmet superhelm = new Helmet()
             {
                 Name = "super Helm"
             };
-            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
 
             Warrior Zbyszko = new Warrior() { Name = "Zbyszko" };
-
             var defValue = Zbyszko.DefenseValue();
 
             Zbyszko.head.PutOn(superhelm);
-
             var defenseWithHelmet = Zbyszko.DefenseValue();
                
             Assert.IsTrue(defValue < defenseWithHelmet, "Defense value should be greater when you wear something");
-
         }
 
         [TestMethod]
         public void WarriorWearShield()
         {
-            Shield superTarcza = new Shield() { Defense = 2};
-
             new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
 
+            Shield superTarcza = new Shield() 
+            {
+                Defense = 2
+            };
             Warrior Zbyszko = new Warrior() { Name = "Zbyszko" };
 
             new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
-            Console.WriteLine("Obrona Postaci bez tarczy: {0}", Zbyszko.DefenseValue());
-
             var defaultValue = Zbyszko.DefenseValue();
 
             Zbyszko.leftHand.PutOn(superTarcza);
-
             var defenseWithOneShield  = Zbyszko.DefenseValue();
 
             Zbyszko.rightHand.PutOn(superTarcza);
-
             var defenseWithTwoShield = Zbyszko.DefenseValue(); 
 
             Assert.IsTrue(defaultValue < defenseWithOneShield, "Defense value should be greater with one shield");
             Assert.IsTrue(defenseWithOneShield < defenseWithTwoShield, "Defense value should be greater with two shield ");
-
         }
 
         [TestMethod]
         public void WarriorWearTrousers()
         {
-            Trousers jeansy = new Trousers();
-
             new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
 
-            Warrior Zbyszko = new Warrior() { Name = "Zbyszko" };
+            Trousers jeansy = new Trousers()
+            {
+                Defense = 10
+            };
+            
+            Warrior Zbyszko = new Warrior() 
+            {
+                Name = "Zbyszko" 
+            };
 
             new OracleDiceProvider().Add(1).Add(1).Build();
-            Console.WriteLine("Obrona Postaci bez spodnii: {0}", Zbyszko.DefenseValue());
+            var defenseWithoutTrousers = Zbyszko.DefenseValue();
 
             Zbyszko.legs.PutOn(jeansy);
+            var defenseWithTrousers = Zbyszko.DefenseValue();
 
-            Console.WriteLine("Obrona Postaci z zalozonymi spodniami: {0}", Zbyszko.DefenseValue());
-
+            Assert.IsTrue(defenseWithoutTrousers < defenseWithTrousers, "Defense value should be greater with two shield ");
+ 
         }
     }
 }

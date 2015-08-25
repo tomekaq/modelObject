@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Items\Potion\HealthPotion.cs" />
+    <Compile Include="Items\Weapons.cs" />
     <Compile Include="RandomProvider.cs" />
     <Compile Include="Squads\Squad.cs" />
     <Compile Include="BodyParts\Head.cs" />

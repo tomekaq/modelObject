@@ -44,14 +44,14 @@ namespace UnitTestProject1
 
             Xardas.ChangeHealth(-1);
             Console.WriteLine("Mag HealthPointsNow: {0}", Xardas.HealthPointsNow);
-            Console.WriteLine("Mag is Alive ?: {0}", Xardas.IsAlive);
+            Console.WriteLine("Mag is Alive? :{0}", Xardas.IsAlive);
+            Assert.AreEqual(false, Xardas.IsAlive);
 
             List<Money> moneyList = new List<Money>();
             moneyList.AddRange(Enumerable.Range(1, 32).Select(x => new Money()));
             moneyList.ForEach(x => Xardas.AddItem(x));
 
             Console.WriteLine("Mag MoneyAmount: {0}", Xardas.MoneyAmount);
-
             Assert.AreEqual(32, Xardas.MoneyAmount);
 
             Xardas.Name = "Sinowłosy";
@@ -206,8 +206,8 @@ namespace UnitTestProject1
             };
 
             magiczny.leftHand.PutOn(superrozdzka);
-            magiczny.leftHand.PutOn(superNIErozdzka);
-            magiczny.rightHand.PutOn(superrozdzkaprawa);
+      //      magiczny.leftHand.PutOn(superNIErozdzka);
+          //  magiczny.rightHand.PutOn(superrozdzkaprawa);
 
             new OracleDiceProvider().Add(1).Add(1).Build();
 
