@@ -145,12 +145,13 @@ namespace ModelingObjectTask
                             .Sum(c => c.Attack));
             
             return sumAttack;
-        
         }
 
         public void ChangeHealth(int strata)
         {
-            if (HealthPointsNow + strata <= 0)
+            var health = HealthPointsNow + strata;
+
+            if (health <= 0)
             {
                 HealthPointsNow = 0;
                 IsAlive = false;
@@ -161,12 +162,11 @@ namespace ModelingObjectTask
 
             if (!body.Alive || !head.Alive)
                 IsAlive = false;
-            else if ((this.HealthPointsNow + strata) - this.HealthPoints > 100)
-                this.HealthPointsNow = this.HealthPoints;
+            else if (health - HealthPoints > 100)
+                HealthPointsNow = HealthPoints;
             else
             {
                 bodyPart.Select(x => x.Health += strata);
-                this.HealthPointsNow += strata;
             }
         }
 
@@ -193,7 +193,7 @@ namespace ModelingObjectTask
             sb.AppendFormat("Imię: {0} ", Name);
             sb.AppendFormat("Żywotność: {0:f}% ", (decimal) HealthPointsNow / HealthPoints * 100);
             sb.AppendFormat("Zręczność: {0} ", Agility);
-          //  sb.AppendFormat("Wartość Ataku: {0} ", AttackValue<T>());
+    //        sb.AppendFormat("Wartość Ataku: {0} ", .AttackValue());
             return sb.ToString();
         }
     }

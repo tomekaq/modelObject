@@ -206,8 +206,6 @@ namespace UnitTestProject1
             };
 
             magiczny.leftHand.PutOn(superrozdzka);
-      //      magiczny.leftHand.PutOn(superNIErozdzka);
-          //  magiczny.rightHand.PutOn(superrozdzkaprawa);
 
             new OracleDiceProvider().Add(1).Add(1).Build();
 
@@ -222,8 +220,6 @@ namespace UnitTestProject1
             var badAttack = magiczny.AttackValue();
             
             Assert.IsTrue(goodAttack > badAttack, "Attack with better weapon is greater");
-            
-           
         }
         
         [TestMethod]

@@ -46,7 +46,7 @@ namespace ModelingObjectTask
         {
             var sum = base.AttackValue<Weapon>();
 
-            return (Strength + sum) + Agility +DiceProvider.Instance.Throw(1, 6);
+            return (Strength + sum) + Agility + DiceProvider.Instance.Throw(1, 6);
         }
     }
 }

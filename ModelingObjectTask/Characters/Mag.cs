@@ -44,10 +44,7 @@ namespace ModelingObjectTask
         {
             var sum = base.AttackValue<MagicWeapon>();
                               
-
             return (Mana + Strength+ sum ) + Agility + DiceProvider.Instance.Throw(1, 6);
         }
-
     }
-
 }
