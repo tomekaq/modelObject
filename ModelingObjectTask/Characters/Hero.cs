@@ -163,9 +163,10 @@ namespace ModelingObjectTask
             return sumAttack;
         }
 
-        public void ChangeHealth(int strata)
+        public void ChangeHealth(int AttackValue)
         {
-            var health = HealthPointsNow + strata;
+
+            var health = HealthPointsNow - AttackValue;
 
             if (health <= 0)
             {
@@ -176,7 +177,12 @@ namespace ModelingObjectTask
                 HealthPointsNow = HealthPoints;
             else
             {
-                this.bodyPart.Select(x => x.Health += strata).ToList();
+                this.HealthPointsNow = health;
+                this.bodyPart
+                        .Select(x => {
+                            x.ChangeHealth(AttackValue / DiceProvider.Instance.Throw(1, 6));
+                            return x;
+                        }).ToList();
 
                 if (!this.legs.Alive)
                     Agility = 0;
@@ -208,7 +214,7 @@ namespace ModelingObjectTask
             sb.AppendFormat("Imię: {0} ", Name);
             sb.AppendFormat("Żywotność: {0:f}% ", (decimal)HealthPointsNow / HealthPoints * 100);
             sb.AppendFormat("Zręczność: {0} ", Agility);
-            //        sb.AppendFormat("Wartość Ataku: {0} ", .AttackValue());
+
             return sb.ToString();
         }
     }

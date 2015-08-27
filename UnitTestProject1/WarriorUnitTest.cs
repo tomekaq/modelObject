@@ -74,10 +74,11 @@ namespace UnitTestProject1
             Geralt.HealthPointsNow -= 199;// protected
             Console.WriteLine("Warrior HealthPointsNow: {0}", Geralt.HealthPointsNow);
 
+            new OracleDiceProvider().Add(1).Add(2).Add(3).Add(4).Add(5).Build();
             Geralt.ChangeHealth(-1);
             Console.WriteLine("Warrior HealthPointsNow: {0}", Geralt.HealthPointsNow);
             Console.WriteLine("Warrior is Alive?: {0}", Geralt.IsAlive);
-            Assert.AreEqual(false, Geralt.IsAlive);
+            Assert.AreEqual(true, Geralt.IsAlive);
 
             Geralt.Name = "Sinowłosy";
             Console.WriteLine("Warrior Name: {0}", Geralt.Name);
@@ -98,6 +99,7 @@ namespace UnitTestProject1
                 HealthPointsNow = 200
             };
 
+            new OracleDiceProvider().Add(1).Add(2).Add(3).Add(4).Add(5).Build();
             wojownik.ChangeHealth(-30);
 
        //     Assert.AreEqual(0, wojownik.Agility, "Warrior Agility without legs");

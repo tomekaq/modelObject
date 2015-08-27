@@ -78,11 +78,13 @@ namespace UnitTestProject1
 
             Assert.AreEqual(Xardas.HealthPoints, Xardas.HealthPointsNow);
 
+            new OracleDiceProvider().Add(1).Add(2).Add(3).Add(4).Add(5).Build();
             Xardas.ChangeHealth(19);
             Console.WriteLine("Mag HealthPointsNow: {0}", Xardas.HealthPointsNow);
 
-            Assert.AreEqual(200, Xardas.HealthPointsNow);
+            Assert.AreEqual(181, Xardas.HealthPointsNow);
 
+            new OracleDiceProvider().Add(1).Add(2).Add(3).Add(4).Add(5).Build();
             Xardas.ChangeHealth(-1);
             Console.WriteLine("Mag HealthPointsNow: {0}", Xardas.HealthPointsNow);
             Console.WriteLine("Mag is Alive? :{0}", Xardas.IsAlive);
@@ -95,8 +97,9 @@ namespace UnitTestProject1
             Console.WriteLine("Mag MoneyAmount: {0}", Xardas.MoneyAmount);
             Assert.AreEqual(32, Xardas.MoneyAmount);
 
+            new OracleDiceProvider().Add(1).Build();
             Xardas.Name = "Sinowłosy";
-            Console.WriteLine("Mag Name: {0}", Xardas.Name);
+            Console.WriteLine("Mag Name: {0}", Xardas);
 
             Assert.AreEqual("Sinowłosy", Xardas.Name);
         }
@@ -301,6 +304,7 @@ namespace UnitTestProject1
 
             Xardas.head.PutOn(superhelm);
 
+            new OracleDiceProvider().Add(1).Build();
             Xardas.head.ChangeHealth(21);
             Assert.AreEqual(199, Xardas.head.Health);
             Assert.AreEqual(true, Xardas.head.Alive);
@@ -314,11 +318,11 @@ namespace UnitTestProject1
             var Xardas = new Mag()
             {
                 Capacity = 40,
-                HealthPoints = 200,
-                HealthPointsNow = 200
+                HealthPoints = 2200,
+                HealthPointsNow = 2200
             };
 
-            Xardas.legs.ChangeHealth(2032);
+            Xardas.legs.ChangeHealth(200);
             Assert.AreEqual(false, Xardas.legs.Alive);
         
         }
