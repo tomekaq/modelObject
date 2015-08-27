@@ -17,7 +17,6 @@ namespace ModelingObjectTask
             Agility = DiceProvider.Instance.Throw(2, 12);
             HealthPointsNow = HealthPoints;
 
-        
         }
 
         public override string Name

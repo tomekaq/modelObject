@@ -12,6 +12,47 @@ namespace UnitTestProject1
     public class MagTest1
     {
         [TestMethod]
+        public void MagChangeWeapon()
+        {
+            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
+
+            Mag magiczny = new Mag();
+
+            MagicWeapon superrozdzka = new MagicWeapon()
+            {
+                Name = "super rozdzka",
+                Attack = 11
+            };
+
+            Weapon superNIErozdzka = new Weapon()
+            {
+                Name = "super nie rozdzka",
+                Attack = 11
+            };
+
+            MagicWeapon superrozdzkaprawa = new MagicWeapon()
+            {
+                Name = "super rozdzka",
+                Attack = 11
+            };
+
+            magiczny.leftHand.PutOn(superrozdzka);
+
+            new OracleDiceProvider().Add(1).Add(1).Build();
+
+            var goodAttack = magiczny.AttackValue();
+
+            MagicWeapon zlarozdzka = new MagicWeapon()
+            {
+                Attack = 0
+            };
+
+            magiczny.leftHand.PutOn(zlarozdzka);
+            var badAttack = magiczny.AttackValue();
+
+            Assert.IsTrue(goodAttack > badAttack, "Attack with better weapon is greater");
+        }
+        [TestMethod]
         public void MagParametr()
         {
             new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
@@ -59,6 +100,70 @@ namespace UnitTestProject1
 
             Assert.AreEqual("Sinowłosy", Xardas.Name);
         }
+        [TestMethod]
+        public void MagTryUseWeaponInLeftHand()
+        {
+            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
+
+            Mag magiczny = new Mag()
+            {
+                leftHand = new LeftHand()
+                {
+                    Health = 0
+                }
+            };
+
+            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
+
+            var AttackWithoutWeapon = magiczny.AttackValue();
+            var DefenseWithoutWeapon = magiczny.DefenseValue();
+
+            MagicWeapon superrozdzka = new MagicWeapon()
+            {
+                Attack = 22,
+                Defense = 200
+            };
+
+            magiczny.leftHand.PutOn(superrozdzka);
+
+            var AttackWithWeapon = magiczny.AttackValue();
+            var DefenseWithWeapon = magiczny.DefenseValue();
+
+            Assert.AreEqual(AttackWithoutWeapon, AttackWithWeapon, "Attack with Weapon is greater");
+            Assert.AreEqual(DefenseWithoutWeapon, DefenseWithWeapon, "Defense with Weapon is greater");
+        }
+
+        [TestMethod]
+        public void MagTryUseWeaponInRightHand()
+        {
+            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
+
+            Mag magiczny1 = new Mag()
+            {
+                rightHand = new RightHand()
+                {
+                    Health = 0
+                }
+            };
+            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
+
+            var AttackWithoutWeapon = magiczny1.AttackValue();
+            var DefenseWithoutWeapon = magiczny1.DefenseValue();
+
+            MagicWeapon superrozdzka = new MagicWeapon()
+            {
+                Attack = 22,
+                Defense = 200
+            };
+
+            magiczny1.rightHand.PutOn(superrozdzka);
+
+            var AttackWithWeapon = magiczny1.AttackValue();
+            var DefenseWithWeapon = magiczny1.DefenseValue();
+
+            Assert.AreEqual(AttackWithoutWeapon, AttackWithWeapon, "Adding weapon dont change attack");
+            Assert.AreEqual(DefenseWithoutWeapon, DefenseWithWeapon, "Adding weapon dont change defense");
+        }
 
         [TestMethod]
         public void MagWearMagicWeapon()
@@ -79,13 +184,13 @@ namespace UnitTestProject1
 
             Assert.AreEqual(offenseless, 4, "Wizzard defense ");
 
-            magiczny.LeftHand.PutOn(superrozdzka);
+            magiczny.leftHand.PutOn(superrozdzka);
 
             var attackWithWeaponInLeftHand = magiczny.AttackValue();
 
             Assert.AreEqual(34, attackWithWeaponInLeftHand, "Wizzard defense ");
 
-            magiczny.RightHand.PutOn(superrozdzka);
+            magiczny.rightHand.PutOn(superrozdzka);
 
             var attackWithWeaponInTwoHand = magiczny.AttackValue();
 
@@ -124,10 +229,10 @@ namespace UnitTestProject1
             new OracleDiceProvider().Add(1).Add(1).Build();
             var defValue = magiczny.DefenseValue();
 
-            magiczny.Head.PutOn(superhelm);
-            magiczny.Legs.PutOn(jeansy);
-            magiczny.LeftHand.PutOn(superTarcza);
-            magiczny.Body.PutOn(superzbroja);
+            magiczny.head.PutOn(superhelm);
+            magiczny.legs.PutOn(jeansy);
+            magiczny.leftHand.PutOn(superTarcza);
+            magiczny.body.PutOn(superzbroja);
 
             var fullArmorDefValue = magiczny.DefenseValue();
             
@@ -146,9 +251,9 @@ namespace UnitTestProject1
                 Defense = 20
             };
 
-            magiczny.Body.PutOn(superzbroja);
+            magiczny.body.PutOn(superzbroja);
          
-            Assert.AreEqual(magiczny.Body.Clothes.FirstOrDefault(), superzbroja);
+            Assert.AreEqual(magiczny.body.Clothes.FirstOrDefault(), superzbroja);
             //Character should wear something he put on
         }
 
@@ -172,119 +277,16 @@ namespace UnitTestProject1
             };
 
            
-            magiczny.Body.PutOn(superzbroja3);
+            magiczny.body.PutOn(superzbroja3);
 
-            Assert.AreEqual(magiczny.Body.Clothes.FirstOrDefault(), superzbroja3);
+            Assert.AreEqual(magiczny.body.Clothes.FirstOrDefault(), superzbroja3);
             //Character should wear something he put on
         }
 
 
-        [TestMethod]
-        public void MagChangeWeapon()
-        {
-            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
-
-            Mag magiczny = new Mag();
-
-            MagicWeapon superrozdzka = new MagicWeapon()
-            {
-                Name = "super rozdzka",
-                Attack = 11
-            };
-
-            Weapon superNIErozdzka = new Weapon()
-            {
-                Name = "super nie rozdzka",
-                Attack = 11
-            };
-
-            MagicWeapon superrozdzkaprawa = new MagicWeapon()
-            {
-                Name = "super rozdzka",
-                Attack = 11
-            };
-
-            magiczny.LeftHand.PutOn(superrozdzka);
-
-            new OracleDiceProvider().Add(1).Add(1).Build();
-
-            var goodAttack = magiczny.AttackValue();
-
-            MagicWeapon zlarozdzka = new MagicWeapon()
-            {
-                Attack =0
-            };
-
-            magiczny.LeftHand.PutOn(zlarozdzka);
-            var badAttack = magiczny.AttackValue();
-            
-            Assert.IsTrue(goodAttack > badAttack, "Attack with better weapon is greater");
-        }
+  
         
-        [TestMethod]
-        public void MagTryUseWeaponInLeftHand()
-        {
-            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
-
-            Mag magiczny = new Mag() {
-
-                LeftHand = new LeftHand()
-                {
-                    Health = 0
-                }
-            };
-
-            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
-
-           var AttackWithoutWeapon =  magiczny.AttackValue();
-           var DefenseWithoutWeapon = magiczny.DefenseValue();
-
-            MagicWeapon superrozdzka = new MagicWeapon()
-            {
-                Attack = 22,
-                Defense =200
-            };
-
-            magiczny.LeftHand.PutOn(superrozdzka);
-
-            var AttackWithWeapon = magiczny.AttackValue();
-            var DefenseWithWeapon = magiczny.DefenseValue();
-
-            Assert.AreEqual(AttackWithoutWeapon, AttackWithWeapon, "Attack with Weapon is greater");
-            Assert.AreEqual(DefenseWithoutWeapon, DefenseWithWeapon, "Defense with Weapon is greater");
-        }
-
-        [TestMethod]
-        public void MagTryUseWeaponInRightHand()
-        {
-            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
-
-            Mag magiczny1 = new Mag()
-            {
-                RightHand = new RightHand()
-                {
-                    Health = 0
-                }
-            };
-            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
-
-            var AttackWithoutWeapon = magiczny1.AttackValue();
-            var DefenseWithoutWeapon = magiczny1.DefenseValue();
-
-            MagicWeapon superrozdzka = new MagicWeapon()
-            {
-                Attack = 22,
-                Defense = 200
-            };
-
-            magiczny1.RightHand.PutOn(superrozdzka);
-
-            var AttackWithWeapon = magiczny1.AttackValue();
-            var DefenseWithWeapon = magiczny1.DefenseValue();
-
-            Assert.AreEqual(AttackWithoutWeapon, AttackWithWeapon, "Adding weapon dont change attack");
-            Assert.AreEqual(DefenseWithoutWeapon, DefenseWithWeapon, "Adding weapon dont change defense");
-        }
+  
     }
 }
 

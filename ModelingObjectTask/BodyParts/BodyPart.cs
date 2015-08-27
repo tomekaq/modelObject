@@ -8,12 +8,8 @@ namespace ModelingObjectTask.BodyParts
 {
     public abstract class BodyPart
     {
-        //protected bool alive;
         protected int health;
-        public string Name { get; set; }
-
         protected List<Item> items = new List<Item>();
-
 
         public BodyPart()
         {
@@ -60,6 +56,14 @@ namespace ModelingObjectTask.BodyParts
             var t = Items.Where(x => x is T);
             items.Remove(t.FirstOrDefault());
             this.items.Add(item);
+        }
+
+        public void ChangeHealth(int AttackValue)
+        {
+            var Defense = Clothes.Select(x => x.Defense).Sum();
+            var change = (AttackValue - Defense);
+            if (change > 0)
+                Health -= change;
         }
 
     }

@@ -2,6 +2,8 @@
 using ModelingObjectTask.Items;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 
@@ -18,70 +20,50 @@ namespace ModelingObjectTask
         protected int moneyAmount;
         protected int strength;
 
-        protected Body body;
-        protected Head head;
-        protected LeftHand leftHand;
-        protected RightHand rightHand;
-        protected Legs legs;
+        public Body body;
+        public Head head;
+        public LeftHand leftHand;
+        public RightHand rightHand;
+        public Legs legs;
 
         public abstract string Name { get; set; }
         public abstract int Strength { get; set; }
+
+        protected ObservableCollection<BodyPart> bodyPart = new ObservableCollection<BodyPart>();
+        protected List<Item> equipment = new List<Item>();
 
         public Body Body
         {
             get
             {
-                return body = new Body() { Health = 20 };
+                return body;
             }
-            set { body = value; }
-        }
-        public Head Head
-        {
-            get
+            set
             {
-                return head = new Head() { Health = 20 };
+                body = value;
             }
-            set { head = value; }
         }
-        public LeftHand LeftHand
-        {
-            get
-            { return leftHand = new LeftHand() { Health = 20 }; }
-            set { leftHand = value; }
-        }
-        public RightHand RightHand
-        {
-            get
-            {
-                return rightHand = new RightHand() { Health = 20 };
-            }
-            set { rightHand = value; }
-        }
-        public Legs Legs
-        {
-            get
-            {
-                return legs = new Legs() { Health = 20 };
-            }
-            set { legs = value; }
-        }
-
-        protected List<BodyPart> bodyPart = new List<BodyPart>();
-        protected List<Item> equipment = new List<Item>();
 
         public Hero()
         {
             IsAlive = true;
             Agility = DiceProvider.Instance.Throw(1, 12);
             DefensePoint = DiceProvider.Instance.Throw(3, 18);
-            HealthPoints = 2000;
-            HealthPointsNow = 2000;
+            HealthPoints = 1000;
+            HealthPointsNow = 1000;
 
-            bodyPart.Add(Body);
-            bodyPart.Add(Head);
-            bodyPart.Add(LeftHand);
-            bodyPart.Add(RightHand);
-            bodyPart.Add(Legs);
+            body = new Body() { Health = 200 };
+            head = new Head() { Health = 200 };
+            leftHand = new LeftHand() { Health = 200 };
+            rightHand = new RightHand() { Health = 200 };
+            legs = new Legs() { Health = 200 };
+
+            bodyPart.Add(body);
+            bodyPart.Add(head);
+            bodyPart.Add(leftHand);
+            bodyPart.Add(rightHand);
+            bodyPart.Add(legs);
+
         }
 
         public int Agility
@@ -95,12 +77,12 @@ namespace ModelingObjectTask
                 agility = value;
             }
         }
+
         public int Capacity
         {
             get { return capacity; }
             set { capacity = value; }
         }
-
 
         public int DefensePoint
         {
@@ -138,6 +120,7 @@ namespace ModelingObjectTask
                 IsAlive = healthPointsNow > 0;
             }
         }
+
         public bool IsAlive
         {
             get;
@@ -194,8 +177,7 @@ namespace ModelingObjectTask
             else
             {
                 this.bodyPart.Select(x => x.Health += strata).ToList();
-                Console.WriteLine(body.Name);
-                Console.WriteLine("{0}, {1}", bodyPart[0].Name, bodyPart[0].Health);
+
                 if (!this.legs.Alive)
                     Agility = 0;
                 if (!this.body.Alive || !this.head.Alive)
