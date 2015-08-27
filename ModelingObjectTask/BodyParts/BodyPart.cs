@@ -61,9 +61,9 @@ namespace ModelingObjectTask.BodyParts
         public void ChangeHealth(int AttackValue)
         {
             var Defense = Clothes.Select(x => x.Defense).Sum();
-            var change = (AttackValue - Defense);
-            if (change > 0)
-                Health -= change;
+            var Change =  Defense - AttackValue;
+            if (Change < 0)
+                this.Health += Change;
         }
 
     }

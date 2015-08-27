@@ -182,7 +182,7 @@ namespace UnitTestProject1
 
             var offenseless = magiczny.AttackValue();
 
-            Assert.AreEqual(offenseless, 4, "Wizzard defense ");
+            Assert.AreEqual(4, offenseless, "Wizzard defense ");
 
             magiczny.leftHand.PutOn(superrozdzka);
 
@@ -194,8 +194,7 @@ namespace UnitTestProject1
 
             var attackWithWeaponInTwoHand = magiczny.AttackValue();
 
-            Assert.AreEqual(attackWithWeaponInTwoHand, 64, "Wizzard defense ");
-  
+            Assert.AreEqual(64, attackWithWeaponInTwoHand, "Wizzard defense ");
         }
 
         [TestMethod]
@@ -275,7 +274,6 @@ namespace UnitTestProject1
             {
                 Defense = 20
             };
-
            
             magiczny.body.PutOn(superzbroja3);
 
@@ -283,9 +281,47 @@ namespace UnitTestProject1
             //Character should wear something he put on
         }
 
+        [TestMethod]
+        public void WizzardHeadChangeHealth()
+        {
+            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
 
-  
+            var Xardas = new Mag()
+            {
+                Capacity = 40,
+                HealthPoints = 200,
+                HealthPointsNow = 200
+            };
+
+            Helmet superhelm = new Helmet()
+            {
+                Name = "super Hełm",
+                Defense = 20
+            };
+
+            Xardas.head.PutOn(superhelm);
+
+            Xardas.head.ChangeHealth(21);
+            Assert.AreEqual(199, Xardas.head.Health);
+            Assert.AreEqual(true, Xardas.head.Alive);
+        }
+
+        [TestMethod]
+        public void WizzardLegsChangeHealth()
+        {
+            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
+
+            var Xardas = new Mag()
+            {
+                Capacity = 40,
+                HealthPoints = 200,
+                HealthPointsNow = 200
+            };
+
+            Xardas.legs.ChangeHealth(2032);
+            Assert.AreEqual(false, Xardas.legs.Alive);
         
+        }
   
     }
 }
