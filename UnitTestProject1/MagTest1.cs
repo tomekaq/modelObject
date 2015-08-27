@@ -9,6 +9,7 @@ using System.Collections.Generic;
 namespace UnitTestProject1
 {
     [TestClass]
+
     public class MagTest1
     {
         [TestMethod]
@@ -227,7 +228,6 @@ namespace UnitTestProject1
             Mag magiczny = new Mag();
 
             //when
-
             new OracleDiceProvider().Add(1).Add(1).Build();
             var defValue = magiczny.DefenseValue();
 
@@ -311,6 +311,42 @@ namespace UnitTestProject1
         }
 
         [TestMethod]
+        public void WizzardKillHimGo()
+        {
+            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
+
+            var Xardas = new Mag()
+            {
+                Capacity = 40,
+                HealthPoints = 2000,
+                HealthPointsNow = 2000
+            };
+
+            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Add(1).Build();
+            Xardas.ChangeHealth(1200);
+            Assert.IsTrue(!Xardas.IsAlive);
+        }
+
+        [TestMethod]
+        public void WizzardHealthUnderLimit()
+        {
+            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
+
+            var healthPoint = 2000;
+            var Xardas = new Mag()
+            {
+                Capacity = 40,
+                HealthPoints = healthPoint,
+                HealthPointsNow = healthPoint
+            };
+
+            Xardas.ChangeHealth(-1200);
+
+            Assert.AreEqual(healthPoint, Xardas.HealthPointsNow);
+            Assert.IsTrue(Xardas.IsAlive);
+        }
+
+        [TestMethod]
         public void WizzardLegsChangeHealth()
         {
             new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
@@ -323,10 +359,33 @@ namespace UnitTestProject1
             };
 
             Xardas.legs.ChangeHealth(200);
+            Assert.IsTrue(Xardas.legs.Health <= 0);
             Assert.AreEqual(false, Xardas.legs.Alive);
         
         }
-  
+        
+        [TestMethod]
+        public void WizzardUsingWeaponShouldBeRelatedToAlive()
+        {
+            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
+
+            var Xardas = new Mag()
+            {
+                Capacity = 40,
+                HealthPoints = 2200,
+                HealthPointsNow = 2200
+            };
+            new OracleDiceProvider().Add(1).Add(1).Build();
+
+            var XardasAttackFirst = Xardas.AttackValue();
+
+            Xardas.leftHand.ChangeHealth(200);
+            Assert.AreEqual(false, Xardas.leftHand.Alive);
+
+            var XardasAttackSecond = Xardas.AttackValue();
+
+            Assert.AreEqual(XardasAttackFirst, XardasAttackSecond);
+        }
     }
 }
 

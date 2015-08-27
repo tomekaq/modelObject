@@ -165,7 +165,6 @@ namespace ModelingObjectTask
 
         public void ChangeHealth(int AttackValue)
         {
-
             var health = HealthPointsNow - AttackValue;
 
             if (health <= 0)
@@ -173,7 +172,7 @@ namespace ModelingObjectTask
                 HealthPointsNow = 0;
                 IsAlive = false;
             }
-            else if (health - HealthPoints > 100)
+            else if (health > HealthPoints)
                 HealthPointsNow = HealthPoints;
             else
             {
@@ -214,7 +213,6 @@ namespace ModelingObjectTask
             sb.AppendFormat("Imię: {0} ", Name);
             sb.AppendFormat("Żywotność: {0:f}% ", (decimal)HealthPointsNow / HealthPoints * 100);
             sb.AppendFormat("Zręczność: {0} ", Agility);
-
             return sb.ToString();
         }
     }
