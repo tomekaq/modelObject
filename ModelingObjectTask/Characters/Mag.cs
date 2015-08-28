@@ -28,6 +28,7 @@ namespace ModelingObjectTask
                 name = value;
             }
         }
+        
 
         public override int Strength
         {
@@ -43,9 +44,21 @@ namespace ModelingObjectTask
 
         public int AttackValue()
         {
-            var sum = base.AttackValue<MagicWeapon>();
+            var sum = base.AttackValue();
                               
             return (Mana + Strength+ sum ) + Agility + DiceProvider.Instance.Throw(1, 6);
+        }
+
+        public override void AddItem(Item item)
+        {
+            if (item.GetType() != typeof(Weapons))
+
+            base.AddItem(item);
+            else
+            {
+                if(item.GetType() == typeof(MagicWeapon))
+                    base.AddItem(item);
+            }
         }
 
         public override string ToString()

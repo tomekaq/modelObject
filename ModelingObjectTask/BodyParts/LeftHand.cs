@@ -10,6 +10,8 @@ namespace ModelingObjectTask.BodyParts
         {
             Health = 1;
         }
+
+        
     }
 
 }

@@ -50,7 +50,7 @@ namespace UnitTestProject1
             var Geralt = new Warrior()
             {
                 HealthPoints = 200,
-                HealthPointsNow = 200
+                HealthPointsNow = 1000
             };
 
             Console.WriteLine(Geralt);
@@ -214,7 +214,6 @@ namespace UnitTestProject1
             {
                 Name = "super miecz",
                 Attack = 23,
-                Defense = 10,
                 Weight = 32,
                 Price = 100
             };

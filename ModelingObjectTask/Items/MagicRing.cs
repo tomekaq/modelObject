@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ModelingObjectTask.Items
 {
-    class MagicRing : Clothes
+    public class MagicRing : Clothes
     {
         public override void Apply(Hero hero)
         {

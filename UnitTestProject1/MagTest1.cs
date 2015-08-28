@@ -13,7 +13,7 @@ namespace UnitTestProject1
     public class MagTest1
     {
         [TestMethod]
-        public void MagChangeWeapon()
+        public void WizzardChangeWeapon()
         {
             new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
 
@@ -54,22 +54,25 @@ namespace UnitTestProject1
             Assert.IsTrue(goodAttack > badAttack, "Attack with better weapon is greater");
         }
         [TestMethod]
-        public void MagParametr()
+        public void WizzardParametr()
         {
             new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
 
-            var Xardas = new Mag() 
+            var inputCapacity = 40;
+            var inputHealthPoints = 1000;
+
+            var Xardas = new Mag()
             {
-                Capacity = 40,
-                HealthPoints = 200,
-                HealthPointsNow = 200
+                Capacity = inputCapacity,
+                HealthPoints = inputHealthPoints,
+                HealthPointsNow = inputHealthPoints
             };
             new OracleDiceProvider().Add(1).Build();
 
             Console.WriteLine(Xardas);
             Xardas.Agility = 34;
             Assert.AreEqual(Xardas.Agility, 34);
-            
+
             Xardas.DefensePoint = 342;
             Console.WriteLine("Mag DefensePoint: {0}", Xardas.DefensePoint);
             Assert.AreEqual(Xardas.DefensePoint, 342);
@@ -83,7 +86,7 @@ namespace UnitTestProject1
             Xardas.ChangeHealth(19);
             Console.WriteLine("Mag HealthPointsNow: {0}", Xardas.HealthPointsNow);
 
-            Assert.AreEqual(181, Xardas.HealthPointsNow);
+            Assert.AreEqual(981, Xardas.HealthPointsNow);
 
             new OracleDiceProvider().Add(1).Add(2).Add(3).Add(4).Add(5).Build();
             Xardas.ChangeHealth(-1);
@@ -104,18 +107,24 @@ namespace UnitTestProject1
 
             Assert.AreEqual("Sinowłosy", Xardas.Name);
         }
+
         [TestMethod]
-        public void MagTryUseWeaponInLeftHand()
+        public void WizzardAttackHaveNotChangedWhenLeftHandDead()
         {
             new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
 
+
+            var inputCapacity = 40;
+            var inputHealthPoints = 40;
+
             Mag magiczny = new Mag()
             {
-                leftHand = new LeftHand()
-                {
-                    Health = 0
-                }
+                Capacity = inputCapacity,
+                HealthPoints = inputHealthPoints,
+                HealthPointsNow = inputHealthPoints
+
             };
+            magiczny.leftHand.Health = 0;
 
             new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
 
@@ -124,8 +133,8 @@ namespace UnitTestProject1
 
             MagicWeapon superrozdzka = new MagicWeapon()
             {
-                Attack = 22,
-                Defense = 200
+                Attack = 22
+
             };
 
             magiczny.leftHand.PutOn(superrozdzka);
@@ -138,26 +147,21 @@ namespace UnitTestProject1
         }
 
         [TestMethod]
-        public void MagTryUseWeaponInRightHand()
+        public void WizzardAttackHaveNotChangedWhenRightHandDead()
         {
             new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
 
-            Mag magiczny1 = new Mag()
-            {
-                rightHand = new RightHand()
-                {
-                    Health = 0
-                }
-            };
+            Mag magiczny1 = new Mag();
             new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
+
+            magiczny1.rightHand.Health = 0;
 
             var AttackWithoutWeapon = magiczny1.AttackValue();
             var DefenseWithoutWeapon = magiczny1.DefenseValue();
 
             MagicWeapon superrozdzka = new MagicWeapon()
             {
-                Attack = 22,
-                Defense = 200
+                Attack = 22
             };
 
             magiczny1.rightHand.PutOn(superrozdzka);
@@ -170,7 +174,7 @@ namespace UnitTestProject1
         }
 
         [TestMethod]
-        public void MagWearMagicWeapon()
+        public void WizzardAttackWithMagicWeapon()
         {
             new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
 
@@ -179,8 +183,10 @@ namespace UnitTestProject1
                 Attack = 30
             };
 
-            Mag magiczny = new Mag() { 
-            Name = "magiczny"};
+            Mag magiczny = new Mag()
+            {
+                Name = "magiczny"
+            };
 
             new OracleDiceProvider().Add(1).Add(1).Add(1).Build();
 
@@ -237,7 +243,7 @@ namespace UnitTestProject1
             magiczny.body.PutOn(superzbroja);
 
             var fullArmorDefValue = magiczny.DefenseValue();
-            
+
             //then
             Assert.IsTrue(defValue < fullArmorDefValue, "Defense value should be greater when you wear something");
         }
@@ -254,7 +260,7 @@ namespace UnitTestProject1
             };
 
             magiczny.body.PutOn(superzbroja);
-         
+
             Assert.AreEqual(magiczny.body.Clothes.FirstOrDefault(), superzbroja);
             //Character should wear something he put on
         }
@@ -277,25 +283,29 @@ namespace UnitTestProject1
             {
                 Defense = 20
             };
-           
+
             magiczny.body.PutOn(superzbroja3);
 
             Assert.AreEqual(magiczny.body.Clothes.FirstOrDefault(), superzbroja3);
             //Character should wear something he put on
         }
 
+
         [TestMethod]
         public void WizzardHeadChangeHealth()
         {
             new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
 
+
+            var inputCapacity = 40;
+            var inputHealthPoints = 40;
+
             var Xardas = new Mag()
             {
-                Capacity = 40,
-                HealthPoints = 200,
-                HealthPointsNow = 200
+                Capacity = inputCapacity,
+                HealthPoints = inputHealthPoints,
+                HealthPointsNow = inputHealthPoints
             };
-
             Helmet superhelm = new Helmet()
             {
                 Name = "super Hełm",
@@ -315,11 +325,14 @@ namespace UnitTestProject1
         {
             new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
 
+            var inputCapacity = 40;
+            var inputHealthPoints = 40;
+
             var Xardas = new Mag()
             {
-                Capacity = 40,
-                HealthPoints = 2000,
-                HealthPointsNow = 2000
+                Capacity = inputCapacity,
+                HealthPoints = inputHealthPoints,
+                HealthPointsNow = inputHealthPoints
             };
 
             new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Add(1).Build();
@@ -332,17 +345,18 @@ namespace UnitTestProject1
         {
             new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
 
-            var healthPoint = 2000;
+            var inputCapacity = 40;
+            var inputHealthPoints = 1000;
             var Xardas = new Mag()
             {
-                Capacity = 40,
-                HealthPoints = healthPoint,
-                HealthPointsNow = healthPoint
+                Capacity = inputCapacity,
+                HealthPoints = inputHealthPoints,
+                HealthPointsNow = inputHealthPoints
             };
 
             Xardas.ChangeHealth(-1200);
 
-            Assert.AreEqual(healthPoint, Xardas.HealthPointsNow);
+            Assert.AreEqual(inputHealthPoints, Xardas.HealthPointsNow);
             Assert.IsTrue(Xardas.IsAlive);
         }
 
@@ -351,30 +365,35 @@ namespace UnitTestProject1
         {
             new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
 
+            var inputCapacity = 40;
+            var inputHealthPoints = 2000;
             var Xardas = new Mag()
             {
-                Capacity = 40,
-                HealthPoints = 2200,
-                HealthPointsNow = 2200
+                Capacity = inputCapacity,
+                HealthPoints = inputHealthPoints,
+                HealthPointsNow = inputHealthPoints
             };
 
             Xardas.legs.ChangeHealth(200);
             Assert.IsTrue(Xardas.legs.Health <= 0);
             Assert.AreEqual(false, Xardas.legs.Alive);
-        
+
         }
-        
+
         [TestMethod]
         public void WizzardUsingWeaponShouldBeRelatedToAlive()
         {
             new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
 
+            var inputCapacity = 40;
+            var inputHealthPoints = 2000;
             var Xardas = new Mag()
             {
-                Capacity = 40,
-                HealthPoints = 2200,
-                HealthPointsNow = 2200
+                Capacity = inputCapacity,
+                HealthPoints = inputHealthPoints,
+                HealthPointsNow = inputHealthPoints
             };
+
             new OracleDiceProvider().Add(1).Add(1).Build();
 
             var XardasAttackFirst = Xardas.AttackValue();

@@ -142,7 +142,7 @@ namespace ModelingObjectTask
             }
         }
 
-        public void AddItem(Item item)
+        public virtual void AddItem(Item item)
         {
             if (item.Weight <= capacity)
             {
@@ -151,12 +151,36 @@ namespace ModelingObjectTask
             }
         }
 
-        public virtual int AttackValue<T>() where T : Weapons
+        public virtual void Attack(Hero enemy)
+        {
+            var myAttack = this.AttackValue();
+            var enemyDefense = enemy.DefenseValue();
+            var myHit = myAttack + DiceProvider.Instance.Throw(1,12);
+            var enemyHit = enemyDefense + DiceProvider.Instance.Throw(1,12);
+            if (myHit > enemyHit)
+            {
+                var HitPoints = (int) (myHit * DrawAttack());
+                enemy.ChangeHealth(HitPoints);
+            }
+            else
+            {
+                myHit = this.DefenseValue() + DiceProvider.Instance.Throw(1, 6);
+                var enemyAttack = enemy.AttackValue();
+                enemyHit = enemyAttack + DiceProvider.Instance.Throw(1, 12);
+                if (myHit < enemyHit)
+                {
+                    var HitPoints = (int)(enemyAttack * DrawAttack());
+                    this.ChangeHealth(HitPoints);
+                }
+            }
+        }
+
+        public virtual int AttackValue()
         {
             var sumAttack = bodyPart
                  .Where(x => x.Alive)
                  .Where(x => x is LeftHand || x is RightHand)
-                 .Sum(x => x.Items.Where(c => c is T)
+                 .Sum(x => x.Items.Where(c => c is Weapons)
                             .Cast<Weapons>()
                             .Sum(c => c.Attack));
 
@@ -178,7 +202,8 @@ namespace ModelingObjectTask
             {
                 this.HealthPointsNow = health;
                 this.bodyPart
-                        .Select(x => {
+                        .Select(x =>
+                        {
                             x.ChangeHealth(AttackValue / DiceProvider.Instance.Throw(1, 6));
                             return x;
                         }).ToList();
@@ -192,9 +217,9 @@ namespace ModelingObjectTask
 
         public int DefenseValue()
         {
-            var sumDefense = bodyPart
-                        .Where(x => x.Alive)
-                        .Sum(x =>
+            var sumDefense1 = bodyPart
+                        .Where(x => x.Alive);
+            var sumDefense = sumDefense1.Sum(x =>
                         {
                             var sum = x.Clothes.Select(c => c.Defense).Sum();
                             return sum;
@@ -204,7 +229,7 @@ namespace ModelingObjectTask
 
         public decimal DrawAttack()
         {
-            return (decimal)1 / new Random().Next(1, 6);
+            return (decimal)1 / DiceProvider.Instance.Throw(1, 6);
         }
 
         public override string ToString()

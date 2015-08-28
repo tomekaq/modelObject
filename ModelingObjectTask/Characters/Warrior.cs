@@ -16,7 +16,7 @@ namespace ModelingObjectTask
             Strength = DiceProvider.Instance.Throw(3, 18);
             Agility = DiceProvider.Instance.Throw(2, 12);
             HealthPointsNow = HealthPoints;
-
+        
         }
 
         public override string Name
@@ -45,7 +45,7 @@ namespace ModelingObjectTask
 
         public int AttackValue()
         {
-            var sum = base.AttackValue<Weapon>();
+            var sum = base.AttackValue();
 
             return (Strength + sum) + Agility + DiceProvider.Instance.Throw(1, 6);
         }
