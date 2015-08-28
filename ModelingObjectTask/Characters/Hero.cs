@@ -30,7 +30,7 @@ namespace ModelingObjectTask
         public abstract int Strength { get; set; }
 
         protected ObservableCollection<BodyPart> bodyPart = new ObservableCollection<BodyPart>();
-        protected List<Item> equipment = new List<Item>();
+        public List<Item> equipment = new List<Item>();
 
         public Body Body
         {
@@ -230,6 +230,12 @@ namespace ModelingObjectTask
         public decimal DrawAttack()
         {
             return (decimal)1 / DiceProvider.Instance.Throw(1, 6);
+        }
+
+        public void PutOnBodyPart(Item item,BodyPart part)
+        {
+            if (equipment.Contains(item))
+                part.PutOn(item);
         }
 
         public override string ToString()

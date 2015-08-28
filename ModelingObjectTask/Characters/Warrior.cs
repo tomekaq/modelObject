@@ -43,6 +43,20 @@ namespace ModelingObjectTask
             }
         }
 
+        public override void AddItem(Item item)
+        {
+            Type typ = item.GetType();
+            //  
+            if (!typ.IsSubclassOf(typeof(Weapons)))
+
+                base.AddItem(item);
+            else
+            {
+                if (typ == typeof(Weapon))
+                    base.AddItem(item);
+            }
+        }
+
         public int AttackValue()
         {
             var sum = base.AttackValue();

@@ -37,7 +37,8 @@ namespace UnitTestProject1
                 Attack = 11
             };
 
-            magiczny.leftHand.PutOn(superrozdzka);
+            magiczny.AddItem(superrozdzka);
+            magiczny.PutOnBodyPart(superrozdzka, magiczny.leftHand);
 
             new OracleDiceProvider().Add(1).Add(1).Build();
 
@@ -48,7 +49,9 @@ namespace UnitTestProject1
                 Attack = 0
             };
 
-            magiczny.leftHand.PutOn(zlarozdzka);
+            magiczny.AddItem(zlarozdzka);
+            magiczny.PutOnBodyPart(zlarozdzka, magiczny.leftHand);
+
             var badAttack = magiczny.AttackValue();
 
             Assert.IsTrue(goodAttack > badAttack, "Attack with better weapon is greater");
@@ -137,7 +140,8 @@ namespace UnitTestProject1
 
             };
 
-            magiczny.leftHand.PutOn(superrozdzka);
+            magiczny.AddItem(superrozdzka);
+            magiczny.PutOnBodyPart(superrozdzka, magiczny.leftHand);
 
             var AttackWithWeapon = magiczny.AttackValue();
             var DefenseWithWeapon = magiczny.DefenseValue();
@@ -164,7 +168,8 @@ namespace UnitTestProject1
                 Attack = 22
             };
 
-            magiczny1.rightHand.PutOn(superrozdzka);
+            magiczny1.AddItem(superrozdzka);
+            magiczny1.PutOnBodyPart(superrozdzka, magiczny1.rightHand);
 
             var AttackWithWeapon = magiczny1.AttackValue();
             var DefenseWithWeapon = magiczny1.DefenseValue();
@@ -194,13 +199,15 @@ namespace UnitTestProject1
 
             Assert.AreEqual(4, offenseless, "Wizzard defense ");
 
-            magiczny.leftHand.PutOn(superrozdzka);
+            magiczny.AddItem(superrozdzka);
+            magiczny.PutOnBodyPart(superrozdzka, magiczny.leftHand);
 
             var attackWithWeaponInLeftHand = magiczny.AttackValue();
 
             Assert.AreEqual(34, attackWithWeaponInLeftHand, "Wizzard defense ");
 
-            magiczny.rightHand.PutOn(superrozdzka);
+            magiczny.AddItem(superrozdzka);
+            magiczny.PutOnBodyPart(superrozdzka, magiczny.rightHand);
 
             var attackWithWeaponInTwoHand = magiczny.AttackValue();
 
@@ -237,10 +244,17 @@ namespace UnitTestProject1
             new OracleDiceProvider().Add(1).Add(1).Build();
             var defValue = magiczny.DefenseValue();
 
-            magiczny.head.PutOn(superhelm);
-            magiczny.legs.PutOn(jeansy);
-            magiczny.leftHand.PutOn(superTarcza);
-            magiczny.body.PutOn(superzbroja);
+            magiczny.AddItem(superhelm);
+            magiczny.PutOnBodyPart(superhelm, magiczny.head);
+
+            magiczny.AddItem(jeansy);
+            magiczny.PutOnBodyPart(jeansy, magiczny.legs);
+
+            magiczny.AddItem(superTarcza);
+            magiczny.PutOnBodyPart(superTarcza, magiczny.leftHand);
+
+            magiczny.AddItem(superzbroja);
+            magiczny.PutOnBodyPart(superzbroja, magiczny.body);
 
             var fullArmorDefValue = magiczny.DefenseValue();
 
@@ -259,7 +273,8 @@ namespace UnitTestProject1
                 Defense = 20
             };
 
-            magiczny.body.PutOn(superzbroja);
+            magiczny.AddItem(superzbroja);
+            magiczny.PutOnBodyPart(superzbroja, magiczny.body);
 
             Assert.AreEqual(magiczny.body.Clothes.FirstOrDefault(), superzbroja);
             //Character should wear something he put on
@@ -284,8 +299,9 @@ namespace UnitTestProject1
                 Defense = 20
             };
 
-            magiczny.body.PutOn(superzbroja3);
-
+            magiczny.AddItem(superzbroja3);
+            magiczny.PutOnBodyPart(superzbroja3, magiczny.body);
+  
             Assert.AreEqual(magiczny.body.Clothes.FirstOrDefault(), superzbroja3);
             //Character should wear something he put on
         }
@@ -312,7 +328,8 @@ namespace UnitTestProject1
                 Defense = 20
             };
 
-            Xardas.head.PutOn(superhelm);
+            Xardas.AddItem(superhelm);
+            Xardas.PutOnBodyPart(superhelm, Xardas.head);
 
             new OracleDiceProvider().Add(1).Build();
             Xardas.head.ChangeHealth(21);
@@ -320,6 +337,38 @@ namespace UnitTestProject1
             Assert.AreEqual(true, Xardas.head.Alive);
         }
 
+        [TestMethod]
+        public void WizzardEquipWithStandardWeapon()
+        {
+            MagicWeapon superrozdzka = new MagicWeapon()
+            {
+                Attack = 30
+            };
+
+        }
+        [TestMethod]
+        public void WizzardEquipWithMagicWeapon()
+        {
+            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
+
+            var inputCapacity = 40;
+            var inputHealthPoints = 40;
+
+            var Xardas = new Mag()
+            {
+                Capacity = inputCapacity,
+                HealthPoints = inputHealthPoints,
+                HealthPointsNow = inputHealthPoints
+            };
+
+            MagicWeapon superrozdzka = new MagicWeapon()
+            {
+                Attack = 30
+            };
+            Xardas.AddItem(superrozdzka);
+            Assert.IsTrue(Xardas.equipment.Count == 1);
+
+        }
         [TestMethod]
         public void WizzardKillHimGo()
         {

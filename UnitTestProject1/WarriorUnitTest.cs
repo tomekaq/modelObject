@@ -116,7 +116,9 @@ namespace UnitTestProject1
             new OracleDiceProvider().Add(1).Add(1).Build();
             var defValue = Zbyszko.DefenseValue();
 
-            Zbyszko.body.PutOn(superzbroja);
+            Zbyszko.AddItem(superzbroja);
+            Zbyszko.PutOnBodyPart(superzbroja, Zbyszko.body);
+
             var fullArmorDefValue = Zbyszko.DefenseValue();
 
             Assert.IsTrue(defValue < fullArmorDefValue, "Defense value should be greater when you wear something");
@@ -151,10 +153,18 @@ namespace UnitTestProject1
             new OracleDiceProvider().Add(1).Add(1).Build();
             var withoutArmour = wojownik.DefenseValue();
 
-            wojownik.body.PutOn(superzbroja);
-            wojownik.head.PutOn(superhelm);
-            wojownik.legs.PutOn(jeansy);
-            wojownik.leftHand.PutOn(superTarcza);
+            wojownik.AddItem(superzbroja);
+            wojownik.PutOnBodyPart(superzbroja, wojownik.body);
+
+            wojownik.AddItem(superhelm);
+            wojownik.PutOnBodyPart(superhelm, wojownik.head);
+
+            wojownik.AddItem(jeansy);
+            wojownik.PutOnBodyPart(jeansy, wojownik.legs);
+
+            wojownik.AddItem(superTarcza);
+            wojownik.PutOnBodyPart(superTarcza, wojownik.leftHand);
+
 
             var withArmour = wojownik.DefenseValue();
 
@@ -174,7 +184,9 @@ namespace UnitTestProject1
             new OracleDiceProvider().Add(1).Add(1).Build();
             var defValue = Zbyszko.DefenseValue();
 
-            Zbyszko.head.PutOn(superhelm);
+            Zbyszko.AddItem(superhelm);
+            Zbyszko.PutOnBodyPart(superhelm, Zbyszko.head);
+
             var defenseWithHelmet = Zbyszko.DefenseValue();
 
             Assert.IsTrue(defValue < defenseWithHelmet, "Defense value should be greater when you wear something");
@@ -195,10 +207,14 @@ namespace UnitTestProject1
 
             var defaultValue = Zbyszko.DefenseValue();
 
-            Zbyszko.leftHand.PutOn(superTarcza);
+            Zbyszko.AddItem(superTarcza);
+            Zbyszko.PutOnBodyPart(superTarcza, Zbyszko.leftHand);
+
             var defenseWithOneShield = Zbyszko.DefenseValue();
 
-            Zbyszko.rightHand.PutOn(superTarcza);
+            Zbyszko.AddItem(superTarcza);
+            Zbyszko.PutOnBodyPart(superTarcza, Zbyszko.rightHand);
+
             var defenseWithTwoShield = Zbyszko.DefenseValue();
 
             Assert.IsTrue(defaultValue < defenseWithOneShield, "Defense value should be greater with one shield");
@@ -220,18 +236,22 @@ namespace UnitTestProject1
 
             Warrior Zbyszko = new Warrior()
             {
-                Name = "Zbyszko"
+                Name = "Zbyszko",
+                Capacity = 40
             };
 
             new OracleDiceProvider().Add(1).Add(1).Add(1).Build();
             var attackWithoutSword = Zbyszko.AttackValue();
 
-            Zbyszko.rightHand.PutOn(miecz);
+            Zbyszko.AddItem(miecz);
+            Zbyszko.PutOnBodyPart(miecz, Zbyszko.rightHand);
             var attackWithSwordInLeftHand = Zbyszko.AttackValue();
 
             Assert.IsTrue(attackWithoutSword < attackWithSwordInLeftHand);
 
-            Zbyszko.leftHand.PutOn(miecz);
+            Zbyszko.AddItem(miecz);
+            Zbyszko.PutOnBodyPart(miecz, Zbyszko.leftHand);
+
             var attackWithSwordInTwoHand = Zbyszko.AttackValue();
 
             Assert.IsTrue(attackWithSwordInLeftHand < attackWithSwordInTwoHand);
@@ -255,7 +275,9 @@ namespace UnitTestProject1
             new OracleDiceProvider().Add(1).Add(1).Build();
             var defenseWithoutTrousers = Zbyszko.DefenseValue();
 
-            Zbyszko.legs.PutOn(jeansy);
+            Zbyszko.AddItem(jeansy);
+            Zbyszko.PutOnBodyPart(jeansy, Zbyszko.legs);
+
             var defenseWithTrousers = Zbyszko.DefenseValue();
 
             Assert.IsTrue(defenseWithoutTrousers < defenseWithTrousers, "Defense value should be greater with two shield ");

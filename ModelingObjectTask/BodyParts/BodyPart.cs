@@ -52,7 +52,7 @@ namespace ModelingObjectTask.BodyParts
             }
         }
 
-        public virtual void PutOn<T>(T item) where T : Item
+        internal virtual void PutOn<T>(T item) where T : Item
         {
             var t = Items.Where(x => x is T);
             items.Remove(t.FirstOrDefault());

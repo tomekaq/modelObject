@@ -9,7 +9,7 @@ namespace ModelingObjectTask
     public class Mag : Hero
     {
         public int Mana { get; set; }
-        
+
         public Mag()
         {
             Name = "Xardas";
@@ -28,7 +28,7 @@ namespace ModelingObjectTask
                 name = value;
             }
         }
-        
+
 
         public override int Strength
         {
@@ -42,21 +42,23 @@ namespace ModelingObjectTask
             }
         }
 
-        public int AttackValue()
+        public override int AttackValue()
         {
             var sum = base.AttackValue();
-                              
-            return (Mana + Strength+ sum ) + Agility + DiceProvider.Instance.Throw(1, 6);
+
+            return (Mana + Strength + sum) + Agility + DiceProvider.Instance.Throw(1, 6);
         }
 
         public override void AddItem(Item item)
         {
-            if (item.GetType() != typeof(Weapons))
+            Type typ = item.GetType();
+            //  
+            if (!typ.IsSubclassOf(typeof(Weapons)))
 
-            base.AddItem(item);
+                base.AddItem(item);
             else
             {
-                if(item.GetType() == typeof(MagicWeapon))
+                if (typ == typeof(MagicWeapon))
                     base.AddItem(item);
             }
         }
@@ -66,7 +68,7 @@ namespace ModelingObjectTask
             var standard = new StringBuilder();
             var Attack = AttackValue();
             standard.Append(base.ToString());
-            standard.AppendFormat("Wartość Ataku: {0} ",Attack);
+            standard.AppendFormat("Wartość Ataku: {0} ", Attack);
             return standard.ToString();
         }
     }
