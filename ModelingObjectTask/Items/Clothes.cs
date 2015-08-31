@@ -16,7 +16,7 @@ namespace ModelingObjectTask.Items
         {
             StringBuilder sb = new StringBuilder();
             sb.Append(base.ToString());
-            sb.AppendFormat("Obrona: {0} \n",this.Defense);
+            sb.AppendFormat("Obrona: {0}",this.Defense);
             return sb.ToString();
         }
     }

@@ -189,11 +189,11 @@ namespace UnitTestProject1
             Console.WriteLine("Xardas is alive? {0}", Xardas.IsAlive);
             Console.WriteLine("Xardas health {0}", Xardas.HealthPointsNow);
 
-            Xardas.bodyPart.ForEach(x => Console.WriteLine("{0} ,             {1} ,      {2}", x.GetType().Name, x.Alive, x.Health));
+            Xardas.bodyPart.ForEach(x => Console.WriteLine("{0}, {1}, {2}", x.GetType().Name, x.Alive, x.Health));
 
             Console.WriteLine("Geralt is alive? {0}", Geralt.IsAlive);
             Console.WriteLine("Geralt health {0}", Geralt.HealthPointsNow);
-            Geralt.bodyPart.ForEach(x => Console.WriteLine("{0} ,             {1} ,      {2}", x.GetType().Name, x.Alive, x.Health));
+            Geralt.bodyPart.ForEach(x => Console.WriteLine("{0}, {1}, {2}", x.GetType().Name, x.Alive, x.Health));
 
             Assert.IsTrue(Xardas.IsAlive ^ Geralt.IsAlive, "There can be only one survivor");
 

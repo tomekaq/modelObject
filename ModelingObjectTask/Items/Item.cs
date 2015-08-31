@@ -21,7 +21,6 @@ namespace ModelingObjectTask.Items
             sb.AppendFormat("Nazwa: {0} ", this.Name);
             sb.AppendFormat("Cena: {0} ", this.Price);
             sb.AppendFormat("Waga: {0} ", this.Weight);
-
             return sb.ToString();
         }
     

@@ -27,6 +27,9 @@ namespace UnitTestProject1
                new Armour()
                 {
                     Name = "rozdzka" + x.ToString(),
+                    Price = x,
+                    Weight = x,
+                    Defense = x
                 }
 
             ));
@@ -36,10 +39,7 @@ namespace UnitTestProject1
 
             itemList.ForEach(x => magiczny1.AddItem(x));
 
-            var t = magiczny1.ShowEquipment();
-            Console.WriteLine("{0} ", t);
-
-           // magiczny1.equipment.ForEach(x => Console.WriteLine(x.ToString()));
+            magiczny1.equipment.ForEach(x => Console.WriteLine(x.ToString()));
         }
     }
 }

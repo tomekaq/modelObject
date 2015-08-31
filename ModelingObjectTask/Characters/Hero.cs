@@ -243,12 +243,12 @@ namespace ModelingObjectTask
                 part.PutOn(item);
         }
 
-        public string ShowEquipment()
+        public string EquipmentGroup(string name)
         {
             StringBuilder sb = new StringBuilder();
 
-            equipment.OrderBy(x => x.GetType().Name);
-                equipment.ForEach(x => sb.AppendFormat("{0}", x.ToString()));
+            equipment.GroupBy(x => x.GetType().Name);
+                equipment.ForEach(x => sb.AppendFormat("{0} \n", x.ToString()));
             return sb.ToString();
         }
 
@@ -264,11 +264,11 @@ namespace ModelingObjectTask
             StringBuilder sb = new StringBuilder();
             sb.AppendFormat("Imię: {0} ", Name);
             sb.AppendFormat("Żywotność: {0:f}% ", (decimal)HealthPointsNow / HealthPoints * 100);
-            sb.AppendFormat("Udźwig: {0}", this.Capacity);
+            sb.AppendFormat("Udźwig: {0}/{1}", this.CapacityNow,this.Capacity);
             sb.AppendFormat("Punkty Obrony: {0}", this.DefensePoint);
             sb.AppendFormat("Zręczność: {0} ", Agility);
-            sb.AppendFormat("Pieniądze {0}", this.MoneyAmount);
-            sb.AppendFormat("Pieniądze {0}", this.MoneyAmount);
+            sb.AppendFormat("Pieniądze: {0} ", this.MoneyAmount);
+            sb.AppendFormat("Siła: {0} ", this.Strength);
 
             return sb.ToString();
         }
