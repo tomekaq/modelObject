@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
 
 
 namespace ModelingObjectTask.BodyParts
@@ -66,7 +67,14 @@ namespace ModelingObjectTask.BodyParts
             if (Change < 0)
                 this.Health += Change;
         }
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
 
+            sb.AppendFormat("{0}, {1}",this.GetType().Name,this.Health);
+            //sb.AppendFormat();
+            return sb.ToString();
+        }
     }
 }
 

@@ -11,7 +11,7 @@ namespace ModelingObjectTask.Items
         public override void Apply(Hero hero)
         {
             hero.Strength += 1;
-            
+
         }
 
 

@@ -14,6 +14,7 @@ namespace ModelingObjectTask
         protected string name;
         protected int agility;
         protected int capacity;
+        protected int capacityNow;
         protected int defensePoint;
         protected int healthPoints;
         protected int healthPointsNow;
@@ -84,6 +85,11 @@ namespace ModelingObjectTask
             set { capacity = value; }
         }
 
+        public int CapacityNow
+        {
+            get { return capacityNow; }
+            set { capacityNow = value; }
+        }
         public int DefensePoint
         {
             get
@@ -241,7 +247,15 @@ namespace ModelingObjectTask
         {
             StringBuilder sb = new StringBuilder();
 
-            equipment.OrderBy(x => x.GetType().Name).Select(x => sb.AppendFormat("{0}", x));
+            equipment.OrderBy(x => x.GetType().Name);
+                equipment.ForEach(x => sb.AppendFormat("{0}", x.ToString()));
+            return sb.ToString();
+        }
+
+        public string GetInfoBodyPart() 
+        {
+            StringBuilder sb = new StringBuilder();
+            this.bodyPart.ForEach(x => sb.AppendFormat("{0} {1} {2} \n", x.GetType().Name, x.Alive, x.Health));
             return sb.ToString();
         }
 
@@ -250,7 +264,12 @@ namespace ModelingObjectTask
             StringBuilder sb = new StringBuilder();
             sb.AppendFormat("Imię: {0} ", Name);
             sb.AppendFormat("Żywotność: {0:f}% ", (decimal)HealthPointsNow / HealthPoints * 100);
+            sb.AppendFormat("Udźwig: {0}", this.Capacity);
+            sb.AppendFormat("Punkty Obrony: {0}", this.DefensePoint);
             sb.AppendFormat("Zręczność: {0} ", Agility);
+            sb.AppendFormat("Pieniądze {0}", this.MoneyAmount);
+            sb.AppendFormat("Pieniądze {0}", this.MoneyAmount);
+
             return sb.ToString();
         }
     }

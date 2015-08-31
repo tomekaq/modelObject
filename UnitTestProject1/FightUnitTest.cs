@@ -19,14 +19,14 @@ namespace UnitTestProject1
         [TestMethod]
         public void WizzardAttackWarrior()
         {
-            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
+            new OracleDiceProvider().Add(1, 4).Build();
             Warrior Geralt = new Warrior()
             {
                 HealthPoints = 1000,
                 HealthPointsNow = 1000
             };
 
-            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
+            new OracleDiceProvider().Add(1, 4).Build();
 
             var inputCapacity = 40;
             var inputHealthPoints = 1000;
@@ -114,21 +114,21 @@ namespace UnitTestProject1
             Geralt.AddItem(superNierozdzka);
             Geralt.PutOnBodyPart(superNierozdzka, Geralt.rightHand);
 
-            new OracleDiceProvider().Add(1) // myAttack
-                                    .Add(100) // enemyDefense
-                                    .Add(1)  // myHit
-                                    .Add(1)  // enemyHit
-                                    .Add(2)  // myHitDefense
-                                    .Add(500) //enemyHit
-                                    .Add(3)  // myHitDefenseSecond
-                                    .Add(1)  // drawAttack
-                                    .Add(1)  // body
-                                    .Add(1)  // head
-                                    .Add(1)  // leftHand
-                                    .Add(1)  // rightHand
-                                    .Add(1)  // legs
-                                    .Build();
+            new OracleDiceProvider()
+                    .Add(1) // myAttack
+                    .Add(100)// enemy Defense
+                    .Add(1) // myHit
+                    .Add(500) // enemyHit
+                    .Add(500) // enemyAttack
+                    .Add(1) // myDefense
+                    .Add(0) // enemyHit
+                    .Add(10) // myHit
+                    .Add(10) // myHit
+                    .Add(1, 5)
+                    .Build();
             Xardas.Attack(Geralt);
+
+
 
             var XardasHealthAfter = Xardas.HealthPointsNow;
             var GeraltHealthAfter = Geralt.HealthPointsNow;
@@ -202,14 +202,15 @@ namespace UnitTestProject1
         [TestMethod]
         public void WizzardAttackWarriorDefense()
         {
-            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
+            new OracleDiceProvider().Add(1, 4).Build();
+
             Warrior Geralt = new Warrior()
             {
                 HealthPoints = 1000,
                 HealthPointsNow = 1000
             };
 
-            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
+            new OracleDiceProvider().Add(1, 4).Build();
 
             var inputCapacity = 40;
             var inputHealthPoints = 1000;

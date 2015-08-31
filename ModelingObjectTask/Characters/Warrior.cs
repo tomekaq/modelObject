@@ -55,7 +55,7 @@ namespace ModelingObjectTask
             }
         }
 
-        public int AttackValue()
+        public override int AttackValue()
         {
             var sum = base.AttackValue();
 

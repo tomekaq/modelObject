@@ -54,6 +54,7 @@
     <Compile Include="ItemUnitTest.cs" />
     <Compile Include="MagTest1.cs" />
     <Compile Include="OracleDiceProvider.cs" />
+    <Compile Include="ShowInfoUnitTest.cs" />
     <Compile Include="WarriorUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
