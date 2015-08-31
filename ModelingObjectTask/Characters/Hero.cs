@@ -151,11 +151,11 @@ namespace ModelingObjectTask
             }
         }
 
-        public virtual void Attack(Hero enemy)
+        public virtual void Attack(Hero enemy,int i = 1)
         {
             var myAttack = this.AttackValue();
             var enemyDefense = enemy.DefenseValue();
-            var myHit = myAttack + DiceProvider.Instance.Throw(1,12);
+            var myHit = myAttack + DiceProvider.Instance.Throw(1,12/i);
             var enemyHit = enemyDefense + DiceProvider.Instance.Throw(1,12);
             if (myHit > enemyHit)
             {
@@ -164,14 +164,9 @@ namespace ModelingObjectTask
             }
             else
             {
-                myHit = this.DefenseValue() + DiceProvider.Instance.Throw(1, 6);
-                var enemyAttack = enemy.AttackValue();
-                enemyHit = enemyAttack + DiceProvider.Instance.Throw(1, 12);
-                if (myHit < enemyHit)
-                {
-                    var HitPoints = (int)(enemyAttack * DrawAttack());
-                    this.ChangeHealth(HitPoints);
-                }
+                if (i != 2) 
+                    enemy.Attack(this,2);
+
             }
         }
 
@@ -236,6 +231,14 @@ namespace ModelingObjectTask
         {
             if (equipment.Contains(item))
                 part.PutOn(item);
+        }
+
+        public string ShowEquipment()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            equipment.GroupBy(x => x.GetType()).Select(x=>sb .AppendFormat("{0}",x));
+            return sb.ToString();
         }
 
         public override string ToString()

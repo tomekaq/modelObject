@@ -1,4 +1,5 @@
 ﻿
+using System.Text;
 namespace ModelingObjectTask.Items
 {
     public abstract class Item
@@ -12,5 +13,16 @@ namespace ModelingObjectTask.Items
         public int Weight { get { return weight; } set { weight = (value > 0 ? value : 0);; } }
 
         public virtual void Apply(Hero hero) { }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendFormat("Nazwa: {0}", this.Name);
+            sb.AppendFormat("Cena: {0}", this.Price);
+            sb.AppendFormat("Waga: {0}", this.Weight);
+
+            return sb.ToString();
+        }
+    
     }
 }

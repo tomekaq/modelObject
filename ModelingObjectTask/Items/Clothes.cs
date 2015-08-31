@@ -1,4 +1,6 @@
 ﻿
+using System.Globalization;
+using System.Text;
 namespace ModelingObjectTask.Items
 {
     public abstract class Clothes:Item
@@ -9,5 +11,7 @@ namespace ModelingObjectTask.Items
         {
             Defense = 1;
         }
+
+
     }
 }
