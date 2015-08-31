@@ -49,8 +49,20 @@ namespace UnitTestProject1
             Xardas.AddItem(superrozdzka);
             Xardas.PutOnBodyPart(superrozdzka, Xardas.rightHand);
 
-            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(2).Add(3).Add(4).Add(5).Add(6)
-                                    .Add(7).Add(8).Add(1).Add(1).Build();
+
+
+            new OracleDiceProvider().Add(100) // myAttack
+                        .Add(1) // enemyDefense
+                        .Add(100)  // myHit
+                        .Add(1)  // enemyHit
+                        .Add(1)  // drawAttack
+                        .Add(1)  // body
+                        .Add(1)  // head
+                        .Add(1)  // leftHand
+                        .Add(1)  // rightHand
+                        .Add(1)  // legs
+                        .Build();
+
             Xardas.Attack(Geralt);
 
             var XardasHealthAfter = Xardas.HealthPointsNow;
@@ -85,7 +97,7 @@ namespace UnitTestProject1
 
             var XardasHealthBefore = Xardas.HealthPointsNow;
             var GeraltHealthBefore = Geralt.HealthPointsNow;
-            
+
             MagicWeapon superrozdzka = new MagicWeapon()
             {
                 Attack = 2
@@ -102,28 +114,27 @@ namespace UnitTestProject1
             Geralt.AddItem(superNierozdzka);
             Geralt.PutOnBodyPart(superNierozdzka, Geralt.rightHand);
 
-            new OracleDiceProvider().Add(5)
-                                    .Add(911)// enemyDefense
+            new OracleDiceProvider().Add(1) // myAttack
+                                    .Add(100) // enemyDefense
                                     .Add(1)  // myHit
                                     .Add(1)  // enemyHit
-                                    .Add(2)  //myHitDefense
-                                    .Add(3)  //myHitDefenseSecond
-                                    .Add(43) //enemyHit
+                                    .Add(2)  // myHitDefense
+                                    .Add(500) //enemyHit
+                                    .Add(3)  // myHitDefenseSecond
                                     .Add(1)  // drawAttack
-                                    .Add(1)
-                                    .Add(2)
-                                    .Add(3)
-                                    .Add(4)
-                                    .Add(5)
+                                    .Add(1)  // body
+                                    .Add(1)  // head
+                                    .Add(1)  // leftHand
+                                    .Add(1)  // rightHand
+                                    .Add(1)  // legs
                                     .Build();
             Xardas.Attack(Geralt);
 
             var XardasHealthAfter = Xardas.HealthPointsNow;
             var GeraltHealthAfter = Geralt.HealthPointsNow;
-            
+
             Assert.IsTrue(XardasHealthBefore > XardasHealthAfter, "Wizzard Health Points have less");
             Assert.IsTrue(GeraltHealthBefore == GeraltHealthAfter, "Warrior Points have not changed");
-
         }
 
         [TestMethod]
@@ -158,7 +169,16 @@ namespace UnitTestProject1
             Xardas.AddItem(superrozdzka);
             Xardas.PutOnBodyPart(superrozdzka, Xardas.rightHand);
 
-            new OracleDiceProvider().Add(2).Add(44).Add(4).Add(1).Add(1).Add(1).Add(0).Add(5).Build();
+            new OracleDiceProvider()
+                    .Add(1) // myAttack
+                    .Add(50)// enemy Defense
+                    .Add(1) // myHit
+                    .Add(1) // enemyHit
+                    .Add(1) // enemyAttack
+                    .Add(1) // myDefense
+                    .Add(0) // enemyHit
+                    .Add(10) // myHit
+                    .Build();
             Xardas.Attack(Geralt);
 
             var XardasHealthAfter = Xardas.HealthPointsNow;

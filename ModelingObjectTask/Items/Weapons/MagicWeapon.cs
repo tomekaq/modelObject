@@ -8,7 +8,6 @@ namespace ModelingObjectTask.Items
         public MagicWeapon()
         {
             Attack = 1;
-
         }
     }
 }

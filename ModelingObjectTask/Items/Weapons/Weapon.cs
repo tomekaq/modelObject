@@ -5,7 +5,6 @@ namespace ModelingObjectTask.Items
     {
         public override int Attack { get; set; }
 
-
         public Weapon()
         {
             Attack = 1;

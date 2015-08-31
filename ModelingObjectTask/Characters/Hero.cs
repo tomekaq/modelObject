@@ -237,7 +237,7 @@ namespace ModelingObjectTask
         {
             StringBuilder sb = new StringBuilder();
 
-            equipment.GroupBy(x => x.GetType()).Select(x=>sb .AppendFormat("{0}",x));
+            equipment.OrderBy(x => x.GetType().Name).Select(x => sb.AppendFormat("{0}", x));
             return sb.ToString();
         }
 

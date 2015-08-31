@@ -12,6 +12,12 @@ namespace ModelingObjectTask.Items
             Defense = 1;
         }
 
-
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(base.ToString());
+            sb.AppendFormat("{0}",this.Defense);
+            return sb.ToString();
+        }
     }
 }
