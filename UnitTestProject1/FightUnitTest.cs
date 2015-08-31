@@ -138,6 +138,68 @@ namespace UnitTestProject1
         }
 
         [TestMethod]
+        public void WizzardFightToDeath()
+        {
+            OracleDiceProvider.Reset();
+            Warrior Geralt = new Warrior()
+            {
+                HealthPoints = 1000,
+                HealthPointsNow = 1000
+            };
+
+            var Xardas = new Mag()
+            {
+                Capacity = 40,
+                HealthPoints = 1000,
+                HealthPointsNow = 1000
+            };
+
+            var XardasHealthBefore = Xardas.HealthPointsNow;
+            var GeraltHealthBefore = Geralt.HealthPointsNow;
+
+            MagicWeapon superrozdzka = new MagicWeapon()
+            {
+                Attack = 50
+            };
+
+            Weapon supermieczor = new Weapon()
+            {
+                Attack = 50
+            };
+
+
+            Xardas.AddItem(superrozdzka);
+            Xardas.PutOnBodyPart(superrozdzka, Xardas.rightHand);
+
+            Geralt.AddItem(supermieczor);
+            Geralt.PutOnBodyPart(supermieczor, Geralt.rightHand);
+            int i = 0;
+            while (Xardas.IsAlive && Geralt.IsAlive)
+            {
+                Xardas.Attack(Geralt);
+                if ((Xardas.IsAlive && Geralt.IsAlive))
+                    Geralt.Attack(Xardas);
+                i++;
+            }
+
+            var XardasHealthAfter = Xardas.HealthPointsNow;
+            var GeraltHealthAfter = Geralt.HealthPointsNow;
+            Console.WriteLine("i {0}", i);
+
+            Console.WriteLine("Xardas is alive? {0}", Xardas.IsAlive);
+            Console.WriteLine("Xardas health {0}", Xardas.HealthPointsNow);
+
+            Xardas.bodyPart.ForEach(x => Console.WriteLine("{0} ,             {1} ,      {2}", x.GetType().Name, x.Alive, x.Health));
+
+            Console.WriteLine("Geralt is alive? {0}", Geralt.IsAlive);
+            Console.WriteLine("Geralt health {0}", Geralt.HealthPointsNow);
+            Geralt.bodyPart.ForEach(x => Console.WriteLine("{0} ,             {1} ,      {2}", x.GetType().Name, x.Alive, x.Health));
+
+            Assert.IsTrue(Xardas.IsAlive ^ Geralt.IsAlive, "There can be only one survivor");
+
+        }
+
+        [TestMethod]
         public void WizzardAttackWarriorDefense()
         {
             new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();

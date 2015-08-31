@@ -29,7 +29,7 @@ namespace ModelingObjectTask
         public abstract string Name { get; set; }
         public abstract int Strength { get; set; }
 
-        protected ObservableCollection<BodyPart> bodyPart = new ObservableCollection<BodyPart>();
+        public List<BodyPart> bodyPart = new List<BodyPart>();
         public List<Item> equipment = new List<Item>();
 
         public Body Body
@@ -151,22 +151,26 @@ namespace ModelingObjectTask
             }
         }
 
-        public virtual void Attack(Hero enemy,int i = 1)
+        public virtual void Attack(Hero enemy)
+        {
+            Attack(enemy, 1);
+        }
+
+        protected virtual void Attack(Hero enemy, int phase)
         {
             var myAttack = this.AttackValue();
             var enemyDefense = enemy.DefenseValue();
-            var myHit = myAttack + DiceProvider.Instance.Throw(1,12/i);
-            var enemyHit = enemyDefense + DiceProvider.Instance.Throw(1,12);
+            var myHit = myAttack + DiceProvider.Instance.Throw(1, 12 / phase);
+            var enemyHit = enemyDefense + DiceProvider.Instance.Throw(1, 12);
             if (myHit > enemyHit)
             {
-                var HitPoints = (int) (myHit * DrawAttack());
+                var HitPoints = (int)(myHit * DrawAttack());
                 enemy.ChangeHealth(HitPoints);
             }
             else
             {
-                if (i != 2) 
-                    enemy.Attack(this,2);
-
+                if (phase < 2)
+                    enemy.Attack(this, phase + 1);
             }
         }
 
@@ -227,7 +231,7 @@ namespace ModelingObjectTask
             return (decimal)1 / DiceProvider.Instance.Throw(1, 6);
         }
 
-        public void PutOnBodyPart(Item item,BodyPart part)
+        public void PutOnBodyPart(Item item, BodyPart part)
         {
             if (equipment.Contains(item))
                 part.PutOn(item);

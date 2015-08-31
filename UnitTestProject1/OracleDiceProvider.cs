@@ -10,16 +10,29 @@ namespace UnitTestProject1
     public class OracleDiceProvider : DiceProvider
     {
         Queue<int> results = new Queue<int>();
+        public static DiceProvider previousDiceProvider;
 
-        public OracleDiceProvider Add(int val)
+        public OracleDiceProvider Add(int val, int count = 1)
         {
-            results.Enqueue(val);
+            for (int i = 0; i < count; i++)
+                results.Enqueue(val);
             return this;
         }
 
         public void Build()
         {
+            previousDiceProvider = DiceProvider.Instance;
             DiceProvider.instance = this;
+        }
+
+        public static void Reset()
+        {
+            if (previousDiceProvider == null)
+            {
+                DiceProvider.instance = null;
+                previousDiceProvider = DiceProvider.Instance;
+            }
+            DiceProvider.instance = previousDiceProvider;
         }
 
         public override int Throw(int n, int k)

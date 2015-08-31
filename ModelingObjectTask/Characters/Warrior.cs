@@ -8,8 +8,6 @@ namespace ModelingObjectTask
 {
     public class Warrior : Hero
     {
-        DiceProvider dice = new DiceProvider();
-
         public Warrior()
         {
             Name = "Geralt";

@@ -15,7 +15,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void WizzardChangeWeapon()
         {
-            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
+            new OracleDiceProvider().Add(1, 4).Build();
 
             Mag magiczny = new Mag();
 
@@ -59,7 +59,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void WizzardParametr()
         {
-            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
+            new OracleDiceProvider().Add(1, 4).Build();
 
             var inputCapacity = 40;
             var inputHealthPoints = 1000;
@@ -114,8 +114,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void WizzardAttackHaveNotChangedWhenLeftHandDead()
         {
-            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
-
+            new OracleDiceProvider().Add(1, 4).Build();
 
             var inputCapacity = 40;
             var inputHealthPoints = 40;
@@ -129,7 +128,7 @@ namespace UnitTestProject1
             };
             magiczny.leftHand.Health = 0;
 
-            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
+            new OracleDiceProvider().Add(1,4).Build();
 
             var AttackWithoutWeapon = magiczny.AttackValue();
             var DefenseWithoutWeapon = magiczny.DefenseValue();
@@ -153,10 +152,10 @@ namespace UnitTestProject1
         [TestMethod]
         public void WizzardAttackHaveNotChangedWhenRightHandDead()
         {
-            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
+            new OracleDiceProvider().Add(1, 4).Build();
 
             Mag magiczny1 = new Mag();
-            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
+            new OracleDiceProvider().Add(1, 4).Build();
 
             magiczny1.rightHand.Health = 0;
 
@@ -181,7 +180,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void WizzardAttackWithMagicWeapon()
         {
-            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
+            new OracleDiceProvider().Add(1, 4).Build();
 
             MagicWeapon superrozdzka = new MagicWeapon()
             {
@@ -193,7 +192,7 @@ namespace UnitTestProject1
                 Name = "magiczny"
             };
 
-            new OracleDiceProvider().Add(1).Add(1).Add(1).Build();
+            new OracleDiceProvider().Add(1,3).Build();
 
             var offenseless = magiczny.AttackValue();
 
@@ -236,12 +235,12 @@ namespace UnitTestProject1
             {
                 Defense = 20
             };
-            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
+            new OracleDiceProvider().Add(1, 4).Build();
 
             Mag magiczny = new Mag();
 
             //when
-            new OracleDiceProvider().Add(1).Add(1).Build();
+            new OracleDiceProvider().Add(1, 2).Build();
             var defValue = magiczny.DefenseValue();
 
             magiczny.AddItem(superhelm);
@@ -265,7 +264,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void WizzardFirstPutOn()
         {
-            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
+            new OracleDiceProvider().Add(1, 4).Build();
 
             Mag magiczny = new Mag();
             Armour superzbroja = new Armour()
@@ -283,7 +282,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void WizzardNextPutOn()
         {
-            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
+            new OracleDiceProvider().Add(1, 4).Build();
 
             Mag magiczny = new Mag();
             Armour superzbroja1 = new Armour()
@@ -310,7 +309,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void WizzardHeadChangeHealth()
         {
-            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
+            new OracleDiceProvider().Add(1, 4).Build();
 
 
             var inputCapacity = 40;
@@ -349,7 +348,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void WizzardEquipWithMagicWeapon()
         {
-            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
+            new OracleDiceProvider().Add(1, 4).Build();
 
             var inputCapacity = 40;
             var inputHealthPoints = 40;
@@ -372,7 +371,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void WizzardKillHimGo()
         {
-            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
+            new OracleDiceProvider().Add(1, 4).Build();
 
             var inputCapacity = 40;
             var inputHealthPoints = 40;
@@ -384,7 +383,7 @@ namespace UnitTestProject1
                 HealthPointsNow = inputHealthPoints
             };
 
-            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Add(1).Build();
+            new OracleDiceProvider().Add(1, 5).Build();
             Xardas.ChangeHealth(1200);
             Assert.IsTrue(!Xardas.IsAlive);
         }
@@ -392,7 +391,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void WizzardHealthUnderLimit()
         {
-            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
+            new OracleDiceProvider().Add(1, 4).Build();
 
             var inputCapacity = 40;
             var inputHealthPoints = 1000;
@@ -412,7 +411,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void WizzardLegsChangeHealth()
         {
-            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
+            new OracleDiceProvider().Add(1, 4).Build();
 
             var inputCapacity = 40;
             var inputHealthPoints = 2000;
@@ -432,7 +431,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void WizzardUsingWeaponShouldBeRelatedToAlive()
         {
-            new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
+            new OracleDiceProvider().Add(1, 4).Build();
 
             var inputCapacity = 40;
             var inputHealthPoints = 2000;
@@ -443,7 +442,7 @@ namespace UnitTestProject1
                 HealthPointsNow = inputHealthPoints
             };
 
-            new OracleDiceProvider().Add(1).Add(1).Build();
+            new OracleDiceProvider().Add(1, 2).Build();
 
             var XardasAttackFirst = Xardas.AttackValue();
 
