@@ -17,10 +17,17 @@ namespace ModelingObjectTask.Items
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
+<<<<<<< HEAD
             sb.AppendFormat("Typ: {0} ", this.GetType().Name);
             sb.AppendFormat("Nazwa: {0} ", this.Name);
             sb.AppendFormat("Cena: {0} ", this.Price);
             sb.AppendFormat("Waga: {0} ", this.Weight);
+=======
+            sb.AppendFormat("Nazwa: {0} ", this.Name);
+            sb.AppendFormat("Cena: {0} ", this.Price);
+            sb.AppendFormat("Waga: {0} ", this.Weight);
+
+>>>>>>> 4654feb3fbe077952db050b3dc3d6d521320cf1a
             return sb.ToString();
         }
     

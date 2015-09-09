@@ -115,6 +115,7 @@ namespace UnitTestProject1
             Geralt.AddItem(superNierozdzka);
             Geralt.PutOnBodyPart(superNierozdzka, Geralt.rightHand);
 
+<<<<<<< HEAD
             new OracleDiceProvider()
                     .Add(1) // myAttack
                     .Add(100)// enemy Defense
@@ -127,6 +128,22 @@ namespace UnitTestProject1
                     .Add(10) // myHit
                     .Add(1, 5)
                     .Build();
+=======
+            new OracleDiceProvider().Add(1) // myAttack
+                                    .Add(100) // enemyDefense
+                                    .Add(1)  // myHit
+                                    .Add(1)  // enemyHit
+                                    .Add(2)  // myHitDefense
+                                    .Add(500) //enemyHit
+                                    .Add(3)  // myHitDefenseSecond
+                                    .Add(1)  // drawAttack
+                                    .Add(1)  // body
+                                    .Add(1)  // head
+                                    .Add(1)  // leftHand
+                                    .Add(1)  // rightHand
+                                    .Add(1)  // legs
+                                    .Build();
+>>>>>>> 4654feb3fbe077952db050b3dc3d6d521320cf1a
             Xardas.Attack(Geralt);
 
 
