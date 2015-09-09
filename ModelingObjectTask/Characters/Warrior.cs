@@ -3,6 +3,7 @@ using ModelingObjectTask.BodyParts;
 using ModelingObjectTask.Items;
 using System;
 using System.Linq;
+using System.Text;
 
 namespace ModelingObjectTask
 {
@@ -60,6 +61,15 @@ namespace ModelingObjectTask
             var sum = base.AttackValue();
 
             return (Strength + sum) + Agility + DiceProvider.Instance.Throw(1, 6);
+        }
+
+        public override string ToString()
+        {
+            var standard = new StringBuilder();
+            var Attack = AttackValue();
+            standard.Append(base.ToString());
+            standard.AppendFormat("Wartość Ataku: {0} ", Attack);
+            return standard.ToString();
         }
     }
 }

@@ -39,7 +39,8 @@ namespace UnitTestProject1
 
             itemList.ForEach(x => magiczny1.AddItem(x));
 
-            magiczny1.equipment.ForEach(x => Console.WriteLine(x.ToString()));
+            Console.WriteLine(magiczny1.ShowEquipment());
+            //magiczny1.equipment.ForEach(x => Console.WriteLine(x.ToString()));
         }
     }
 }

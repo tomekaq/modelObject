@@ -53,7 +53,7 @@ namespace UnitTestProject1
                 HealthPointsNow = 1000
             };
 
-            Console.WriteLine(Geralt);
+            //Console.WriteLine(Geralt);
             Geralt.Agility = 34;
             Console.WriteLine("Warrior Agility: {0}", Geralt.Agility);
 

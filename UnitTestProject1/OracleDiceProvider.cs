@@ -27,12 +27,12 @@ namespace UnitTestProject1
 
         public static void Reset()
         {
-            if (previousDiceProvider == null)
-            {
+            //if (previousDiceProvider == null)
+            //{
                 DiceProvider.instance = null;
-                previousDiceProvider = DiceProvider.Instance;
-            }
-            DiceProvider.instance = previousDiceProvider;
+                previousDiceProvider = new DiceProvider();//.Instance;
+           // }
+           // DiceProvider.instance = previousDiceProvider;
         }
 
         public override int Throw(int n, int k)

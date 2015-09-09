@@ -68,6 +68,7 @@ namespace ModelingObjectTask
             var standard = new StringBuilder();
             var Attack = AttackValue();
             standard.Append(base.ToString());
+            standard.AppendFormat("Punkty Many: {0} " , Mana);
             standard.AppendFormat("Wartość Ataku: {0} ", Attack);
             return standard.ToString();
         }

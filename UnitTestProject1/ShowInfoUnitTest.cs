@@ -14,6 +14,8 @@ namespace UnitTestProject1
         [TestMethod]
         public void WarriorInfo()
         {
+            OracleDiceProvider.Reset();
+
             Warrior Geralt = new Warrior()
             {
                 Name = "Biały Wilk",
@@ -22,7 +24,8 @@ namespace UnitTestProject1
                 HealthPoints = 1000,
                 HealthPointsNow = 1000
             };
-            Geralt.ToString();
+
+           //Console.WriteLine( Geralt.ToString());
         }
     }
 }
