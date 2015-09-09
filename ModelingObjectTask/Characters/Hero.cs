@@ -64,7 +64,6 @@ namespace ModelingObjectTask
             bodyPart.Add(leftHand);
             bodyPart.Add(rightHand);
             bodyPart.Add(legs);
-
         }
 
         public int Agility
@@ -90,6 +89,7 @@ namespace ModelingObjectTask
             get { return capacityNow; }
             set { capacityNow = value; }
         }
+
         public int DefensePoint
         {
             get
@@ -150,10 +150,10 @@ namespace ModelingObjectTask
 
         public virtual void AddItem(Item item)
         {
-            if (item.Weight <= capacity)
+            if (item.Weight <= CapacityNow)
             {
                 equipment.Add(item);
-                capacity -= item.Weight;
+                CapacityNow -= item.Weight;
             }
         }
 
@@ -243,25 +243,37 @@ namespace ModelingObjectTask
                 part.PutOn(item);
         }
 
-
-
-        public string GetInfoBodyPart() 
+        public string GetInfoBodyPart()
         {
             StringBuilder sb = new StringBuilder();
             this.bodyPart.ForEach(x => sb.AppendFormat("{0} {1} {2} \n", x.GetType().Name, x.Alive, x.Health));
             return sb.ToString();
         }
 
-        public string ShowEquipment()
-        {
+        public string ShowEquipment(string sort="Name")
+        {     
             StringBuilder sb = new StringBuilder();
-            var tt = equipment.GroupBy(x => x.GetType().Name)
-                              .OrderBy(x => x.GetType().Name);
-            tt.ToList().Select(x => x.Select(y => sb.AppendFormat("{0} \n", y.ToString())).ToList()).ToList();
-            //equipment.ForEach(x => sb.AppendFormat("{0} \n", x.ToString()));
+            switch (sort)
+            {
+                case "Name":
+                    var t = equipment.GroupBy(x => x.GetType().Name).Select(x=>x.OrderBy(y => y.Name));
+                   t .Select(x=> sb.AppendFormat("{0}\n",x.ToString())).ToList();
+                    break;
+                case "Weight":
+                    var tt = equipment.GroupBy(x => x.GetType().Name).Select(x => x.OrderBy(y => y.Name));
+                    tt.Select(x => sb.AppendFormat("{0}\n", x.ToString())).ToList();
+                    break;
+                case "Price":
+                    var ttt = equipment.GroupBy(x => x.GetType().Name)
+                                       .Select(x => x.OrderBy(y => y.Name));
+                    ttt.Select(y =>y
+                                    .Select(x=> sb.AppendFormat("{0}\n", x.ToString()))
+                              ).ToList();
+                    break;
+            }
+   
+           // equipment.Select(x=> sb.AppendFormat("{0}\n",x.ToString())).ToList();
             return sb.ToString();
-
-            //return null;
         }
 
         public override string ToString()
@@ -269,7 +281,7 @@ namespace ModelingObjectTask
             StringBuilder sb = new StringBuilder();
             sb.AppendFormat("Imię: {0} ", Name);
             sb.AppendFormat("Żywotność: {0:f}% ", (decimal)HealthPointsNow / HealthPoints * 100);
-            sb.AppendFormat("Udźwig: {0}/{1} ", this.CapacityNow,this.Capacity);
+            sb.AppendFormat("Udźwig: {0}/{1} ", this.CapacityNow, this.Capacity);
             sb.AppendFormat("Punkty Obrony: {0} ", this.DefensePoint);
             sb.AppendFormat("Zręczność: {0} ", Agility);
             sb.AppendFormat("Pieniądze: {0} ", this.MoneyAmount);
