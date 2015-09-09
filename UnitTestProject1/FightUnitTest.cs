@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using FirebirdSql.Data.FirebirdClient;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ModelingObjectTask;
 using ModelingObjectTask.BodyParts;
 using ModelingObjectTask.Items;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Data;
 
 namespace UnitTestProject1
 {
@@ -249,6 +251,40 @@ namespace UnitTestProject1
 
             Assert.IsTrue(Xardas.IsAlive ^ Geralt.IsAlive, "There can be only one survivor");
 
+            string connectionString;
+            connectionString = CreateConectionString(
+            @"C:\Users\user\Documents\visual studio 2013\Projects\WpfRandomValue\WPFDatabase.fdb",
+            "SYSDBA", "masterkey", "WIN1250");
+
+            using (var conn = new FbConnection(connectionString))
+            {
+            conn.Open();
+                var command = new FbCommand();
+                command.Connection = conn;
+                command.CommandText = string.Format("INSERT INTO NEW_TABLE(WHOWIN) VALUES (@number)");//,     );
+
+                FbParameter param = new FbParameter();
+                param.ParameterName = "@number";
+                if (Xardas.IsAlive)
+                    param.Value = "Xardas";
+                else
+                    param.Value = "Geralt";
+                command.Parameters.Add(param);
+                command.ExecuteScalar();
+            }
+        }
+
+
+        public static string CreateConectionString(string databaseFile,
+        string userName, string userPass, string _charset)
+        {
+            FbConnectionStringBuilder ConnectionSB = new FbConnectionStringBuilder();
+            ConnectionSB.Database = databaseFile;
+            ConnectionSB.UserID = userName;
+            ConnectionSB.Password = userPass;
+            ConnectionSB.Charset = _charset;
+            ConnectionSB.Pooling = false;
+            return ConnectionSB.ToString();
         }
     }
 }

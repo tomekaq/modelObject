@@ -250,31 +250,50 @@ namespace ModelingObjectTask
             return sb.ToString();
         }
 
-        public string ShowEquipment(string sort="Name")
-        {     
+        public string ShowEquipment(string sort = "Name")
+        {
             StringBuilder sb = new StringBuilder();
             switch (sort)
             {
                 case "Name":
-                    var t = equipment.GroupBy(x => x.GetType().Name).Select(x=>x.OrderBy(y => y.Name));
-                   t .Select(x=> sb.AppendFormat("{0}\n",x.ToString())).ToList();
+                    var t = equipment.GroupBy(x => x.GetType().Name)
+                                     .Select(x => x.OrderBy(y => y.Name));
+                    t.Select(y =>
+                    {
+                        sb.AppendFormat("{0}\n", y.Select(x => x.GetType().Name).First());
+
+                        y.Select(x => sb.AppendFormat("{0} {1} {2}\n", x.Name, x.Price, x.Weight)).ToList();
+                        return y;
+                    }
+                        ).ToList();
                     break;
                 case "Weight":
-                    var tt = equipment.GroupBy(x => x.GetType().Name).Select(x => x.OrderBy(y => y.Name));
-                    tt.Select(x => sb.AppendFormat("{0}\n", x.ToString())).ToList();
+                    var tt = equipment.GroupBy(x => x.GetType().Name)
+                                      .Select(x => x.OrderBy(y => y.Weight));
+                    tt.Select(y =>
+                    {
+                        sb.AppendFormat("{0}\n", y.Select(x=>x.GetType().Name).First());
+                        y.Select(x => sb.AppendFormat("{0} {1} {2}\n", x.Name, x.Price, x.Weight)).ToList();
+                        return y;
+                    }
+                        ).ToList();
                     break;
                 case "Price":
                     var ttt = equipment.GroupBy(x => x.GetType().Name)
-                                       .Select(x => x.OrderBy(y => y.Name));
-                    ttt.Select(y =>y
-                                    .Select(x=> sb.AppendFormat("{0}\n", x.ToString()))
-                              ).ToList();
+                                       .Select(x => x.OrderBy(y => y.Price));
+                    ttt.Select(y =>
+                    {
+                        sb.AppendFormat("{0}\n", y.Select(x=>x.GetType().Name).First());
+                        y.Select(x => sb.AppendFormat("{0} {1} {2}\n", x.Name, x.Price, x.Weight)).ToList();
+                        return y;
+                    }
+                        ).ToList();
                     break;
             }
-   
-           // equipment.Select(x=> sb.AppendFormat("{0}\n",x.ToString())).ToList();
+
             return sb.ToString();
         }
+
 
         public override string ToString()
         {

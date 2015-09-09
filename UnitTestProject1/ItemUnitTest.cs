@@ -28,21 +28,21 @@ namespace UnitTestProject1
                         {
                             Name = "zbroja" + (23 - x).ToString(),
                             Price = x,
-                            Weight = (23 - x),
+                            Weight = (23 - x%6),
                             Defense = x
                         }
 
             ));
-            itemList.AddRange(
-                Enumerable.Range(1, 23).Select(x =>
-                    new Helmet()
-                        {
-                            Name = "helm" + x.ToString(),
-                            Price = x,
-                            Weight = x,
-                            Defense = x
-                        }
-            ));
+            //itemList.AddRange(
+            //    Enumerable.Range(1, 23).Select(x =>
+            //        new Helmet()
+            //            {
+            //                Name = "helm" + x.ToString(),
+            //                Price = x,
+            //                Weight = x,
+            //                Defense = x
+            //            }
+            //));
             //itemList.AddRange(
             //    Enumerable.Range(1, 23).Select(x =>
             //        new MagicWeapon()
@@ -54,18 +54,13 @@ namespace UnitTestProject1
             //            }
             //));
 
-        //    itemList.Add(new Money() { Name = "moneta" });
-        //    itemList.Add(new Armour() { Name = "rozdzka " + 24 });
-
             itemList.ForEach(x => magiczny1.AddItem(x));
             Console.WriteLine(magiczny1.ShowEquipment());
 
             Console.WriteLine(magiczny1.ShowEquipment("Name"));
-         
-    //        Console.WriteLine();
+            Console.WriteLine(magiczny1.ShowEquipment("Weight"));
+
             Console.WriteLine(magiczny1.ShowEquipment("Price"));
-            ////Console.WriteLine(magiczny1.ShowEquipment());
-            //Console.WriteLine();
         }
     }
 }
