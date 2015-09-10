@@ -29,12 +29,12 @@ namespace ModelingObjectTask
 
             MagicWeapon superrozdzka = new MagicWeapon()
             {
-                Attack = 50
+                Attack = 100
             };
 
             Weapon supermieczor = new Weapon()
             {
-                Attack = 50
+                Attack = 100
             };
 
             Xardas.AddItem(superrozdzka);
@@ -43,28 +43,60 @@ namespace ModelingObjectTask
             Geralt.AddItem(supermieczor);
             Geralt.PutOnBodyPart(supermieczor, Geralt.rightHand);
             int i = 0;
+            Console.WriteLine("{0}", Xardas.ToString());
+            Console.WriteLine("{0}", Geralt.ToString());
+            Thread.Sleep(10000);
+            Console.WriteLine("Ready");
+            
+            Thread.Sleep(1000);
+            Console.WriteLine("Steady");
+            Thread.Sleep(1000);
+            Console.WriteLine("Go");
+            
+      //      Thread.Sleep(1000);
             while (Xardas.IsAlive && Geralt.IsAlive)
             {
-                Thread.Sleep(500);
+                Thread.Sleep(50);
                 Xardas.Attack(Geralt);
                 Console.WriteLine("Xardas attack Geralt!");
+                Thread.Sleep(50);
+                Console.WriteLine("Xardas health: {0}",Xardas.HealthPointsNow);
+                Thread.Sleep(50);
+                Console.WriteLine("Gerlat health: {0}", Geralt.HealthPointsNow);
                 if ((Xardas.IsAlive && Geralt.IsAlive))
                 {
                     Geralt.Attack(Xardas);
-                    Thread.Sleep(500);
+                    Thread.Sleep(50);
                     Console.WriteLine("Geralt attack Xardas!");
+                    Thread.Sleep(50);
+                    Console.WriteLine("Xardas health: {0}", Xardas.HealthPointsNow);
+                    Thread.Sleep(50);
+                    Console.WriteLine("Gerlat health: {0}", Geralt.HealthPointsNow);
                 } i++;
                 
-            }Console.WriteLine("End fight!");
+            }
+            Console.WriteLine("End fight!");
             Console.WriteLine("Who win?");
             if (Xardas.IsAlive)
+            {
+                if (!Geralt.head.Alive)
+                    Console.WriteLine("Xardas cut Geralt head!");
                 Console.WriteLine("Xardas win");
+
+            }
             else
+            {
+                if (!Xardas.head.Alive)
+                    Console.WriteLine("Geralt cut Xardas head!");
                 Console.WriteLine("Geralt win");
+            }
+            Console.WriteLine();
+            Console.WriteLine("Geralt");
+            Console.WriteLine(Geralt.ShowBodyInfo());
+          
+            Console.WriteLine("Xardas");
+            Console.WriteLine(Xardas.ShowBodyInfo());
             Console.ReadLine();
-
-
-
         }
     }
 }

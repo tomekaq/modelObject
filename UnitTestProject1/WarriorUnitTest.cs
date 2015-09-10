@@ -20,11 +20,12 @@ namespace UnitTestProject1
 
             var Geralt = new Warrior()
             {
-                Capacity = 40
+                Capacity = 400,
+                CapacityNow = 400
             };
-
+            var bb = Geralt.equipment; 
             moneyList.ForEach(x => Geralt.AddItem(x));
-
+            var b1b = Geralt.equipment; 
             Assert.AreEqual(23, Geralt.MoneyAmount);
 
             new OracleDiceProvider().Add(1).Add(1).Add(1).Add(1).Build();
@@ -34,12 +35,13 @@ namespace UnitTestProject1
 
             var Geralt2 = new Warrior()
             {
-                Capacity = 40
+                Capacity = 400,
+                CapacityNow = 400
             };
 
             moneyList2.ForEach(x => Geralt2.AddItem(x));
 
-            Assert.AreEqual(40, Geralt2.MoneyAmount);
+            Assert.AreEqual(46, Geralt2.MoneyAmount);
         }
 
         [TestMethod]
@@ -237,7 +239,8 @@ namespace UnitTestProject1
             Warrior Zbyszko = new Warrior()
             {
                 Name = "Zbyszko",
-                Capacity = 40
+                Capacity = 40,
+                CapacityNow = 40
             };
 
             new OracleDiceProvider().Add(1).Add(1).Add(1).Build();

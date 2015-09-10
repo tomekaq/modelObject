@@ -137,7 +137,7 @@ namespace ModelingObjectTask
         {
             get
             {
-                moneyAmount = equipment
+                moneyAmount = equipment.Select(x=>x)
                             .Where(x => x is Money)
                             .Sum(x => x.Price);
                 return moneyAmount;
@@ -293,7 +293,13 @@ namespace ModelingObjectTask
 
             return sb.ToString();
         }
+        public string ShowBodyInfo()
+        {
+            StringBuilder sb = new StringBuilder();
+            bodyPart.ForEach(x=>sb.AppendFormat("{0} {1}\n",x.GetType().Name ,x.Health));
 
+            return sb.ToString();
+        }
 
         public override string ToString()
         {

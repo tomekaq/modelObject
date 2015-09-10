@@ -67,6 +67,7 @@ namespace UnitTestProject1
             var Xardas = new Mag()
             {
                 Capacity = inputCapacity,
+                CapacityNow = inputCapacity,
                 HealthPoints = inputHealthPoints,
                 HealthPointsNow = inputHealthPoints
             };

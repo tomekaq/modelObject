@@ -115,26 +115,12 @@ namespace UnitTestProject1
             Geralt.AddItem(superNierozdzka);
             Geralt.PutOnBodyPart(superNierozdzka, Geralt.rightHand);
 
-<<<<<<< HEAD
-            new OracleDiceProvider()
-                    .Add(1) // myAttack
-                    .Add(100)// enemy Defense
-                    .Add(1) // myHit
-                    .Add(500) // enemyHit
-                    .Add(500) // enemyAttack
-                    .Add(1) // myDefense
-                    .Add(0) // enemyHit
-                    .Add(10) // myHit
-                    .Add(10) // myHit
-                    .Add(1, 5)
-                    .Build();
-=======
             new OracleDiceProvider().Add(1) // myAttack
                                     .Add(100) // enemyDefense
                                     .Add(1)  // myHit
                                     .Add(1)  // enemyHit
-                                    .Add(2)  // myHitDefense
                                     .Add(500) //enemyHit
+                                    .Add(2)  // myHitDefense
                                     .Add(3)  // myHitDefenseSecond
                                     .Add(1)  // drawAttack
                                     .Add(1)  // body
@@ -142,11 +128,9 @@ namespace UnitTestProject1
                                     .Add(1)  // leftHand
                                     .Add(1)  // rightHand
                                     .Add(1)  // legs
+                                    .Add(1, 10)
                                     .Build();
->>>>>>> 4654feb3fbe077952db050b3dc3d6d521320cf1a
             Xardas.Attack(Geralt);
-
-
 
             var XardasHealthAfter = Xardas.HealthPointsNow;
             var GeraltHealthAfter = Geralt.HealthPointsNow;
@@ -210,87 +194,102 @@ namespace UnitTestProject1
         [TestMethod]
         public void WizzardFightToDeath()
         {
-            new DiceProvider();
-            OracleDiceProvider.Reset();
-
-            Warrior Geralt = new Warrior()
+            int ii = 0;
+            while (ii < 100)
             {
-                HealthPoints = 1000,
-                HealthPointsNow = 1000
-            };
 
-            var Xardas = new Mag()
-            {
-                Capacity = 40,
-                HealthPoints = 1000,
-                HealthPointsNow = 1000
-            };
+                new DiceProvider();
+                OracleDiceProvider.Reset();
 
-            var XardasHealthBefore = Xardas.HealthPointsNow;
-            var GeraltHealthBefore = Geralt.HealthPointsNow;
+                Warrior Geralt = new Warrior()
+                {
+                    HealthPoints = 1000,
+                    HealthPointsNow = 1000
+                };
 
-            MagicWeapon superrozdzka = new MagicWeapon()
-            {
-                Attack = 50
-            };
+                var Xardas = new Mag()
+                {
+                    Capacity = 40,
+                    HealthPoints = 1000,
+                    HealthPointsNow = 1000
+                };
 
-            Weapon supermieczor = new Weapon()
-            {
-                Attack = 50
-            };
+                var XardasHealthBefore = Xardas.HealthPointsNow;
+                var GeraltHealthBefore = Geralt.HealthPointsNow;
+                var wepp = 100;
 
-            Xardas.AddItem(superrozdzka);
-            Xardas.PutOnBodyPart(superrozdzka, Xardas.rightHand);
+                MagicWeapon superrozdzka = new MagicWeapon()
+                {
+                    Attack = wepp
+                };
 
-            Geralt.AddItem(supermieczor);
-            Geralt.PutOnBodyPart(supermieczor, Geralt.rightHand);
-            int i = 0;
-            while (Xardas.IsAlive && Geralt.IsAlive)
-            {
-                Xardas.Attack(Geralt);
-                if ((Xardas.IsAlive && Geralt.IsAlive))
-                    Geralt.Attack(Xardas);
-                i++;
+                Weapon supermieczor = new Weapon()
+                {
+                    Attack = wepp
+                };
+
+                Xardas.AddItem(superrozdzka);
+                Xardas.PutOnBodyPart(superrozdzka, Xardas.rightHand);
+
+                Geralt.AddItem(supermieczor);
+                Geralt.PutOnBodyPart(supermieczor, Geralt.rightHand);
+                int i = 0;
+                while (Xardas.IsAlive && Geralt.IsAlive)
+                {
+                    Xardas.Attack(Geralt);
+                    if ((Xardas.IsAlive && Geralt.IsAlive))
+                        Geralt.Attack(Xardas);
+                    i++;
+                }
+
+                var XardasHealthAfter = Xardas.HealthPointsNow;
+                var GeraltHealthAfter = Geralt.HealthPointsNow;
+                Console.WriteLine("i {0}", i);
+
+                Console.WriteLine("Xardas is alive? {0}", Xardas.IsAlive);
+                Console.WriteLine("Xardas health {0}", Xardas.HealthPointsNow);
+
+                Xardas.bodyPart.ForEach(x => Console.WriteLine("{0}, {1}, {2}", x.GetType().Name, x.Alive, x.Health));
+
+                Console.WriteLine("Geralt is alive? {0}", Geralt.IsAlive);
+                Console.WriteLine("Geralt health {0}", Geralt.HealthPointsNow);
+                Geralt.bodyPart.ForEach(x => Console.WriteLine("{0}, {1}, {2}", x.GetType().Name, x.Alive, x.Health));
+
+                Assert.IsTrue(Xardas.IsAlive ^ Geralt.IsAlive, "There can be only one survivor");
+
+                string connectionString;
+                connectionString = CreateConectionString(
+                @"C:\Users\user\Documents\visual studio 2013\Projects\WpfRandomValue\WPFDatabase.fdb",
+                "SYSDBA", "masterkey", "WIN1250");
+
+                using (var conn = new FbConnection(connectionString))
+                {
+                    conn.Open();
+                    var command = new FbCommand();
+                    command.Connection = conn;
+
+                    FbParameter param = new FbParameter();
+                    param.ParameterName = "@number";
+                    if (Xardas.IsAlive)
+                        param.Value = "Xardas";
+                    else
+                        param.Value = "Geralt";
+
+                    FbParameter param1 = new FbParameter();
+                    param1.ParameterName = "@weaponattack";
+                    param1.Value = wepp;
+
+                    command.CommandText = string.Format("INSERT INTO NEW_TABLE(WHOWIN,WEAPONATTACK) VALUES (@number,@weaponattack)");//,     );
+
+                    command.Parameters.Add(param);
+
+                    command.Parameters.Add(param1);
+
+                    command.ExecuteScalar();
+                }
             }
-
-            var XardasHealthAfter = Xardas.HealthPointsNow;
-            var GeraltHealthAfter = Geralt.HealthPointsNow;
-            Console.WriteLine("i {0}", i);
-
-            Console.WriteLine("Xardas is alive? {0}", Xardas.IsAlive);
-            Console.WriteLine("Xardas health {0}", Xardas.HealthPointsNow);
-
-            Xardas.bodyPart.ForEach(x => Console.WriteLine("{0}, {1}, {2}", x.GetType().Name, x.Alive, x.Health));
-
-            Console.WriteLine("Geralt is alive? {0}", Geralt.IsAlive);
-            Console.WriteLine("Geralt health {0}", Geralt.HealthPointsNow);
-            Geralt.bodyPart.ForEach(x => Console.WriteLine("{0}, {1}, {2}", x.GetType().Name, x.Alive, x.Health));
-
-            Assert.IsTrue(Xardas.IsAlive ^ Geralt.IsAlive, "There can be only one survivor");
-
-            string connectionString;
-            connectionString = CreateConectionString(
-            @"C:\Users\user\Documents\visual studio 2013\Projects\WpfRandomValue\WPFDatabase.fdb",
-            "SYSDBA", "masterkey", "WIN1250");
-
-            using (var conn = new FbConnection(connectionString))
-            {
-            conn.Open();
-                var command = new FbCommand();
-                command.Connection = conn;
-                command.CommandText = string.Format("INSERT INTO NEW_TABLE(WHOWIN) VALUES (@number)");//,     );
-
-                FbParameter param = new FbParameter();
-                param.ParameterName = "@number";
-                if (Xardas.IsAlive)
-                    param.Value = "Xardas";
-                else
-                    param.Value = "Geralt";
-                command.Parameters.Add(param);
-                command.ExecuteScalar();
-            }
+            ii++;
         }
-
 
         public static string CreateConectionString(string databaseFile,
         string userName, string userPass, string _charset)

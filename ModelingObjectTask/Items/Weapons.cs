@@ -14,7 +14,14 @@ namespace ModelingObjectTask.Items
         public Weapons()
         {
             Attack = 1;
-           
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendFormat(base.ToString());
+            sb.AppendFormat("Atak: {0} ", this.Attack);
+            return sb.ToString();
         }
     }
 }

@@ -8,6 +8,9 @@ namespace ModelingObjectTask.Items
 {
     class HealthPotion : Potion
     {
-        public int Heal { get; set; }
+        public override void Apply(Hero hero)
+        {
+            hero.HealthPointsNow += 100;
+        }
     }
 }
