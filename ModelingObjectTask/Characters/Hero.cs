@@ -122,7 +122,8 @@ namespace ModelingObjectTask
             }
             set
             {
-                healthPointsNow = (value > 0 ? value : 0);
+                healthPointsNow = (healthPointsNow + value > healthPoints ? healthPoints : value);
+                //healthPointsNow = (value > 0 ? value : 0);
                 IsAlive = healthPointsNow > 0;
             }
         }

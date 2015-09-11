@@ -34,9 +34,9 @@ namespace ModelingObjectTask.BodyParts
 
         public ReadOnlyCollection<Item> Items
         {
-            get 
-            { 
-                return items.AsReadOnly(); 
+            get
+            {
+                return items.AsReadOnly();
             }
         }
 
@@ -48,7 +48,7 @@ namespace ModelingObjectTask.BodyParts
             }
             set
             {
-                health = value;
+                health = (value > 0 ? value : 0);
                 Alive = health > 0;
             }
         }
@@ -63,7 +63,7 @@ namespace ModelingObjectTask.BodyParts
         public void ChangeHealth(int AttackValue)
         {
             var Defense = Clothes.Select(x => x.Defense).Sum();
-            var Change =  Defense - AttackValue;
+            var Change = Defense - AttackValue;
             if (Change < 0)
                 this.Health += Change;
         }
@@ -71,7 +71,7 @@ namespace ModelingObjectTask.BodyParts
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.AppendFormat("{0}, {1}",this.GetType().Name,this.Health);
+            sb.AppendFormat("{0}, {1}", this.GetType().Name, this.Health);
             //sb.AppendFormat();
             return sb.ToString();
         }

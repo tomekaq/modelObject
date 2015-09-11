@@ -37,6 +37,9 @@ namespace ModelingObjectTask
                 Attack = 100
             };
 
+            HealthPotion superziolko = new HealthPotion();
+
+
             Xardas.AddItem(superrozdzka);
             Xardas.PutOnBodyPart(superrozdzka, Xardas.rightHand);
 
@@ -72,6 +75,9 @@ namespace ModelingObjectTask
                     Console.WriteLine("Xardas health: {0}", Xardas.HealthPointsNow);
                     Thread.Sleep(50);
                     Console.WriteLine("Gerlat health: {0}", Geralt.HealthPointsNow);
+                    superziolko.Apply(Geralt);
+                    superziolko.Apply(Geralt);
+                    Console.WriteLine("Gerlat health po superziolku: {0}", Geralt.HealthPointsNow);
                 } i++;
                 
             }

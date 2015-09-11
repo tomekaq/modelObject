@@ -197,7 +197,7 @@ namespace UnitTestProject1
             int ii = 0;
             while (ii < 100)
             {
-
+                 ii++;
                 new DiceProvider();
                 OracleDiceProvider.Reset();
 
@@ -216,7 +216,7 @@ namespace UnitTestProject1
 
                 var XardasHealthBefore = Xardas.HealthPointsNow;
                 var GeraltHealthBefore = Geralt.HealthPointsNow;
-                var wepp = 100;
+                var wepp = 5;
 
                 MagicWeapon superrozdzka = new MagicWeapon()
                 {
@@ -280,19 +280,16 @@ namespace UnitTestProject1
                     param1.Value = wepp;
 
                     command.CommandText = string.Format("INSERT INTO NEW_TABLE(WHOWIN,WEAPONATTACK) VALUES (@number,@weaponattack)");//,     );
-
                     command.Parameters.Add(param);
-
                     command.Parameters.Add(param1);
-
                     command.ExecuteScalar();
                 }
             }
-            ii++;
+   
         }
 
         public static string CreateConectionString(string databaseFile,
-        string userName, string userPass, string _charset)
+                string userName, string userPass, string _charset)
         {
             FbConnectionStringBuilder ConnectionSB = new FbConnectionStringBuilder();
             ConnectionSB.Database = databaseFile;
