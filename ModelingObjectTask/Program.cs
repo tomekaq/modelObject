@@ -37,8 +37,10 @@ namespace ModelingObjectTask
                 Attack = 100
             };
 
-            HealthPotion superziolko = new HealthPotion();
-
+            HealthPotion superziolko = new HealthPotion()
+            {
+                Health = 20
+            };
 
             Xardas.AddItem(superrozdzka);
             Xardas.PutOnBodyPart(superrozdzka, Xardas.rightHand);
@@ -50,20 +52,20 @@ namespace ModelingObjectTask
             Console.WriteLine("{0}", Geralt.ToString());
             Thread.Sleep(10000);
             Console.WriteLine("Ready");
-            
+
             Thread.Sleep(1000);
             Console.WriteLine("Steady");
             Thread.Sleep(1000);
             Console.WriteLine("Go");
-            
-      //      Thread.Sleep(1000);
+
+            //      Thread.Sleep(1000);
             while (Xardas.IsAlive && Geralt.IsAlive)
             {
                 Thread.Sleep(50);
                 Xardas.Attack(Geralt);
                 Console.WriteLine("Xardas attack Geralt!");
                 Thread.Sleep(50);
-                Console.WriteLine("Xardas health: {0}",Xardas.HealthPointsNow);
+                Console.WriteLine("Xardas health: {0}", Xardas.HealthPointsNow);
                 Thread.Sleep(50);
                 Console.WriteLine("Gerlat health: {0}", Geralt.HealthPointsNow);
                 if ((Xardas.IsAlive && Geralt.IsAlive))
@@ -79,7 +81,7 @@ namespace ModelingObjectTask
                     superziolko.Apply(Geralt);
                     Console.WriteLine("Gerlat health po superziolku: {0}", Geralt.HealthPointsNow);
                 } i++;
-                
+
             }
             Console.WriteLine("End fight!");
             Console.WriteLine("Who win?");
@@ -99,7 +101,7 @@ namespace ModelingObjectTask
             Console.WriteLine();
             Console.WriteLine("Geralt");
             Console.WriteLine(Geralt.ShowBodyInfo());
-          
+
             Console.WriteLine("Xardas");
             Console.WriteLine(Xardas.ShowBodyInfo());
             Console.ReadLine();

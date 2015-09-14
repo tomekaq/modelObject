@@ -122,8 +122,7 @@ namespace ModelingObjectTask
             }
             set
             {
-                healthPointsNow = (healthPointsNow + value > healthPoints ? healthPoints : value);
-                //healthPointsNow = (value > 0 ? value : 0);
+                healthPointsNow = (value > 0 ? value : 0);
                 IsAlive = healthPointsNow > 0;
             }
         }
@@ -138,7 +137,7 @@ namespace ModelingObjectTask
         {
             get
             {
-                moneyAmount = equipment.Select(x=>x)
+                moneyAmount = equipment.Select(x => x)
                             .Where(x => x is Money)
                             .Sum(x => x.Price);
                 return moneyAmount;
@@ -263,7 +262,7 @@ namespace ModelingObjectTask
                     {
                         sb.AppendFormat("{0}\n", y.Select(x => x.GetType().Name).First());
 
-                        y.Select(x => sb.AppendFormat("{0} {1} {2}\n", x.Name, x.Price, x.Weight)).ToList();
+                        y.Select(x => sb.AppendFormat("{0}\n", x.ToString())).ToList();
                         return y;
                     }
                         ).ToList();
@@ -273,8 +272,8 @@ namespace ModelingObjectTask
                                       .Select(x => x.OrderBy(y => y.Weight));
                     tt.Select(y =>
                     {
-                        sb.AppendFormat("{0}\n", y.Select(x=>x.GetType().Name).First());
-                        y.Select(x => sb.AppendFormat("{0} {1} {2}\n", x.Name, x.Price, x.Weight)).ToList();
+                        sb.AppendFormat("{0}\n", y.Select(x => x.GetType().Name).First());
+                        y.Select(x => sb.AppendFormat("{0}\n", x.ToString())).ToList();
                         return y;
                     }
                         ).ToList();
@@ -284,8 +283,8 @@ namespace ModelingObjectTask
                                        .Select(x => x.OrderBy(y => y.Price));
                     ttt.Select(y =>
                     {
-                        sb.AppendFormat("{0}\n", y.Select(x=>x.GetType().Name).First());
-                        y.Select(x => sb.AppendFormat("{0} {1} {2}\n", x.Name, x.Price, x.Weight)).ToList();
+                        sb.AppendFormat("{0}\n", y.Select(x => x.GetType().Name).First());
+                        y.Select(x => sb.AppendFormat("{0}\n", x.ToString())).ToList();
                         return y;
                     }
                         ).ToList();
@@ -294,10 +293,11 @@ namespace ModelingObjectTask
 
             return sb.ToString();
         }
+
         public string ShowBodyInfo()
         {
             StringBuilder sb = new StringBuilder();
-            bodyPart.ForEach(x=>sb.AppendFormat("{0} {1}\n",x.GetType().Name ,x.Health));
+            bodyPart.ForEach(x => sb.AppendFormat("{0} {1}\n", x.GetType().Name, x.Health));
 
             return sb.ToString();
         }

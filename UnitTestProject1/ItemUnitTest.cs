@@ -99,16 +99,16 @@ namespace UnitTestProject1
                         }
 
             ));
-            //itemList.AddRange(
-            //    Enumerable.Range(1, 23).Select(x =>
-            //        new Helmet()
-            //            {
-            //                Name = "helm" + x.ToString(),
-            //                Price = x,
-            //                Weight = x,
-            //                Defense = x
-            //            }
-            //));
+            itemList.AddRange(
+                Enumerable.Range(1, 23).Select(x =>
+                    new Helmet()
+                        {
+                            Name = "helm" + x.ToString(),
+                            Price = x,
+                            Weight = x,
+                            Defense = x
+                        }
+            ));
             //itemList.AddRange(
             //    Enumerable.Range(1, 23).Select(x =>
             //        new MagicWeapon()
