@@ -78,7 +78,7 @@ namespace ModelingObjectTask
                     Thread.Sleep(50);
                     Console.WriteLine("Gerlat health: {0}", Geralt.HealthPointsNow);
                     superziolko.Apply(Geralt);
-                    superziolko.Apply(Geralt);
+                    //superziolko.Apply(Geralt);
                     Console.WriteLine("Gerlat health po superziolku: {0}", Geralt.HealthPointsNow);
                 } i++;
 

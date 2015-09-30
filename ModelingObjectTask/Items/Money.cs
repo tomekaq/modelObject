@@ -6,7 +6,7 @@ namespace ModelingObjectTask.Items
         public Money() 
         {
             Price = 1;
-            Weight = 1;
+            Weight = 0;
         }
     }
 }

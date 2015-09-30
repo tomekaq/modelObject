@@ -78,14 +78,13 @@ namespace UnitTestProject1
             Console.WriteLine(sword.ToString());
         }
 
-
         [TestMethod]
         public void ShowEquipment1()
         {
             new OracleDiceProvider().Add(1, 4).Build();
             Mag magiczny1 = new Mag() { Capacity = 300000, CapacityNow = 300000 };
             List<Money> moneyList = new List<Money>();
-            moneyList.AddRange(Enumerable.Range(1, 23).Select(x => new Money()));
+            moneyList.AddRange(Enumerable.Range(1, 15).Select(x => new Money()));
 
             List<Item> itemList = new List<Item>();
             itemList.AddRange(
@@ -97,60 +96,26 @@ namespace UnitTestProject1
                             Weight = (23 - x % 6),
                             Defense = x
                         }
-
             ));
+
             itemList.AddRange(
-                Enumerable.Range(1, 23).Select(x =>
+                Enumerable.Range(1, 15).Select(x =>
                     new Helmet()
                         {
-                            Name = "helm" + x.ToString(),
+                            Name = "helm " + x.ToString(),
                             Price = x,
-                            Weight = x,
+                            Weight = 15 - x,
                             Defense = x
                         }
             ));
-            //itemList.AddRange(
-            //    Enumerable.Range(1, 23).Select(x =>
-            //        new MagicWeapon()
-            //            {
-            //                Name = "miecz" + x.ToString(),
-            //                Price = x,
-            //                Weight = x,
-            //                Attack = x
-            //            }
-            //));
 
             itemList.ForEach(x => magiczny1.AddItem(x));
-            Console.WriteLine(magiczny1.ShowEquipment());
-
+            Console.WriteLine("Posortowane po nazwie");
             Console.WriteLine(magiczny1.ShowEquipment("Name"));
+            Console.WriteLine("Posortowane po wadze");
             Console.WriteLine(magiczny1.ShowEquipment("Weight"));
-
+            Console.WriteLine("Posortowane po cenie");
             Console.WriteLine(magiczny1.ShowEquipment("Price"));
-
-        }
-        // [TestMethod]
-        public void ShowEquipment()
-        {
-            Mag magiczny1 = new Mag() { Capacity = 3000};
-
-            List<Money> moneyList = new List<Money>();
-            moneyList.AddRange(Enumerable.Range(1, 23).Select(x => new Money()));
-            List<Item> itemList = new List<Item>();
-            itemList.AddRange(
-                Enumerable.Range(1, 23).Select(x =>
-
-               new Armour()
-                {
-                    Name = "rozdzka" + x.ToString(),
-                    
-                }
-
-            ));
-            itemList.ForEach(x =>  magiczny1.AddItem(x) );
-
-            var t = magiczny1.ShowEquipment();
-            Console.WriteLine( "{0}" , t);
         }
     }
 }

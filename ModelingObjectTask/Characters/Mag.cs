@@ -8,7 +8,18 @@ namespace ModelingObjectTask
 {
     public class Mag : Hero
     {
-        public int Mana { get; set; }
+        protected int mana;
+        public int Mana
+        {
+            get
+            {
+                return mana;
+            }
+            set
+            {
+                mana = value;
+            }
+        }
 
         public Mag()
         {
@@ -28,7 +39,6 @@ namespace ModelingObjectTask
                 name = value;
             }
         }
-
 
         public override int Strength
         {
@@ -52,7 +62,6 @@ namespace ModelingObjectTask
         public override void AddItem(Item item)
         {
             Type typ = item.GetType();
-            //  
             if (!typ.IsSubclassOf(typeof(Weapons)))
 
                 base.AddItem(item);

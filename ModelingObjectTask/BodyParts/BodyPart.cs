@@ -72,7 +72,6 @@ namespace ModelingObjectTask.BodyParts
             StringBuilder sb = new StringBuilder();
 
             sb.AppendFormat("{0}, {1}", this.GetType().Name, this.Health);
-            //sb.AppendFormat();
             return sb.ToString();
         }
     }

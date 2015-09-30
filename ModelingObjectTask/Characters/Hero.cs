@@ -138,8 +138,8 @@ namespace ModelingObjectTask
             get
             {
                 moneyAmount = equipment.Select(x => x)
-                            .Where(x => x is Money)
-                            .Sum(x => x.Price);
+                                       .Where(x => x is Money)
+                                       .Sum(x => x.Price);
                 return moneyAmount;
             }
             set
@@ -286,8 +286,8 @@ namespace ModelingObjectTask
                         sb.AppendFormat("{0}\n", y.Select(x => x.GetType().Name).First());
                         y.Select(x => sb.AppendFormat("{0}\n", x.ToString())).ToList();
                         return y;
-                    }
-                        ).ToList();
+                    })
+                    .ToList();
                     break;
             }
 

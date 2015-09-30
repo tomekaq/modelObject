@@ -17,13 +17,12 @@ namespace ModelingObjectTask.Items
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("Typ: {0} ", this.GetType().Name);
+            //sb.AppendFormat("Typ: {0} ", this.GetType().Name);
             sb.AppendFormat("Nazwa: {0} ", this.Name);
             sb.AppendFormat("Cena: {0} ", this.Price);
             sb.AppendFormat("Waga: {0} ", this.Weight);
 
             return sb.ToString();
         }
-    
     }
 }

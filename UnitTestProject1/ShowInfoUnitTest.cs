@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ModelingObjectTask;
+using ModelingObjectTask.Items;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,8 +25,11 @@ namespace UnitTestProject1
                 HealthPoints = 1000,
                 HealthPointsNow = 1000
             };
+            List<Money> moneyList = new List<Money>();
+            moneyList.AddRange(Enumerable.Range(1, 32).Select(x => new Money()));
+            moneyList.ForEach(x => Geralt.AddItem(x));
 
-           //Console.WriteLine( Geralt.ToString());
+            Console.WriteLine(Geralt.ToString());
         }
     }
 }

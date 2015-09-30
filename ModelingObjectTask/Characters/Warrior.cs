@@ -44,10 +44,8 @@ namespace ModelingObjectTask
 
         public override void AddItem(Item item)
         {
-            Type typ = item.GetType();
-            //  
+            Type typ = item.GetType(); 
             if (!typ.IsSubclassOf(typeof(Weapons)))
-
                 base.AddItem(item);
             else
             {
@@ -59,7 +57,6 @@ namespace ModelingObjectTask
         public override int AttackValue()
         {
             var sum = base.AttackValue();
-
             return (Strength + sum) + Agility + DiceProvider.Instance.Throw(1, 6);
         }
 

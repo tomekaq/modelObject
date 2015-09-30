@@ -13,7 +13,9 @@ namespace ModelingObjectTask.Items
             hero.Strength += 1;
 
         }
-
-
+        public void Unapply(Hero hero)
+        {
+            hero.Strength -= 1;
+        }
     }
 }

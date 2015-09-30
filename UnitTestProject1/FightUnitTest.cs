@@ -195,7 +195,7 @@ namespace UnitTestProject1
         public void WizzardFightToDeath()
         {
             int ii = 0;
-            while (ii < 100)
+            while (ii < 10000)
             {
                  ii++;
                 new DiceProvider();
@@ -216,7 +216,7 @@ namespace UnitTestProject1
 
                 var XardasHealthBefore = Xardas.HealthPointsNow;
                 var GeraltHealthBefore = Geralt.HealthPointsNow;
-                var wepp = 5;
+                var wepp = 500;
 
                 MagicWeapon superrozdzka = new MagicWeapon()
                 {
@@ -285,7 +285,6 @@ namespace UnitTestProject1
                     command.ExecuteScalar();
                 }
             }
-   
         }
 
         public static string CreateConectionString(string databaseFile,
